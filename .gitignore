@@ -37,10 +37,6 @@ yarn-error.log*
 # vercel
 .vercel
 
-# assembled from assets/images by scripts/assemble-images.mjs
-/public/brand/hero.jpg
-/public/brand/skyline.jpg
-
 # typescript
 *.tsbuildinfo
 next-env.d.ts

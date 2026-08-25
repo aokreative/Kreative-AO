@@ -3,10 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "npm run images && next dev",
-    "prebuild": "npm run images",
+    "dev": "next dev",
     "build": "next build",
-    "images": "node scripts/assemble-images.mjs",
     "start": "next start",
     "lint": "eslint"
   },
