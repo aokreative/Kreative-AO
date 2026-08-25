@@ -11,8 +11,9 @@ export type NavItem = { label: string; href: string; note?: string };
 
 export const NAV: NavItem[] = [
   { label: "Services", href: "/services" },
+  { label: "Work", href: "/work" },
   { label: "Products", href: "/products" },
-  { label: "About", href: "/about" },
+  { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -230,55 +231,28 @@ export const AMS_LAUNCH = "2026-11-12T09:00:00+03:00";
 export const AMS_LAUNCH_LABEL = "12 November 2026";
 
 /* ---------------------------------------------------------------
-   Services
+   Services and case studies live in src/content — they are content,
+   not configuration, and they are long enough to deserve their own
+   files. Re-exported here so existing imports keep working.
 --------------------------------------------------------------- */
-export const SERVICES = [
-  {
-    slug: "marketing",
-    name: "Digital marketing",
-    href: "/services/marketing",
-    summary:
-      "Performance campaigns, social, content and SEO — measured against pipeline, not impressions.",
-    points: [
-      "Paid acquisition across Meta, Google and TikTok",
-      "Content and SEO built to compound",
-      "Social management with a real editorial line",
-      "Reporting tied to leads and revenue",
-    ],
-  },
-  {
-    slug: "ai-automation",
-    name: "AI automation",
-    href: "/services/ai-automation",
-    summary:
-      "Agents and automations that take the repeatable work off your team — where it genuinely helps, and not where it doesn't.",
-    points: [
-      "Automating repetitive, rules-based work",
-      "AI assistants that answer and qualify enquiries",
-      "Connecting the tools you already pay for",
-      "Honest scoping — including when not to automate",
-    ],
-  },
-  {
-    slug: "software",
-    name: "Software development",
-    href: "/services/software",
-    summary:
-      "Custom platforms, integrations and MVPs — from teams that ship and run their own products.",
-    points: [
-      "Web and mobile product builds",
-      "Systems integration and API work",
-      "MVPs taken from idea to live",
-      "Ongoing maintenance and support",
-    ],
-  },
-] as const;
+export { SERVICES, serviceBySlug, PROCESS, TESTIMONIALS, FAQS } from "@/content/services";
+export type { Service, ServiceItem } from "@/content/services";
+export { CASE_STUDIES, caseStudyBySlug, HEADLINE_STATS } from "@/content/case-studies";
+export type { CaseStudy, Metric } from "@/content/case-studies";
+export { ARTICLES, ARTICLE_CATEGORIES, articleBySlug } from "@/content/articles";
+export type { Article } from "@/content/articles";
 
 export const INTERESTS = [
-  { value: "marketing", label: "Digital marketing" },
-  { value: "ai-automation", label: "AI automation" },
-  { value: "software", label: "Custom software" },
+  { value: "brand-strategy", label: "Brand strategy" },
+  { value: "web-design", label: "Website design & development" },
+  { value: "content-social", label: "Content & social" },
+  { value: "campaigns", label: "Campaigns" },
+  { value: "ads-growth", label: "Ads & growth" },
+  { value: "ai-automation", label: "AI & automation" },
+  { value: "pos-erp", label: "POS & ERP systems" },
   { value: "duka-pos", label: "Duka POS" },
   { value: "ams", label: "Agency Management System" },
   { value: "other", label: "Something else" },
 ] as const;
+
+export const INTEREST_VALUES = INTERESTS.map((i) => i.value);

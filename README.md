@@ -22,6 +22,9 @@ npm run dev
 | `src/lib/score.ts` | Lead scoring (>= 50 flags the alert as HOT) |
 | `src/lib/email.ts` | Resend templates, visitor mail gated on a verified domain |
 | `public/brand/*.svg` | The mark, traced to vector; reverse version for dark grounds |
+| `src/content/*` | Services, case studies and articles — content, not config |
+| `src/lib/knowledge.ts` | The assistant's system prompt, built from those same modules |
+| `src/app/api/chat/route.ts` | Streaming assistant + deterministic lead capture |
 
 ## Product status drives the UI
 
@@ -34,7 +37,8 @@ product; it appears only as proof on the software services page.
 
 - **No verified sending domain.** Visitor auto-replies are switched off behind
   `RESEND_DOMAIN_VERIFIED`. Internal lead alerts still work.
-- **`/work`** (case studies) is not built until real client numbers exist.
 - **Privacy page is a placeholder** and needs legal review.
 - **`/services/ai-automation` copy is a draft** written from a one-line brief.
 - **`package-lock.json` is not committed** — run `npm install` to generate one.
+- **The assistant needs `ANTHROPIC_API_KEY`.** Without it the widget degrades to a polite "not configured" message rather than failing.
+- **`public/brand/skyline.jpg` is a stock night skyline of Los Angeles**, not Nairobi. Replace it with a licensed Nairobi image before launch.
