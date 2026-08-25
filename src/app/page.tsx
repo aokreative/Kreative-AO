@@ -18,18 +18,18 @@ export default function Home() {
   return (
     <>
       {/* ---------------------------------------------------------------
-          Hero. Same backdrop as the opening card, so the page resolves out
-          of the splash rather than cutting to something unrelated.
+          Hero. The opening card shows the city; the hero shows the work —
+          the room where it actually happens.
       --------------------------------------------------------------- */}
-      <section className="skyline relative overflow-hidden border-b border-white/10 pb-20 pt-20 text-parchment sm:pb-28 sm:pt-28">
-        <div className="skyline-veil" />
+      <section className="hero-photo relative overflow-hidden border-b border-white/10 pb-20 pt-20 text-parchment sm:pb-28 sm:pt-28">
+        <div className="hero-veil" />
         <Container className="relative">
           <Eyebrow>Marketing · Branding · AI — Nairobi</Eyebrow>
           <h1 className="mt-5 max-w-[17ch] text-[clamp(40px,6.2vw,74px)] font-medium leading-[1.03] text-[#F5F2EA]">
             We build the software, and we bring you the{" "}
             <span className="signal-text">customers</span>.
           </h1>
-          <p className="mt-7 max-w-[56ch] text-[17.5px] leading-relaxed text-teal-soft">
+          <p className="mt-7 max-w-[52ch] text-[17.5px] leading-relaxed text-teal-soft">
             Most agencies sell you activity — posts, reach, impressions. We care
             about one thing: did it actually grow your business? Every project
             starts with that question and ends with the numbers to answer it.
