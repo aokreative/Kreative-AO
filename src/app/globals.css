@@ -173,6 +173,51 @@
 }
 .prose-aok blockquote p { margin: 0; }
 
+/* Night-city backdrop for the opening card and the hero.
+   The photo layer sits on top and is optional: drop a licensed image at
+   /brand/skyline.jpg and it takes over automatically. Until then the
+   generated layers below carry it — no broken image, no licence risk,
+   and a fraction of the bytes. */
+.skyline {
+  background-color: var(--color-teal-deep);
+  background-image:
+    url("/brand/skyline.jpg"),
+    radial-gradient(120% 52% at 16% 100%, rgba(227,164,107,.34), transparent 62%),
+    radial-gradient(95% 44% at 74% 100%, rgba(182,87,26,.26), transparent 64%),
+    radial-gradient(64% 34% at 46% 104%, rgba(245,214,180,.30), transparent 58%),
+    linear-gradient(180deg, #06171A 0%, #0A2023 40%, #102C30 72%, #16383C 100%);
+  background-size: cover, cover, cover, cover, cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Scattered light, drawn rather than photographed. */
+.skyline::before {
+  content: "";
+  position: absolute;
+  inset: 55% 0 0 0;
+  pointer-events: none;
+  opacity: .75;
+  background-image:
+    radial-gradient(1.5px 1.5px at 12% 30%, rgba(255,214,150,.9), transparent),
+    radial-gradient(1.5px 1.5px at 27% 62%, rgba(255,226,180,.75), transparent),
+    radial-gradient(1.5px 1.5px at 41% 18%, rgba(255,206,140,.8), transparent),
+    radial-gradient(1.5px 1.5px at 55% 74%, rgba(255,232,190,.7), transparent),
+    radial-gradient(1.5px 1.5px at 68% 40%, rgba(255,210,150,.85), transparent),
+    radial-gradient(1.5px 1.5px at 82% 66%, rgba(255,224,175,.7), transparent),
+    radial-gradient(1.5px 1.5px at 92% 26%, rgba(255,214,150,.8), transparent),
+    radial-gradient(1.5px 1.5px at 34% 88%, rgba(255,236,200,.6), transparent),
+    radial-gradient(1.5px 1.5px at 74% 92%, rgba(255,218,165,.6), transparent);
+}
+
+/* The teal wash that keeps type legible over any of it. */
+.skyline-veil {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(115deg, rgba(6,23,26,.62), rgba(6,23,26,.20) 46%, rgba(6,23,26,.72));
+}
+
 @keyframes splashUp {
   from { opacity: 0; transform: translateY(14px); }
   to   { opacity: 1; transform: none; }

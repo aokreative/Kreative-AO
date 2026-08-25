@@ -41,4 +41,6 @@ product; it appears only as proof on the software services page.
 - **`/services/ai-automation` copy is a draft** written from a one-line brief.
 - **`package-lock.json` is not committed** — run `npm install` to generate one.
 - **The assistant needs `ANTHROPIC_API_KEY`.** Without it the widget degrades to a polite "not configured" message rather than failing.
-- **`public/brand/skyline.jpg` is a stock night skyline of Los Angeles**, not Nairobi. Replace it with a licensed Nairobi image before launch.
+- **The night backdrop is generated in CSS**, not a photograph. Drop a licensed
+  image at `public/brand/skyline.jpg` and the `.skyline` class layers it on top
+  automatically — no code change needed.
