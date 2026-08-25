@@ -68,17 +68,12 @@ export function Splash() {
   return (
     <div
       aria-hidden
-      className={`fixed inset-0 z-[200] grid place-items-center bg-teal-deep transition-opacity duration-700 ${
+      className={`skyline fixed inset-0 z-[200] grid place-items-center overflow-hidden transition-opacity duration-700 ${
         state === "leaving" ? "pointer-events-none opacity-0" : "opacity-100"
       }`}
-      style={{
-        backgroundImage:
-          "linear-gradient(120deg, rgba(14,36,39,.88), rgba(14,36,39,.62) 50%, rgba(14,36,39,.94)), url('/brand/skyline.jpg')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
     >
-      <div className="flex flex-col items-center gap-6 px-6 text-center">
+      <div className="skyline-veil" />
+      <div className="relative flex flex-col items-center gap-6 px-6 text-center">
         <div className="animate-[splashUp_.9s_ease-out_both]">
           <Logo width={132} onDark priority />
         </div>
