@@ -18,18 +18,11 @@ export default function Home() {
   return (
     <>
       {/* ---------------------------------------------------------------
-          Hero. Same skyline as the opening card, so the page resolves out
+          Hero. Same backdrop as the opening card, so the page resolves out
           of the splash rather than cutting to something unrelated.
       --------------------------------------------------------------- */}
-      <section
-        className="relative overflow-hidden border-b border-white/10 bg-teal-deep pb-20 pt-20 text-parchment sm:pb-28 sm:pt-28"
-        style={{
-          backgroundImage:
-            "linear-gradient(115deg, rgba(14,36,39,.95), rgba(14,36,39,.78) 45%, rgba(14,36,39,.97)), url('/brand/skyline.jpg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
+      <section className="skyline relative overflow-hidden border-b border-white/10 pb-20 pt-20 text-parchment sm:pb-28 sm:pt-28">
+        <div className="skyline-veil" />
         <Container className="relative">
           <Eyebrow>Marketing · Branding · AI — Nairobi</Eyebrow>
           <h1 className="mt-5 max-w-[17ch] text-[clamp(40px,6.2vw,74px)] font-medium leading-[1.03] text-[#F5F2EA]">
