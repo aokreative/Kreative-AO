@@ -210,12 +210,47 @@
     radial-gradient(1.5px 1.5px at 74% 92%, rgba(255,218,165,.6), transparent);
 }
 
+/* Hero photograph. The subject sits right of centre with dark room on the
+   left, so the frame is anchored right and the veil is weighted left — the
+   headline gets a quiet ground and the photo keeps the half that carries it. */
+.hero-photo {
+  background-color: var(--color-teal-deep);
+  background-image:
+    url("/brand/hero.jpg"),
+    radial-gradient(46% 62% at 74% 52%, rgba(227,164,107,.26), transparent 68%),
+    radial-gradient(34% 44% at 62% 60%, rgba(143,184,180,.20), transparent 70%),
+    radial-gradient(40% 50% at 88% 38%, rgba(182,87,26,.16), transparent 72%),
+    linear-gradient(115deg, #071A1D 0%, #0B2226 42%, #123033 74%, #17393D 100%);
+  background-size: cover;
+  background-position: 72% center;
+  background-repeat: no-repeat;
+}
+
+.hero-veil {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(6,23,26,.96) 0%, rgba(6,23,26,.90) 38%, rgba(6,23,26,.55) 68%, rgba(6,23,26,.42) 100%),
+    linear-gradient(180deg, rgba(6,23,26,.55) 0%, transparent 30%, rgba(6,23,26,.60) 100%);
+}
+
+@media (max-width: 900px) {
+  /* On a narrow screen the text covers the whole frame, so the photo becomes
+     texture rather than subject and needs to sit further back. */
+  .hero-veil {
+    background: linear-gradient(180deg, rgba(6,23,26,.90), rgba(6,23,26,.82) 55%, rgba(6,23,26,.94));
+  }
+}
+
 /* The teal wash that keeps type legible over any of it. */
 .skyline-veil {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(115deg, rgba(6,23,26,.62), rgba(6,23,26,.20) 46%, rgba(6,23,26,.72));
+  background:
+    linear-gradient(115deg, rgba(6,23,26,.90), rgba(6,23,26,.66) 48%, rgba(6,23,26,.94)),
+    radial-gradient(58% 46% at 50% 46%, rgba(6,23,26,.55), transparent 72%);
 }
 
 @keyframes splashUp {
