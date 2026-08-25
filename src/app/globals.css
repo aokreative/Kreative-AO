@@ -145,6 +145,39 @@
   }
 }
 
+/* Long-form article body. The blog is the only place raw HTML is rendered,
+   so its typography is defined once here rather than per element. */
+.prose-aok { font-size: 17.5px; line-height: 1.75; color: var(--ink-2); }
+.prose-aok > * + * { margin-top: 1.15em; }
+.prose-aok h2 {
+  font-family: var(--font-display);
+  font-size: 27px;
+  line-height: 1.22;
+  color: var(--ink);
+  margin-top: 2em;
+}
+.prose-aok strong { color: var(--ink); font-weight: 600; }
+.prose-aok ul { padding-left: 1.15rem; list-style: disc; }
+.prose-aok li { margin-top: .55em; }
+.prose-aok li::marker { color: var(--accent); }
+.prose-aok blockquote {
+  margin-top: 1.6em;
+  padding: 1.1rem 1.4rem;
+  border-left: 3px solid var(--accent);
+  background: var(--surface-2);
+  border-radius: 0 10px 10px 0;
+  font-family: var(--font-display);
+  font-size: 20px;
+  line-height: 1.45;
+  color: var(--ink);
+}
+.prose-aok blockquote p { margin: 0; }
+
+@keyframes splashUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: .01ms !important;

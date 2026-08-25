@@ -11,7 +11,18 @@ const schema = z.object({
   phone: z.string().trim().max(40).optional().or(z.literal("")),
   company: z.string().trim().max(160).optional().or(z.literal("")),
   interest: z
-    .enum(["marketing", "ai-automation", "software", "duka-pos", "ams", "other"])
+    .enum([
+      "brand-strategy",
+      "web-design",
+      "content-social",
+      "campaigns",
+      "ads-growth",
+      "ai-automation",
+      "pos-erp",
+      "duka-pos",
+      "ams",
+      "other",
+    ])
     .optional(),
   budget_range: z.string().trim().max(60).optional().or(z.literal("")),
   message: z.string().trim().min(10, "Tell us a little more.").max(4000),
