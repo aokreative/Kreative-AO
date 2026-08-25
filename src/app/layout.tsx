@@ -5,6 +5,8 @@ import "@fontsource-variable/newsreader";
 import "@fontsource-variable/karla";
 import "@fontsource-variable/jetbrains-mono";
 import { SiteHeader } from "@/components/site-header";
+import { Splash } from "@/components/splash";
+import { Assistant } from "@/components/assistant";
 import { SiteFooter } from "@/components/site-footer";
 import { SITE } from "@/lib/site";
 import "./globals.css";
@@ -39,11 +41,13 @@ export default function RootLayout({
         >
           Skip to content
         </a>
+        <Splash />
         <SiteHeader />
         <main id="main" className="flex-1">
           {children}
         </main>
         <SiteFooter />
+        <Assistant />
       </body>
     </html>
   );

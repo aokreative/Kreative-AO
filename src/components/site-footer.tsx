@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { NAV, PRODUCTS, SERVICES, SITE } from "@/lib/site";
+import { PRODUCTS, SITE } from "@/lib/site";
+import { SERVICES } from "@/content/services";
 import { Logo } from "./logo";
 import { Container } from "./ui/primitives";
 
@@ -20,11 +21,14 @@ export function SiteFooter() {
           >
             {SITE.email}
           </a>
+          <p className="text-[13.5px] text-teal-soft">
+            The Piano, Westlands — Nairobi
+          </p>
         </div>
 
         <FooterCol title="Services">
           {SERVICES.map((s) => (
-            <FooterLink key={s.slug} href={s.href}>
+            <FooterLink key={s.slug} href={`/services/${s.slug}`}>
               {s.name}
             </FooterLink>
           ))}
@@ -41,14 +45,11 @@ export function SiteFooter() {
           ))}
         </FooterCol>
 
-        <FooterCol title="Company">
-          {NAV.filter((n) => n.href === "/about" || n.href === "/contact").map(
-            (n) => (
-              <FooterLink key={n.href} href={n.href}>
-                {n.label}
-              </FooterLink>
-            ),
-          )}
+        <FooterCol title="Explore">
+          <FooterLink href="/work">Case studies</FooterLink>
+          <FooterLink href="/blog">Blog</FooterLink>
+          <FooterLink href="/about">About</FooterLink>
+          <FooterLink href="/contact">Contact</FooterLink>
           <FooterLink href="/book">Book a call</FooterLink>
           <FooterLink href="/legal/privacy">Privacy</FooterLink>
         </FooterCol>
