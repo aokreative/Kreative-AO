@@ -10,6 +10,7 @@ export const SITE = {
 export type NavItem = { label: string; href: string; note?: string };
 
 export const NAV: NavItem[] = [
+  { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
   { label: "Work", href: "/work" },
   { label: "Products", href: "/products" },
