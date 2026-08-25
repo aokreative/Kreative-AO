@@ -28,15 +28,19 @@ export function scoreLead(input: ScoreInput): number {
   if (input.phone) score += 10;
   if (input.company) score += 5;
 
-  // Software, AI automation and the AMS are the higher-ticket conversations.
-  if (
-    input.interest === "software" ||
-    input.interest === "ai-automation" ||
-    input.interest === "ams"
-  )
-    score += 15;
+  // The build-and-systems conversations carry the bigger tickets.
+  const HIGH_TICKET = new Set([
+    "ai-automation",
+    "pos-erp",
+    "web-design",
+    "brand-strategy",
+    "ams",
+  ]);
+  if (input.interest && HIGH_TICKET.has(input.interest)) score += 15;
 
-  if (input.sourcePage?.includes("/work")) score += 10;
+  // Someone who read a case study before enquiring is further down the funnel.
+  if (input.sourcePage?.startsWith("/work")) score += 10;
+
   if (input.fromChat) score += 15;
 
   return Math.min(score, 100);

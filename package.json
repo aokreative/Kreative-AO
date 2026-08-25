@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.120.0",
     "@calcom/embed-react": "^1.5.3",
     "@fontsource-variable/jetbrains-mono": "^5.3.0",
     "@fontsource-variable/karla": "^5.3.0",
