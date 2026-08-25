@@ -139,9 +139,13 @@ export async function sendVisitorAutoReply(lead: LeadEmail) {
 
 function labelFor(interest?: string | null) {
   switch (interest) {
-    case "marketing": return "digital marketing";
-    case "ai-automation": return "AI automation";
-    case "software": return "custom software";
+    case "brand-strategy": return "brand strategy";
+    case "web-design": return "your website";
+    case "content-social": return "content & social";
+    case "campaigns": return "a campaign";
+    case "ads-growth": return "ads & growth";
+    case "ai-automation": return "AI & automation";
+    case "pos-erp": return "POS & ERP systems";
     case "duka-pos": return "Duka POS";
     case "ams": return "the Agency Management System";
     default: return "working with us";
