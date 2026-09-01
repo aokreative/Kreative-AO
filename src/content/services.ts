@@ -8,7 +8,7 @@ export type ServiceItem = { name: string; detail: string };
 
 export type Service = {
   slug: string;
-  number: string;
+
   name: string;
   kicker: string;
   summary: string;
@@ -20,7 +20,7 @@ export type Service = {
 export const SERVICES: Service[] = [
   {
     slug: "brand-strategy",
-    number: "01",
+
     name: "Brand Strategy",
     kicker: "Positioning & identity",
     summary:
@@ -39,7 +39,7 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "web-design",
-    number: "02",
+
     name: "Website Design & Development",
     kicker: "Sites that sell",
     summary:
@@ -58,7 +58,7 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "content-social",
-    number: "03",
+
     name: "Content & Social",
     kicker: "The stuff that keeps you visible",
     summary:
@@ -77,7 +77,7 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "campaigns",
-    number: "04",
+
     name: "Campaigns",
     kicker: "Launches & big moments",
     summary:
@@ -96,7 +96,7 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "ads-growth",
-    number: "05",
+
     name: "Ads & Growth",
     kicker: "Paid media that pays back",
     summary:
@@ -115,7 +115,7 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "ai-automation",
-    number: "06",
+
     name: "AI & Automation",
     kicker: "AI that does real work",
     summary:
@@ -134,7 +134,7 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "pos-erp",
-    number: "07",
+
     name: "POS & ERP Systems",
     kicker: "Run the back office",
     summary:

@@ -77,7 +77,7 @@ export function Splash() {
         <div className="animate-[splashUp_.9s_ease-out_both]">
           <Logo width={132} onDark priority />
         </div>
-        <h1 className="animate-[splashUp_.9s_ease-out_.15s_both] font-display text-[clamp(38px,6vw,64px)] font-medium leading-none text-[#F5F2EA]">
+        <h1 className="animate-[splashUp_.9s_ease-out_.15s_both] font-display text-[clamp(38px,6vw,64px)] font-medium leading-none text-parchment">
           A&amp;O Kreative
         </h1>
         <p className="label animate-[splashUp_.9s_ease-out_.3s_both] text-orange-lift">

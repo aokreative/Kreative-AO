@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { getCalApi } from "@calcom/embed-react";
+import { useState } from "react";
 import { CAL_EVENTS_PUBLIC, calLink } from "@/lib/site";
 
 /**
@@ -11,22 +12,31 @@ import { CAL_EVENTS_PUBLIC, calLink } from "@/lib/site";
  * is still deciding which conversation they want.
  */
 export function BookingOptions() {
+  const [theme, setTheme] = useState("light");
+
+  useEffect(() => {
+    const isDark = document.documentElement.dataset.theme === "dark" || 
+      (!document.documentElement.dataset.theme && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    setTheme(isDark ? "dark" : "light");
+  }, []);
+
   useEffect(() => {
     (async () => {
       const cal = await getCalApi();
       cal("ui", {
-        theme: "auto",
+        theme: theme === "dark" ? "dark" : "light",
         cssVarsPerTheme: {
-          light: { "cal-brand": "#194044" },
-          dark: { "cal-brand": "#E3A46B" },
+          light: { "cal-brand": "var(--color-teal)" },
+          dark: { "cal-brand": "var(--color-orange-lift)" },
         },
+
         hideEventTypeDetails: false,
         layout: "month_view",
       });
     })().catch(() => {
       /* If Cal fails to load, the fallback link below still works. */
     });
-  }, []);
+  }, [theme]);
 
   return (
     <div className="flex flex-col gap-4">

@@ -4,10 +4,12 @@ import type { Metadata } from "next";
 import "@fontsource-variable/newsreader";
 import "@fontsource-variable/karla";
 import "@fontsource-variable/jetbrains-mono";
+import Script from "next/script";
 import { SiteHeader } from "@/components/site-header";
-import { Splash } from "@/components/splash";
+import { SplashOverlay } from "@/components/splash-overlay";
 import { Assistant } from "@/components/assistant";
 import { SiteFooter } from "@/components/site-footer";
+import { CursorTracker } from "@/components/cursor-tracker";
 import { SITE } from "@/lib/site";
 import "./globals.css";
 
@@ -33,21 +35,27 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+      </head>
       <body className="flex min-h-screen flex-col">
+        <Script id="splash-init" strategy="beforeInteractive">
+          {`(function(){try{if(sessionStorage.getItem('ao-splash') || window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.dataset.splash='skip'}}catch(e){}})()`}
+        </Script>
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-teal focus:px-4 focus:py-2 focus:text-parchment"
         >
           Skip to content
         </a>
-        <Splash />
+        <SplashOverlay />
         <SiteHeader />
         <main id="main" className="flex-1">
           {children}
         </main>
         <SiteFooter />
         <Assistant />
+        <CursorTracker />
       </body>
     </html>
   );

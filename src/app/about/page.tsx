@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Container, Eyebrow, Section, SignalRule } from "@/components/ui/primitives";
+import { Frame } from "@/components/frame";
 
 export const metadata: Metadata = {
   title: "About",
@@ -10,8 +11,10 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <section className="border-b border-line-soft bg-surface-2 py-16 sm:py-20">
-        <Container>
+      <section className="relative flex min-h-[60vh] flex-col justify-end overflow-hidden border-b border-line-soft bg-surface-2 py-16 sm:py-24">
+        <Frame src="/brand/about.jpg" alt="About" className="absolute inset-0 !h-full w-full z-0" priority />
+        <div className="header-veil" />
+        <Container className="relative z-10">
           <Eyebrow>About</Eyebrow>
           <h1 className="mt-4 max-w-[20ch] text-[clamp(34px,4.8vw,56px)] leading-[1.05]">
             A martech company, in the literal sense

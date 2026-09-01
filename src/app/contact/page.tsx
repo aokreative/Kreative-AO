@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { SITE } from "@/lib/site";
 import { Container, Eyebrow, Section } from "@/components/ui/primitives";
+import { Frame } from "@/components/frame";
 import { ContactForm } from "./contact-form";
 
 export const metadata: Metadata = {
@@ -13,8 +14,10 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      <section className="border-b border-line-soft bg-surface-2 py-14 sm:py-20">
-        <Container>
+      <section className="relative flex min-h-[60vh] flex-col justify-end overflow-hidden border-b border-line-soft bg-surface-2 py-14 sm:py-24">
+        <Frame src="/brand/contact.jpg" alt="Contact" className="absolute inset-0 !h-full w-full z-0" priority />
+        <div className="header-veil" />
+        <Container className="relative z-10">
           <Eyebrow>Contact</Eyebrow>
           <h1 className="mt-4 max-w-[18ch] text-[clamp(32px,4.4vw,52px)] leading-[1.05]">
             Tell us what you&apos;re trying to do

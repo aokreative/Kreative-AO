@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { Magnetic } from "@/components/motion/magnetic";
 
 export function Container({
   children,
@@ -48,19 +49,36 @@ export function Button({
   external = false,
   className = "",
 }: ButtonProps) {
-  const cls = `inline-flex items-center justify-center gap-2 rounded-[7px] border px-5 py-3 text-[14.5px] font-semibold transition-[background-color,border-color,filter] duration-200 ${VARIANTS[variant]} ${className}`;
-  if (external) {
-    return (
-      <a href={href} className={cls} rel="noopener">
-        {children}
-      </a>
-    );
-  }
-  return (
-    <Link href={href} className={cls}>
+  const cls = `group inline-flex items-center justify-center gap-2 rounded-[7px] border border-line-soft px-5 py-3 text-[14.5px] font-semibold shadow-e1 transition-[transform,box-shadow,filter] duration-[450ms] ease-[cubic-bezier(.22,1,.36,1)] hover:-translate-y-1 hover:shadow-e2 ${VARIANTS[variant]} ${className}`;
+  
+  const content = (
+    <>
       {children}
+      <svg
+        className="w-4 h-4 opacity-0 -ml-2 transition-all duration-[400ms] ease-[cubic-bezier(.22,1,.36,1)] group-hover:opacity-100 group-hover:translate-x-1 group-hover:ml-0"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+      </svg>
+    </>
+  );
+
+  let btn = external ? (
+    <a href={href} className={cls} rel="noopener">
+      {content}
+    </a>
+  ) : (
+    <Link href={href} className={cls}>
+      {content}
     </Link>
   );
+
+  if (variant === "primary" || variant === "accent") {
+    return <Magnetic>{btn}</Magnetic>;
+  }
+  return btn;
 }
 
 export function Badge({
@@ -71,9 +89,9 @@ export function Badge({
   children: ReactNode;
 }) {
   const tones = {
-    live: "bg-[rgba(47,110,90,.13)] text-[#2F6E5A] dark:bg-[rgba(143,200,170,.15)] dark:text-[#8FC8AA]",
+    live: "bg-duka-tint text-duka-deep dark:bg-duka/20 dark:text-teal-soft",
     building:
-      "bg-[rgba(182,87,26,.14)] text-[#8E4413] dark:bg-[rgba(227,164,107,.16)] dark:text-[#E3A46B]",
+      "bg-orange/15 text-orange-deep dark:bg-orange-lift/15 dark:text-orange-lift",
   };
   return (
     <span
@@ -97,7 +115,7 @@ export function Section({
   bleed?: boolean;
 }) {
   const inner = bleed ? children : <Container>{children}</Container>;
-  return <section className={`py-16 sm:py-24 ${className}`}>{inner}</section>;
+  return <section className={`py-[var(--space-section)] ${className}`}>{inner}</section>;
 }
 
 export function Check() {

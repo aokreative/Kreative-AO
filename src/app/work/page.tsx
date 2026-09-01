@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CASE_STUDIES, HEADLINE_STATS } from "@/content/case-studies";
 import { Button, Container, Eyebrow, Section } from "@/components/ui/primitives";
+import { Frame } from "@/components/frame";
+import { HorizontalScroll } from "./horizontal-scroll";
+import { ResultsStats } from "./results-stats";
 
 export const metadata: Metadata = {
   title: "Work",
@@ -12,8 +15,10 @@ export const metadata: Metadata = {
 export default function WorkPage() {
   return (
     <>
-      <section className="border-b border-line-soft bg-surface-2 py-16 sm:py-20">
-        <Container>
+      <section className="relative flex min-h-[60vh] flex-col justify-end overflow-hidden border-b border-line-soft bg-surface-2 py-16 sm:py-24">
+        <Frame src="/brand/hero.jpg" alt="Work" className="absolute inset-0 !h-full w-full z-0" priority />
+        <div className="header-veil" />
+        <Container className="relative z-10">
           <Eyebrow>Case studies</Eyebrow>
           <h1 className="mt-4 max-w-[16ch] text-[clamp(34px,4.8vw,56px)] leading-[1.05]">
             The full stories
@@ -37,40 +42,7 @@ export default function WorkPage() {
         </Container>
       </section>
 
-      <Section>
-        <div className="flex flex-col gap-5">
-          {CASE_STUDIES.map((c) => (
-            <Link
-              key={c.slug}
-              href={`/work/${c.slug}`}
-              className="group grid gap-6 rounded-lg border border-line bg-surface p-8 shadow-e1 transition-colors hover:border-ink-3 md:grid-cols-[1.3fr_1fr] md:items-center"
-            >
-              <div className="flex flex-col gap-3">
-                <span className="label text-ink-3">
-                  {c.category} · {c.tags} · {c.year}
-                </span>
-                <h2 className="text-[26px] leading-tight">{c.client}</h2>
-                <p className="text-[16px] text-ink-2">{c.headline}</p>
-                <span className="pt-1 text-[14px] font-semibold text-accent-ink group-hover:underline">
-                  Read the case study →
-                </span>
-              </div>
-              <dl className="grid grid-cols-3 gap-4 border-t border-line-soft pt-5 md:border-l md:border-t-0 md:pl-8 md:pt-0">
-                {c.metrics.map((m) => (
-                  <div key={m.label}>
-                    <dt className="tnum font-display text-[24px] leading-none">
-                      {m.value}
-                    </dt>
-                    <dd className="mt-1.5 text-[12.5px] leading-snug text-ink-3">
-                      {m.label}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </Link>
-          ))}
-        </div>
-      </Section>
+      <HorizontalScroll />
 
       <Section className="border-t border-line-soft bg-surface-2">
         <div className="mx-auto flex max-w-[52ch] flex-col items-center gap-6 text-center">
@@ -81,7 +53,10 @@ export default function WorkPage() {
             Every one of these started with a conversation about what
             wasn&apos;t working. Yours can too.
           </p>
-          <Button href="/book" variant="accent">
+          
+          <ResultsStats />
+
+          <Button href="/book" variant="accent" className="mt-8">
             Book a discovery call
           </Button>
         </div>

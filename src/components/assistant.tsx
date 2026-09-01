@@ -106,7 +106,7 @@ export function Assistant() {
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-controls="aok-assistant"
-        className="fixed bottom-5 right-5 z-[90] flex items-center gap-2.5 rounded-full bg-teal py-3.5 pl-4 pr-5 text-[14px] font-semibold text-parchment shadow-e1 transition-transform hover:-translate-y-0.5 dark:bg-parchment dark:text-teal-deep"
+        className="glass fixed bottom-5 right-5 z-[90] flex items-center gap-2.5 rounded-full bg-teal py-3.5 pl-4 pr-5 text-[14px] font-semibold text-parchment shadow-e1 transition-transform hover:-translate-y-0.5 dark:bg-parchment dark:text-teal-deep"
       >
         <span aria-hidden className="signal h-2.5 w-2.5 rounded-full" />
         {open ? "Close" : "Ask us anything"}

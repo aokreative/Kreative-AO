@@ -37,7 +37,7 @@ export default async function ServicePage({
       <section className="border-b border-line-soft bg-surface-2 py-16 sm:py-24">
         <Container>
           <Eyebrow>
-            Services · {service.number} · {service.kicker}
+            Services · {service.kicker}
           </Eyebrow>
           <h1 className="mt-4 max-w-[18ch] text-[clamp(34px,5vw,58px)] leading-[1.04]">
             {service.name}

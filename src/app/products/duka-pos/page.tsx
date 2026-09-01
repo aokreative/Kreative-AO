@@ -69,7 +69,7 @@ export default function DukaPosPage() {
                 <div className="flex items-baseline justify-between gap-2">
                   <h3 className="text-[21px] font-semibold">{t.name}</h3>
                   {t.featured && (
-                    <span className="label rounded-full bg-duka-tint px-2 py-0.5 text-duka-deep dark:bg-duka/20 dark:text-[#8FC8AA]">
+                    <span className="label rounded-full bg-duka-tint px-2 py-0.5 text-duka-deep dark:bg-duka/20 dark:text-teal-soft">
                       Popular
                     </span>
                   )}
