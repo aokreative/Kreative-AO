@@ -10,8 +10,8 @@ export function Work() {
 
   return (
     <Section className="border-t border-line-soft bg-surface-2">
-      <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-        <div className="max-w-[52ch]">
+      <div className="grid lg:grid-cols-12 gap-8 items-end w-full pb-12">
+        <div className="col-span-12 lg:col-span-7 flex flex-col items-start">
           <Reveal>
             <Eyebrow>Recent work</Eyebrow>
           </Reveal>
@@ -21,16 +21,16 @@ export function Work() {
             </h2>
           </Reveal>
           <Reveal delay={0.2}>
-            <p className="mt-4 text-[17px] text-ink-2">
+            <p className="mt-4 text-[17px] max-w-[52ch] text-ink-2">
               Real results from recent projects — the problem, the work, and the
               numbers that came out the other side.
             </p>
           </Reveal>
         </div>
-        <div className="flex flex-wrap items-end gap-8">
+        <div className="col-span-12 lg:col-span-5 self-end flex flex-wrap items-end gap-8">
           <dl className="hidden gap-12 sm:flex">
             {HEADLINE_STATS.slice(1).map((s, i) => (
-              <div key={s.label} className="relative z-10 flex flex-col justify-center items-center">
+              <div key={s.label} className="relative z-10 flex flex-col justify-center items-start">
                 <dt className="tnum font-display text-[32px] leading-none text-ink">
                   {s.value}
                 </dt>

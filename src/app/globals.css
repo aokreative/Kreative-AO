@@ -362,10 +362,16 @@ html[data-splash="skip"] #splash {
 }
 
 .glass {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(12px);
   position: relative;
   overflow: hidden;
+  background: color-mix(in oklab, var(--color-moss) 80%, transparent);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+@supports (backdrop-filter: blur(12px)) {
+  .glass {
+    backdrop-filter: blur(12px) saturate(1.2);
+    background: color-mix(in oklab, var(--color-moss) 45%, transparent);
+  }
 }
 
 .glass::before {

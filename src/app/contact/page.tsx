@@ -15,9 +15,9 @@ export default function ContactPage() {
   return (
     <>
       <section className="relative flex min-h-[60vh] flex-col justify-end overflow-hidden border-b border-line-soft bg-surface-2 py-14 sm:py-24">
-        <Frame src="/brand/contact.jpg" alt="Contact" className="absolute inset-0 !h-full w-full z-0" priority />
-        <div className="header-veil" />
-        <Container className="relative z-10">
+        <Frame src="/brand/contact.jpg" alt="Contact" className="absolute inset-0 !h-full w-full z-0 object-cover" priority />
+        <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-ink)] via-[var(--color-ink)]/80 to-transparent z-10" />
+        <Container className="relative z-20">
           <Eyebrow>Contact</Eyebrow>
           <h1 className="mt-4 max-w-[18ch] text-[clamp(32px,4.4vw,52px)] leading-[1.05]">
             Tell us what you&apos;re trying to do
