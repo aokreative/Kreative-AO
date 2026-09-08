@@ -88,20 +88,19 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
   },
   {
-    slug: "diamond-bay",
-    client: "Diamond Bay Residences",
-    headline: "Phase 1 sold out on a full-funnel campaign",
-    category: "Real Estate",
-    tags: "Campaign · Lead gen",
-    year: "2024",
+    slug: "baple-gadgets",
+    client: "Baple Gadgets",
+    headline: "A storefront that sells, and an audience to send to it",
+    category: "E-commerce",
+    tags: "Web · Social · Retail",
+    year: "2026",
     problem:
-      "A premium development needed to sell out Phase 1 quickly in a competitive coastal property market.",
+      "A premium Apple gadget and repair business that needed a storefront people could actually buy from, and an audience to send to it.",
     work:
-      "A full-funnel campaign — aspirational creative, precise paid media, and a WhatsApp lead system that passed sales only warm, ready buyers.",
+      "Built the storefront the business could actually run — product pages, checkout and a repair booking flow — then put a consistent social presence behind it so there was traffic to send at it.",
     metrics: [
-      { value: "100%", label: "Phase 1 sold out" },
-      { value: "3×", label: "Lead-to-viewing rate" },
-      { value: "−38%", label: "Cost per qualified lead" },
+      { value: "5×", label: "Increase in sales" },
+      { value: "+50%", label: "Traffic across all social platforms" },
     ],
   },
 ];

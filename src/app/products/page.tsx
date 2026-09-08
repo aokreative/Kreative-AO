@@ -28,15 +28,18 @@ export default function ProductsPage() {
       </section>
 
       <Section>
-        <div className="flex flex-col gap-6">
-          {PRODUCTS.map((p) => {
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+          {PRODUCTS.map((p, i) => {
             const imgSrc = p.slug === "duka-pos" ? "/brand/products-duka.jpg" : "/brand/products-ams.jpg";
+            const isFirst = i === 0;
             return (
               <div
                 key={p.slug}
-                className="flex flex-col overflow-hidden rounded-lg border border-line bg-surface shadow-e1 md:flex-row"
+                className={`card glass flex flex-col overflow-hidden bg-surface ${
+                  isFirst ? "md:col-span-12 md:flex-row" : "md:col-span-11 md:col-start-2 md:flex-row-reverse"
+                }`}
               >
-                <div className="md:w-[40%] shrink-0 border-b md:border-b-0 md:border-r border-line">
+                <div className={`md:w-[45%] shrink-0 border-b md:border-b-0 ${isFirst ? "md:border-r" : "md:border-l"} border-line-soft`}>
                   <Frame src={imgSrc} alt={p.name} className="w-full h-full" />
                 </div>
                 <div className="flex flex-col gap-5 p-8 flex-grow">
@@ -70,16 +73,23 @@ export default function ProductsPage() {
               </div>
             );
           })}
+          
+          <div className="card glass md:col-span-8 md:col-start-3 flex flex-col md:flex-row overflow-hidden bg-surface">
+            <div className="md:w-[45%] shrink-0 border-b md:border-b-0 md:border-r border-line-soft">
+              <Frame src="/brand/skyline.jpg" alt="Internal software" className="w-full h-full" />
+            </div>
+            <div className="flex flex-col gap-5 p-8 flex-grow justify-center">
+              <p className="text-[15px] text-ink-2">
+                We also run our own CRM in production. It isn&apos;t for sale — it
+                exists because we needed it — but it is a fair sample of what our{" "}
+                <a className="text-accent-ink underline underline-offset-4" href="/services/software">
+                  software team
+                </a>{" "}
+                builds when the client is us.
+              </p>
+            </div>
+          </div>
         </div>
-
-        <p className="mt-10 max-w-[62ch] text-[15px] text-ink-2">
-          We also run our own CRM in production. It isn&apos;t for sale — it
-          exists because we needed it — but it is a fair sample of what our{" "}
-          <a className="text-accent-ink underline underline-offset-4" href="/services/software">
-            software team
-          </a>{" "}
-          builds when the client is us.
-        </p>
       </Section>
     </>
   );

@@ -32,14 +32,15 @@ export default function BlogPage() {
       </section>
 
       <Section>
-        <Link
-          href={`/blog/${featured.slug}`}
-          className="group flex flex-col overflow-hidden rounded-lg border border-line bg-surface shadow-e1 transition-colors hover:border-ink-3 sm:flex-row"
-        >
-          <div className="sm:w-[45%] shrink-0 border-b sm:border-b-0 sm:border-r border-line">
-            <Frame src="/brand/blog.jpg" alt={featured.title} className="w-full h-full" />
-          </div>
-          <div className="flex flex-col gap-4 p-8 sm:p-10 flex-grow">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+          <Link
+            href={`/blog/${featured.slug}`}
+            className="card glass group flex flex-col md:col-span-12 overflow-hidden bg-surface md:flex-row"
+          >
+            <div className="md:w-[45%] shrink-0 border-b md:border-b-0 md:border-r border-line-soft">
+              <Frame src={featured.image || "/brand/blog.jpg"} alt={featured.title} className="w-full h-full" />
+            </div>
+            <div className="flex flex-col gap-4 p-8 sm:p-10 flex-grow">
             <span className="label text-accent-ink">
               Featured · {featured.category}
             </span>
@@ -58,15 +59,28 @@ export default function BlogPage() {
           </div>
         </Link>
 
-        <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {rest.map((a) => (
+        {rest.map((a, i) => {
+          let spanClass = "md:col-span-12 md:flex-row";
+          let borderClass = "md:border-r";
+          if (i % 3 === 0) {
+            spanClass = "md:col-span-10 md:col-start-3 md:flex-row-reverse";
+            borderClass = "md:border-l";
+          } else if (i % 3 === 1) {
+            spanClass = "md:col-span-8 md:col-start-1 md:flex-row";
+            borderClass = "md:border-r";
+          } else {
+            spanClass = "md:col-span-11 md:col-start-2 md:flex-row-reverse";
+            borderClass = "md:border-l";
+          }
+          
+          return (
             <Link
               key={a.slug}
               href={`/blog/${a.slug}`}
-              className="group flex flex-col overflow-hidden rounded-lg border border-line bg-surface transition-colors hover:border-ink-3"
+              className={`card glass group flex flex-col overflow-hidden bg-surface ${spanClass}`}
             >
-              <div className="border-b border-line shrink-0">
-                <Frame src="/brand/blog.jpg" alt={a.title} className="w-full" />
+              <div className={`md:w-[40%] shrink-0 border-b md:border-b-0 ${borderClass} border-line-soft`}>
+                <Frame src={a.image || "/brand/blog.jpg"} alt={a.title} className="w-full h-full" />
               </div>
               <div className="flex flex-col gap-3 p-7 flex-grow">
                 <span className="label text-ink-3">{a.category}</span>
@@ -79,7 +93,8 @@ export default function BlogPage() {
                 </span>
               </div>
             </Link>
-          ))}
+          );
+        })}
         </div>
       </Section>
     </>
