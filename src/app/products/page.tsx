@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { PRODUCTS, dukaTrialLink } from "@/lib/site";
 import { Badge, Button, Container, Eyebrow, Section } from "@/components/ui/primitives";
 import { Frame } from "@/components/frame";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Products",
@@ -12,19 +13,29 @@ export const metadata: Metadata = {
 export default function ProductsPage() {
   return (
     <>
-      <section className="relative flex min-h-[60vh] flex-col justify-end overflow-hidden border-b border-line-soft bg-surface-2 py-16 sm:py-24">
-        <Frame src="/brand/products-duka.jpg" alt="Products" className="absolute inset-0 !h-full w-full z-0" priority />
-        <div className="header-veil" />
-        <Container className="relative z-10">
-          <Eyebrow>Products</Eyebrow>
-          <h1 className="mt-4 max-w-[20ch] text-[clamp(34px,4.8vw,56px)] leading-[1.05]">
-            Software we own, not just software we ship
-          </h1>
-          <p className="mt-6 max-w-[58ch] text-[17px] text-ink-2">
-            Two products in market. One you can buy today, one being built now —
-            and we&apos;d rather say which is which than let you find out later.
-          </p>
-        </Container>
+      <section className="relative w-full min-h-[70vh] flex items-center overflow-hidden">
+        {/* 1. BACKGROUND IMAGE LAYER */}
+        <div className="absolute inset-0 z-0">
+          <Image src="/brand/products-duka.jpg" fill priority className="object-cover object-center" alt="Products" />
+        </div>
+        
+        {/* 2. THE DARK VEIL LAYER (HARDCODED) */}
+        <div className="absolute inset-0 z-10 bg-gradient-to-r from-[#06150F] via-[#06150F]/80 to-transparent mix-blend-multiply"></div>
+        <div className="absolute inset-0 z-10 bg-gradient-to-r from-[#06150F]/90 via-[#06150F]/50 to-transparent"></div>
+
+        {/* 3. THE TEXT CONTENT LAYER */}
+        <div className="relative z-20 w-full container mx-auto px-6 grid lg:grid-cols-12 gap-8">
+          <div className="col-span-12 lg:col-span-7 text-[#F3F0E6]">
+            <Eyebrow>Products</Eyebrow>
+            <h1 className="mt-4 max-w-[20ch] text-[clamp(34px,4.8vw,56px)] leading-[1.05]">
+              Software we own, not just software we ship
+            </h1>
+            <p className="mt-6 max-w-[58ch] text-[17px] text-[#F3F0E6]/90">
+              Two products in market. One you can buy today, one being built now —
+              and we&apos;d rather say which is which than let you find out later.
+            </p>
+          </div>
+        </div>
       </section>
 
       <Section>

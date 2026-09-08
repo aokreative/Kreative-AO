@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { SITE } from "@/lib/site";
 import { Container, Eyebrow, Section } from "@/components/ui/primitives";
 import { Frame } from "@/components/frame";
+import Image from "next/image";
 import { ContactForm } from "./contact-form";
 
 export const metadata: Metadata = {
@@ -14,18 +15,28 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      <section className="relative flex min-h-[60vh] flex-col justify-end overflow-hidden border-b border-line-soft bg-surface-2 py-14 sm:py-24">
-        <Frame src="/brand/contact.jpg" alt="Contact" className="absolute inset-0 !h-full w-full z-0 object-cover" priority />
-        <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-ink)] via-[var(--color-ink)]/80 to-transparent z-10" />
-        <Container className="relative z-20">
-          <Eyebrow>Contact</Eyebrow>
-          <h1 className="mt-4 max-w-[18ch] text-[clamp(32px,4.4vw,52px)] leading-[1.05]">
-            Tell us what you&apos;re trying to do
-          </h1>
-          <p className="mt-5 max-w-[54ch] text-[17px] text-ink-2">
-            The more specific you are, the more useful our first reply will be.
-          </p>
-        </Container>
+      <section className="relative w-full min-h-[70vh] flex items-center overflow-hidden">
+        {/* 1. BACKGROUND IMAGE LAYER */}
+        <div className="absolute inset-0 z-0">
+          <Image src="/brand/contact.jpg" fill priority className="object-cover object-center" alt="Contact" />
+        </div>
+        
+        {/* 2. THE DARK VEIL LAYER (HARDCODED) */}
+        <div className="absolute inset-0 z-10 bg-gradient-to-r from-[#06150F] via-[#06150F]/80 to-transparent mix-blend-multiply"></div>
+        <div className="absolute inset-0 z-10 bg-gradient-to-r from-[#06150F]/90 via-[#06150F]/50 to-transparent"></div>
+
+        {/* 3. THE TEXT CONTENT LAYER */}
+        <div className="relative z-20 w-full container mx-auto px-6 grid lg:grid-cols-12 gap-8">
+          <div className="col-span-12 lg:col-span-7 text-[#F3F0E6]">
+            <Eyebrow>Contact</Eyebrow>
+            <h1 className="mt-4 max-w-[18ch] text-[clamp(32px,4.4vw,52px)] leading-[1.05]">
+              Tell us what you&apos;re trying to do
+            </h1>
+            <p className="mt-5 max-w-[54ch] text-[17px] text-[#F3F0E6]/90">
+              The more specific you are, the more useful our first reply will be.
+            </p>
+          </div>
+        </div>
       </section>
 
       <Section>

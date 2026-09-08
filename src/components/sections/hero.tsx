@@ -5,7 +5,7 @@ import { Button, Container, Eyebrow } from "@/components/ui/primitives";
 import { HEADLINE_STATS } from "@/content/case-studies";
 import { Reveal } from "@/components/motion/reveal";
 import { Frame } from "@/components/frame";
-
+import Image from "next/image";
 export function Hero() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -19,29 +19,20 @@ export function Hero() {
   const veilOpacity = useTransform(scrollYProgress, [0, 1], [0.6, 1]);
 
   return (
-    <section ref={ref} className="relative h-[150vh]">
-      <div className="sticky top-0 h-screen w-full overflow-hidden bg-teal-deep text-parchment flex flex-col items-center justify-center pt-[var(--nav-h)]">
-        
-        {/* Background Image Layer */}
-        <div className="absolute inset-0 z-0 h-full w-full">
-          <motion.div style={{ y: photoY, height: "115%" }} className="relative w-full h-full">
-            <Frame
-              src="/brand/hero.jpg"
-              alt="Workspace"
-              className="absolute inset-0 w-full h-full object-cover z-0"
-              priority
-            />
-          </motion.div>
-        </div>
+    <section ref={ref} className="relative w-full min-h-[70vh] flex items-center overflow-hidden">
+      {/* 1. BACKGROUND IMAGE LAYER */}
+      <div className="absolute inset-0 z-0">
+        <Image src="/brand/hero.jpg" fill priority className="object-cover object-center" alt="Workspace" />
+      </div>
+      
+      {/* 2. THE DARK VEIL LAYER (HARDCODED) */}
+      <div className="absolute inset-0 z-10 bg-gradient-to-r from-[#06150F] via-[#06150F]/80 to-transparent mix-blend-multiply"></div>
+      <div className="absolute inset-0 z-10 bg-gradient-to-r from-[#06150F]/90 via-[#06150F]/50 to-transparent"></div>
 
-        {/* Overlay Veil */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-ink)] via-[var(--color-ink)]/80 to-transparent z-10" />
-
-        <Container className="relative z-20 flex h-full w-full flex-col justify-center pb-24 pt-12">
-          <div className="grid w-full gap-8 lg:grid-cols-12 py-24">
-            {/* Main Text Content */}
-            <div className="col-span-12 lg:col-span-7 text-left flex flex-col items-start">
-              <Reveal>
+      {/* 3. THE TEXT CONTENT LAYER */}
+      <div className="relative z-20 w-full container mx-auto px-6 grid lg:grid-cols-12 gap-8 py-24">
+        <div className="col-span-12 lg:col-span-7 text-[#F3F0E6] text-left flex flex-col items-start">
+          <Reveal>
                 <div className="inline-flex items-center rounded-full border border-white/20 bg-white/5 px-4 py-1.5 mb-6">
                   <span className="text-xs font-mono uppercase tracking-wider text-teal-soft">Marketing · Branding · AI — Nairobi</span>
                 </div>
@@ -94,8 +85,6 @@ export function Hero() {
               </Reveal>
             </div>
           </div>
-        </Container>
-      </div>
     </section>
   );
 }
