@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { PRODUCTS, dukaTrialLink } from "@/lib/site";
 import { Badge, Button, Container, Eyebrow, Section } from "@/components/ui/primitives";
 import { Frame } from "@/components/frame";
@@ -20,8 +20,7 @@ export default function ProductsPage() {
         </div>
         
         {/* 2. THE DARK VEIL LAYER (HARDCODED) */}
-        <div className="absolute inset-0 z-10 bg-gradient-to-r from-[#06150F] via-[#06150F]/80 to-transparent mix-blend-multiply"></div>
-        <div className="absolute inset-0 z-10 bg-gradient-to-r from-[#06150F]/90 via-[#06150F]/50 to-transparent"></div>
+        <div className="header-veil-dark"></div>
 
         {/* 3. THE TEXT CONTENT LAYER */}
         <div className="relative z-20 w-full container mx-auto px-6 grid lg:grid-cols-12 gap-8">
@@ -31,7 +30,7 @@ export default function ProductsPage() {
               Software we own, not just software we ship
             </h1>
             <p className="mt-6 max-w-[58ch] text-[17px] text-[#F3F0E6]/90">
-              Two products in market. One you can buy today, one being built now —
+              Two products in market. One you can buy today, one being built now â€”
               and we&apos;d rather say which is which than let you find out later.
             </p>
           </div>
@@ -91,8 +90,8 @@ export default function ProductsPage() {
             </div>
             <div className="flex flex-col gap-5 p-8 flex-grow justify-center">
               <p className="text-[15px] text-ink-2">
-                We also run our own CRM in production. It isn&apos;t for sale — it
-                exists because we needed it — but it is a fair sample of what our{" "}
+                We also run our own CRM in production. It isn&apos;t for sale â€” it
+                exists because we needed it â€” but it is a fair sample of what our{" "}
                 <a className="text-accent-ink underline underline-offset-4" href="/services/software">
                   software team
                 </a>{" "}

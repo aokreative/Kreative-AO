@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import { CASE_STUDIES, HEADLINE_STATS } from "@/content/case-studies";
 import { Button, Container, Eyebrow, Section } from "@/components/ui/primitives";
@@ -10,7 +10,7 @@ import { ResultsStats } from "./results-stats";
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Case studies from A&O Kreative — the problem, what we did about it, and the numbers that came out the other side.",
+    "Case studies from A&O Kreative â€” the problem, what we did about it, and the numbers that came out the other side.",
 };
 
 export default function WorkPage() {
@@ -23,8 +23,7 @@ export default function WorkPage() {
         </div>
         
         {/* 2. THE DARK VEIL LAYER (HARDCODED) */}
-        <div className="absolute inset-0 z-10 bg-gradient-to-r from-[#06150F] via-[#06150F]/80 to-transparent mix-blend-multiply"></div>
-        <div className="absolute inset-0 z-10 bg-gradient-to-r from-[#06150F]/90 via-[#06150F]/50 to-transparent"></div>
+        <div className="header-veil-dark"></div>
 
         {/* 3. THE TEXT CONTENT LAYER */}
         <div className="relative z-20 w-full container mx-auto px-6 grid lg:grid-cols-12 gap-8">

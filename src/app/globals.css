@@ -311,7 +311,21 @@
 
 .header-veil {
   position: absolute; inset: 0; z-index: 10; pointer-events: none;
-  background: linear-gradient(to right, var(--color-ink) 10%, rgba(6, 21, 15, 0.8) 40%, transparent 100%);
+  background: linear-gradient(to right, var(--color-ink) 10%, color-mix(in srgb, var(--color-ink) 80%, transparent) 40%, transparent 100%);
+}
+
+.header-veil-dark {
+  position: absolute; inset: 0; z-index: 10; pointer-events: none;
+}
+.header-veil-dark::before, .header-veil-dark::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+}
+.header-veil-dark::before {
+  background: linear-gradient(to right, var(--color-forest), color-mix(in srgb, var(--color-forest) 80%, transparent) 50%, transparent);
+  mix-blend-mode: multiply;
+}
+.header-veil-dark::after {
+  background: linear-gradient(to right, color-mix(in srgb, var(--color-forest) 90%, transparent), color-mix(in srgb, var(--color-forest) 50%, transparent) 50%, transparent);
 }
 
 @media (max-width: 900px) {

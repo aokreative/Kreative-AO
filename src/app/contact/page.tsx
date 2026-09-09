@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Suspense } from "react";
 import { SITE } from "@/lib/site";
 import { Container, Eyebrow, Section } from "@/components/ui/primitives";
@@ -22,8 +22,7 @@ export default function ContactPage() {
         </div>
         
         {/* 2. THE DARK VEIL LAYER (HARDCODED) */}
-        <div className="absolute inset-0 z-10 bg-gradient-to-r from-[#06150F] via-[#06150F]/80 to-transparent mix-blend-multiply"></div>
-        <div className="absolute inset-0 z-10 bg-gradient-to-r from-[#06150F]/90 via-[#06150F]/50 to-transparent"></div>
+        <div className="header-veil-dark"></div>
 
         {/* 3. THE TEXT CONTENT LAYER */}
         <div className="relative z-20 w-full container mx-auto px-6 grid lg:grid-cols-12 gap-8">
@@ -64,7 +63,7 @@ export default function ContactPage() {
             <div className="flex flex-col gap-2 border-t border-line-soft pt-6">
               <h2 className="label text-ink-3">Already using Duka POS?</h2>
               <p className="text-[15px] text-ink-2">
-                For support with an existing account, sign in to the app —
+                For support with an existing account, sign in to the app â€”
                 that reaches the product team faster than this form.
               </p>
             </div>

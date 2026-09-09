@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import { ARTICLES } from "@/content/articles";
 import { Container, Eyebrow, Section } from "@/components/ui/primitives";
@@ -8,7 +8,7 @@ import Image from "next/image";
 export const metadata: Metadata = {
   title: "Blog",
   description:
-    "Practical thinking on marketing, branding and growing a business in Kenya — written for people who'd rather do the work than read theory.",
+    "Practical thinking on marketing, branding and growing a business in Kenya â€” written for people who'd rather do the work than read theory.",
 };
 
 export default function BlogPage() {
@@ -23,8 +23,7 @@ export default function BlogPage() {
         </div>
         
         {/* 2. THE DARK VEIL LAYER (HARDCODED) */}
-        <div className="absolute inset-0 z-10 bg-gradient-to-r from-[#06150F] via-[#06150F]/80 to-transparent mix-blend-multiply"></div>
-        <div className="absolute inset-0 z-10 bg-gradient-to-r from-[#06150F]/90 via-[#06150F]/50 to-transparent"></div>
+        <div className="header-veil-dark"></div>
 
         {/* 3. THE TEXT CONTENT LAYER */}
         <div className="relative z-20 w-full container mx-auto px-6 grid lg:grid-cols-12 gap-8">
@@ -35,7 +34,7 @@ export default function BlogPage() {
             </h1>
             <p className="mt-6 max-w-[60ch] text-[17px] text-[#F3F0E6]/90">
               Practical thinking on marketing, branding and growing a business in
-              Kenya — written for people who&apos;d rather do the work than read
+              Kenya â€” written for people who&apos;d rather do the work than read
               theory.
             </p>
           </div>
@@ -53,7 +52,7 @@ export default function BlogPage() {
             </div>
             <div className="flex flex-col gap-4 p-8 sm:p-10 flex-grow">
             <span className="label text-accent-ink">
-              Featured · {featured.category}
+              Featured Â· {featured.category}
             </span>
             <h2 className="max-w-[24ch] text-[clamp(24px,3vw,34px)] leading-[1.15]">
               {featured.title}
@@ -62,10 +61,10 @@ export default function BlogPage() {
               {featured.excerpt}
             </p>
             <p className="label text-ink-3">
-              {featured.date} · {featured.readMinutes} min read
+              {featured.date} Â· {featured.readMinutes} min read
             </p>
             <span className="pt-1 text-[14px] font-semibold text-accent-ink group-hover:underline">
-              Read the article →
+              Read the article â†’
             </span>
           </div>
         </Link>
@@ -100,7 +99,7 @@ export default function BlogPage() {
                   {a.excerpt}
                 </p>
                 <span className="mt-auto pt-2 text-[12.5px] text-ink-3">
-                  {a.date} · {a.readMinutes} min
+                  {a.date} Â· {a.readMinutes} min
                 </span>
               </div>
             </Link>

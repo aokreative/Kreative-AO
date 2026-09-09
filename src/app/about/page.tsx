@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Container, Eyebrow, Section, SignalRule } from "@/components/ui/primitives";
 import { Frame } from "@/components/frame";
 
@@ -11,10 +11,17 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <section className="relative flex min-h-[60vh] flex-col justify-end overflow-hidden border-b border-line-soft bg-surface-2 py-16 sm:py-24">
-        <Frame src="/brand/about.jpg" alt="About" className="absolute inset-0 !h-full w-full z-0" priority />
-        <div className="header-veil" />
-        <Container className="relative z-10">
+      <section className="relative w-full min-h-[60vh] flex flex-col justify-end overflow-hidden border-b border-line-soft bg-[#06150F] py-16 sm:py-24">
+        {/* 1. BACKGROUND IMAGE LAYER */}
+        <div className="absolute inset-0 z-0">
+          <Frame src="/brand/about.jpg" alt="About" className="object-cover object-center w-full h-full" priority />
+        </div>
+        
+        {/* 2. THE DARK VEIL LAYER (HARDCODED) */}
+        <div className="header-veil-dark"></div>
+
+        {/* 3. THE TEXT CONTENT LAYER */}
+        <Container className="relative z-20 text-[#F3F0E6]">
           <Eyebrow>About</Eyebrow>
           <h1 className="mt-4 max-w-[20ch] text-[clamp(34px,4.8vw,56px)] leading-[1.05]">
             A martech company, in the literal sense
@@ -39,7 +46,7 @@ export default function AboutPage() {
                 That started for practical reasons. Building software for clients
                 taught us how much of a product&apos;s success is decided by whether
                 anyone hears about it. Running campaigns taught us how often the
-                thing blocking a campaign is the product itself — a signup form, a
+                thing blocking a campaign is the product itself â€” a signup form, a
                 slow page, a checkout that loses people. Owning both meant we could
                 fix whichever one was actually broken.
               </p>
@@ -54,8 +61,8 @@ export default function AboutPage() {
               <p>
                 So we build our own products too. Duka POS is live and supporting
                 real shops. An Agency Management System for insurance brokerages is
-                in development. Our CRM isn&apos;t for sale — it exists because we
-                needed one — but it is what the company runs on.
+                in development. Our CRM isn&apos;t for sale â€” it exists because we
+                needed one â€” but it is what the company runs on.
               </p>
             </div>
           </div>

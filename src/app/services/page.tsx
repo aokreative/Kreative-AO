@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import { SERVICES } from "@/content/services";
 import { Button, Container, Eyebrow, Section } from "@/components/ui/primitives";
@@ -8,7 +8,7 @@ import Image from "next/image";
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "Brand strategy, websites, content, campaigns, ads, AI automation and POS/ERP systems — from one Nairobi team.",
+    "Brand strategy, websites, content, campaigns, ads, AI automation and POS/ERP systems â€” from one Nairobi team.",
 };
 
 export default function ServicesPage() {
@@ -21,8 +21,7 @@ export default function ServicesPage() {
         </div>
         
         {/* 2. THE DARK VEIL LAYER (HARDCODED) */}
-        <div className="absolute inset-0 z-10 bg-gradient-to-r from-[#06150F] via-[#06150F]/80 to-transparent mix-blend-multiply"></div>
-        <div className="absolute inset-0 z-10 bg-gradient-to-r from-[#06150F]/90 via-[#06150F]/50 to-transparent"></div>
+        <div className="header-veil-dark"></div>
 
         {/* 3. THE TEXT CONTENT LAYER */}
         <div className="relative z-20 w-full container mx-auto px-6 grid lg:grid-cols-12 gap-8">
@@ -33,7 +32,7 @@ export default function ServicesPage() {
             </h1>
             <p className="mt-6 max-w-[60ch] text-[17px] text-[#F3F0E6]/90">
               No rigid packages. We scope each project around your goal and
-              budget — whether that&apos;s one quick win or a long-term
+              budget â€” whether that&apos;s one quick win or a long-term
               partnership. Here&apos;s the full range.
             </p>
           </div>
@@ -71,7 +70,7 @@ export default function ServicesPage() {
                     {s.summary}
                   </p>
                   <span className="mt-auto pt-3 text-[14px] font-semibold text-accent-ink group-hover:underline">
-                    What&apos;s included →
+                    What&apos;s included â†’
                   </span>
                 </div>
               </Link>
@@ -87,7 +86,7 @@ export default function ServicesPage() {
           </h2>
           <p className="text-[16.5px] text-ink-2">
             Tell us what&apos;s going on. We&apos;ll say honestly which one or
-            two things would move the needle fastest — and which can wait.
+            two things would move the needle fastest â€” and which can wait.
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             <Button href="/book" variant="accent">
