@@ -7,6 +7,7 @@ import { Testimonials } from "@/components/sections/testimonials";
 import { FAQ } from "@/components/sections/faq";
 import { Journal } from "@/components/sections/journal";
 import { Contact } from "@/components/sections/contact";
+import { FloatingWhatsApp } from "@/components/floating-whatsapp";
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
       <FAQ />
       <Journal />
       <Contact />
+      <FloatingWhatsApp />
     </>
   );
 }
