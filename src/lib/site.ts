@@ -1,10 +1,16 @@
 export const SITE = {
   name: "A&O Kreative",
   tagline: "Crafting brands that command",
-  /* The positioning line. Both halves of the business in one sentence. */
   promise: "We build the software, and we bring you the customers.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://aokreative.vercel.app",
   email: "hello@aokreative.com",
+  phone: "0182297245",
+  whatsapp: "https://wa.me/254182297245",
+  socials: {
+    instagram: "https://instagram.com/a.o_kreative",
+    tiktok: "https://tiktok.com/@aokreative",
+    linkedin: "https://linkedin.com/in/ao-kreative-28b2a0399",
+  },
 } as const;
 
 export type NavItem = { label: string; href: string; note?: string };

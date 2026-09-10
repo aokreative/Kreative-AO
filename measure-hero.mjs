@@ -1,49 +1,57 @@
 import { chromium } from '@playwright/test';
 
-async function measure(page, width) {
-  await page.setViewportSize({ width, height: 900 });
-  await page.goto('http://localhost:3000/', { waitUntil: 'networkidle' });
-  await page.waitForTimeout(2000);
-
-  return page.evaluate(() => {
-    const main = document.getElementById('main') || document.querySelector('main');
-    if (!main) return { error: 'No main' };
-    const section = main.querySelector('section');
-    if (!section) return { error: 'No section' };
-    const sticky = section.querySelector('[class*="sticky"]');
-    const container = sticky?.querySelector('[class*="grid-cols"]');
-    if (!container) return { error: 'No container' };
-    
-    const children = Array.from(container.children);
-    const copyCol = children.find(c => c.className?.includes?.('col-span-6'));
-    const imageCol = children.find(c => c.className?.includes?.('col-start-6'));
-    
-    const containerRect = container.getBoundingClientRect();
-    const copyRect = copyCol?.getBoundingClientRect();
-    const imageRect = imageCol?.getBoundingClientRect();
-    
-    return {
-      viewport: window.innerWidth,
-      container: { left: Math.round(containerRect.left), width: Math.round(containerRect.width) },
-      copyCol: copyRect ? { left: Math.round(copyRect.left), width: Math.round(copyRect.width), className: copyCol.className.slice(0, 100) } : 'not found',
-      imageCol: imageRect ? { left: Math.round(imageRect.left), width: Math.round(imageRect.width), className: imageCol.className.slice(0, 100) } : 'not found',
-    };
-  });
-}
-
 (async () => {
   const browser = await chromium.launch();
   const context = await browser.newContext();
   const page = await context.newPage();
   
-  await page.addInitScript(() => { sessionStorage.setItem('ao-splash', '1'); });
-
-  console.log('=== 1440px ===');
-  console.log(JSON.stringify(await measure(page, 1440), null, 2));
+  await page.goto('http://localhost:3000/', { waitUntil: 'networkidle' });
   
-  console.log('\n=== 1920px ===');
-  console.log(JSON.stringify(await measure(page, 1920), null, 2));
-
+  const metrics = await page.evaluate(() => {
+    // Let's find ANY section with 200vh
+    const elements = Array.from(document.querySelectorAll('*'));
+    const heroWrapper = elements.find(el => {
+      const style = window.getComputedStyle(el);
+      return style.height.includes('vh') || el.className.includes('200vh') || el.className.includes('hero');
+    });
+    
+    // Find the actual hero section from page.tsx (it's the first section)
+    const sections = Array.from(document.querySelectorAll('section'));
+    const heroSection = sections[0];
+    const nextSection = sections[1];
+    
+    // Check for sticky children in the hero section
+    const getStickyChild = (el) => {
+      if (!el) return null;
+      const children = Array.from(el.querySelectorAll('*'));
+      return children.find(child => {
+        const style = window.getComputedStyle(child);
+        return style.position === 'sticky';
+      });
+    };
+    
+    const stickyChild = getStickyChild(heroSection);
+    
+    const heroWrapperHeight = heroSection ? window.getComputedStyle(heroSection).height : null;
+    const stickyChildHeight = stickyChild ? window.getComputedStyle(stickyChild).height : null;
+    const nextSectionTop = nextSection ? nextSection.getBoundingClientRect().top + window.scrollY : null;
+    
+    return {
+      heroWrapperHeight,
+      stickyChildHeight,
+      nextSectionTop,
+      viewportHeight: window.innerHeight,
+      heroClasses: heroSection ? heroSection.className : '',
+      allSections: sections.map(s => ({
+        classes: s.className,
+        height: window.getComputedStyle(s).height,
+        top: s.getBoundingClientRect().top + window.scrollY
+      }))
+    };
+  });
+  
+  console.log(JSON.stringify(metrics, null, 2));
+  
   await context.close();
   await browser.close();
 })();

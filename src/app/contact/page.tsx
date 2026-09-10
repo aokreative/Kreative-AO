@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import { SITE } from "@/lib/site";
 import { Container, Eyebrow, Section } from "@/components/ui/primitives";
@@ -49,9 +49,18 @@ export default function ContactPage() {
               <h2 className="label text-ink-3">Prefer email</h2>
               <a
                 href={`mailto:${SITE.email}`}
-                className="w-fit text-[16px] text-accent-ink underline underline-offset-4"
+                className="w-fit text-[16px] text-accent-ink underline underline-offset-4 mb-2"
               >
                 {SITE.email}
+              </a>
+              <h2 className="label text-ink-3">Prefer WhatsApp</h2>
+              <a
+                href={SITE.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-fit text-[16px] text-accent-ink underline underline-offset-4"
+              >
+                {SITE.phone}
               </a>
             </div>
             <div className="flex flex-col gap-2">

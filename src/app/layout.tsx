@@ -56,6 +56,22 @@ export default function RootLayout({
         <SiteFooter />
         <Assistant />
         <CursorTracker />
+        <Script id="schema-org" type="application/ld+json" strategy="afterInteractive">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": SITE.name,
+            "url": SITE.url,
+            "logo": `${SITE.url}/brand/logo.png`,
+            "telephone": SITE.phone,
+            "email": SITE.email,
+            "sameAs": [
+              SITE.socials.instagram,
+              SITE.socials.tiktok,
+              SITE.socials.linkedin
+            ]
+          })}
+        </Script>
       </body>
     </html>
   );

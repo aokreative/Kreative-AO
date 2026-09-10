@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import { Button, Container, Eyebrow } from "@/components/ui/primitives";
@@ -29,7 +29,7 @@ export function Hero() {
       <div className="header-veil-dark"></div>
 
       {/* 3. THE TEXT CONTENT LAYER */}
-      <div className="relative z-20 w-full container mx-auto px-6 grid lg:grid-cols-12 gap-8 py-24">
+      <div className="relative z-20 w-full container mx-auto px-6 grid lg:grid-cols-12 gap-8 pt-24 pb-4">
         <div className="col-span-12 lg:col-span-7 text-[#F3F0E6] text-left flex flex-col items-start">
           <Reveal>
                 <div className="inline-flex items-center rounded-full border border-white/20 bg-white/5 px-4 py-1.5 mb-6">
@@ -71,7 +71,7 @@ export function Hero() {
             </div>
 
             {/* Stat Card */}
-            <div className="col-span-12 lg:col-span-5 self-end pb-8">
+            <div className="col-span-12 lg:col-span-5 self-end pb-0">
               <Reveal delay={0.4}>
                 <div className="glass flex w-full flex-col items-center justify-center rounded-2xl p-6 shadow-2xl">
                   <span className="tnum font-display text-[48px] leading-none text-parchment drop-shadow-lg">
