@@ -8,7 +8,7 @@ import Image from "next/image";
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "Brand strategy, websites, content, campaigns, ads, AI automation and POS/ERP systems â€” from one Nairobi team.",
+    "Brand strategy, websites, content, campaigns, ads, AI automation and POS/ERP systems — from one Nairobi team.",
 };
 
 export default function ServicesPage() {
@@ -32,7 +32,7 @@ export default function ServicesPage() {
             </h1>
             <p className="mt-6 max-w-[60ch] text-[17px] text-[#F3F0E6]/90">
               No rigid packages. We scope each project around your goal and
-              budget â€” whether that&apos;s one quick win or a long-term
+              budget — whether that&apos;s one quick win or a long-term
               partnership. Here&apos;s the full range.
             </p>
           </div>
@@ -86,7 +86,7 @@ export default function ServicesPage() {
           </h2>
           <p className="text-[16.5px] text-ink-2">
             Tell us what&apos;s going on. We&apos;ll say honestly which one or
-            two things would move the needle fastest â€” and which can wait.
+            two things would move the needle fastest — and which can wait.
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             <Button href="/book" variant="accent">

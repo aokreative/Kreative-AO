@@ -10,7 +10,7 @@ import { ResultsStats } from "./results-stats";
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Case studies from A&O Kreative â€” the problem, what we did about it, and the numbers that came out the other side.",
+    "Case studies from A&O Kreative — the problem, what we did about it, and the numbers that came out the other side.",
 };
 
 export default function WorkPage() {

@@ -84,7 +84,7 @@ export default function ContactPage() {
             <div className="flex flex-col gap-2 border-t border-line-soft pt-6">
               <h2 className="label text-ink-3">Already using Duka POS?</h2>
               <p className="text-[15px] text-ink-2">
-                For support with an existing account, sign in to the app â€”
+                For support with an existing account, sign in to the app —
                 that reaches the product team faster than this form.
               </p>
             </div>

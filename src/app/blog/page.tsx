@@ -8,7 +8,7 @@ import Image from "next/image";
 export const metadata: Metadata = {
   title: "Blog",
   description:
-    "Practical thinking on marketing, branding and growing a business in Kenya â€” written for people who'd rather do the work than read theory.",
+    "Practical thinking on marketing, branding and growing a business in Kenya — written for people who'd rather do the work than read theory.",
 };
 
 export default function BlogPage() {
@@ -34,7 +34,7 @@ export default function BlogPage() {
             </h1>
             <p className="mt-6 max-w-[60ch] text-[17px] text-[#F3F0E6]/90">
               Practical thinking on marketing, branding and growing a business in
-              Kenya â€” written for people who&apos;d rather do the work than read
+              Kenya — written for people who&apos;d rather do the work than read
               theory.
             </p>
           </div>
@@ -52,7 +52,7 @@ export default function BlogPage() {
             </div>
             <div className="flex flex-col gap-4 p-8 sm:p-10 flex-grow">
             <span className="label text-accent-ink">
-              Featured Â· {featured.category}
+              Featured · {featured.category}
             </span>
             <h2 className="max-w-[24ch] text-[clamp(24px,3vw,34px)] leading-[1.15]">
               {featured.title}
@@ -61,7 +61,7 @@ export default function BlogPage() {
               {featured.excerpt}
             </p>
             <p className="label text-ink-3">
-              {featured.date} Â· {featured.readMinutes} min read
+              {featured.date} · {featured.readMinutes} min read
             </p>
             <span className="pt-1 text-[14px] font-semibold text-accent-ink group-hover:underline">
               Read the article â†’
@@ -99,7 +99,7 @@ export default function BlogPage() {
                   {a.excerpt}
                 </p>
                 <span className="mt-auto pt-2 text-[12.5px] text-ink-3">
-                  {a.date} Â· {a.readMinutes} min
+                  {a.date} · {a.readMinutes} min
                 </span>
               </div>
             </Link>

@@ -46,7 +46,7 @@ export default function AboutPage() {
                 That started for practical reasons. Building software for clients
                 taught us how much of a product&apos;s success is decided by whether
                 anyone hears about it. Running campaigns taught us how often the
-                thing blocking a campaign is the product itself â€” a signup form, a
+                thing blocking a campaign is the product itself — a signup form, a
                 slow page, a checkout that loses people. Owning both meant we could
                 fix whichever one was actually broken.
               </p>
@@ -61,8 +61,8 @@ export default function AboutPage() {
               <p>
                 So we build our own products too. Duka POS is live and supporting
                 real shops. An Agency Management System for insurance brokerages is
-                in development. Our CRM isn&apos;t for sale â€” it exists because we
-                needed one â€” but it is what the company runs on.
+                in development. Our CRM isn&apos;t for sale — it exists because we
+                needed one — but it is what the company runs on.
               </p>
             </div>
           </div>

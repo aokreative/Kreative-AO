@@ -33,7 +33,7 @@ export function Hero() {
         <div className="col-span-12 lg:col-span-7 text-[#F3F0E6] text-left flex flex-col items-start">
           <Reveal>
                 <div className="inline-flex items-center rounded-full border border-white/20 bg-white/5 px-4 py-1.5 mb-6">
-                  <span className="text-xs font-mono uppercase tracking-wider text-teal-soft">Marketing Â· Branding Â· AI â€” Nairobi</span>
+                  <span className="text-xs font-mono uppercase tracking-wider text-teal-soft">Marketing · Branding · AI — Nairobi</span>
                 </div>
               </Reveal>
               
@@ -48,7 +48,7 @@ export function Hero() {
               
               <Reveal delay={0.2}>
                 <p className="mt-8 max-w-[56ch] text-[19px] leading-relaxed text-teal-soft/90 drop-shadow-md">
-                  Most agencies sell you activity â€” posts, reach, impressions. We care
+                  Most agencies sell you activity — posts, reach, impressions. We care
                   about one thing: did it actually grow your business? Every project
                   starts with that question and ends with the numbers to answer it.
                 </p>

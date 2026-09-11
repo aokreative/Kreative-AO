@@ -30,7 +30,7 @@ export default function ProductsPage() {
               Software we own, not just software we ship
             </h1>
             <p className="mt-6 max-w-[58ch] text-[17px] text-[#F3F0E6]/90">
-              Two products in market. One you can buy today, one being built now â€”
+              Two products in market. One you can buy today, one being built now —
               and we&apos;d rather say which is which than let you find out later.
             </p>
           </div>
@@ -90,8 +90,8 @@ export default function ProductsPage() {
             </div>
             <div className="flex flex-col gap-5 p-8 flex-grow justify-center">
               <p className="text-[15px] text-ink-2">
-                We also run our own CRM in production. It isn&apos;t for sale â€” it
-                exists because we needed it â€” but it is a fair sample of what our{" "}
+                We also run our own CRM in production. It isn&apos;t for sale — it
+                exists because we needed it — but it is a fair sample of what our{" "}
                 <a className="text-accent-ink underline underline-offset-4" href="/services/software">
                   software team
                 </a>{" "}

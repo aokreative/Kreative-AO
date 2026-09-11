@@ -25,8 +25,8 @@ export function Process() {
         </Reveal>
       </div>
       
-      <div ref={ref} className="relative mt-16 min-h-[200vh]">
-        <div className="sticky top-[20vh]">
+      <div ref={ref} className="relative mt-16 min-h-[120vh]">
+        <div className="sticky top-[15vh]">
           {/* Ridge-arc progress line */}
           <div className="absolute top-8 left-0 right-0 h-1 hidden lg:block overflow-hidden">
              <div className="h-full bg-line-soft w-full absolute rounded-full" />
