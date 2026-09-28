@@ -2,17 +2,19 @@
 
 /* ------------------------------------------------------------------
    A&O Kreative — design tokens
-   Every value sampled from the logo artwork. See the brand system doc.
+   Dark-mode-first. Inspired by Vercel/Linear engineering aesthetics.
 ------------------------------------------------------------------ */
 @theme {
-  /* brand */
+  /* brand palette */
   --color-blue:        #007AFF;
   --color-blue-deep:   #0056B3;
+  --color-cyan:        #00D4FF;
+  --color-cyan-glow:   #00BFEA;
   --color-parchment:   #EFE4CF;
   --color-paper:       #FAF7F0;
   --color-sand:        #E1D6BE;
 
-  /* signal gradient */
+  /* signal gradient — retained for hero accent span */
   --color-orange:      #B6571A;
   --color-orange-deep: #8E4413;
   --color-rose:        #B65E58;
@@ -20,34 +22,60 @@
   --color-indigo:      #393C56;
   --color-orange-lift: #E3A46B;
 
-  /* type — self-hosted via Fontsource (see layout.tsx) */
+  /* typography — Inter, modern SaaS standard */
   --font-display: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --font-body:    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --font-mono:    "JetBrains Mono Variable", ui-monospace, "SF Mono", Menlo, monospace;
 
-  /* new tokens */
-  --color-ink: #000000;
-  --color-bone: #F3F0E6;
-  --color-clay: #E0A175;
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-spring: cubic-bezier(.22, 1, .36, 1);
+  /* misc tokens */
+  --color-ink:        #FFFFFF;
+  --color-bone:       #F3F0E6;
+  --color-clay:       #E0A175;
+  --ease-out-expo:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring:      cubic-bezier(.22, 1, .36, 1);
 
-  /* geometry — 8pt base */
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
+  /* geometry */
+  --radius-sm:  6px;
+  --radius-md:  10px;
+  --radius-lg:  16px;
 
-  /* spacing scale — clamp-based, no arbitrary values */
+  /* spacing */
   --space-section: clamp(5rem, 10vw, 9rem);
   --space-gutter:  clamp(1.25rem, 5vw, 4rem);
   --space-card:    clamp(1.5rem, 2.5vw, 2.5rem);
 }
 
-/* Semantic surface tokens — light is the default palette. */
+/* ----------------------------------------------------------------
+   DARK MODE FIRST — absolute black canvas, elevated dark surfaces.
+   Light mode is intentionally left as a reduced fallback only.
+---------------------------------------------------------------- */
 :root {
-  --bg:         #FFFFFF;
-  --surface:    #F5F5F7;
-  --surface-2:  #EBEBEF;
+  /* Default: dark mode first */
+  --bg:         #0A0A0A;
+  --surface:    #141414;
+  --surface-2:  #1A1A1A;
+  --ink:        #FFFFFF;
+  --ink-2:      rgba(255, 255, 255, 0.65);
+  --ink-3:      rgba(255, 255, 255, 0.35);
+  --line:       rgba(255, 255, 255, 0.08);
+  --line-soft:  rgba(255, 255, 255, 0.06);
+  /* Cyan / electric blue accent — glowing CTA */
+  --accent:     #00D4FF;
+  --accent-ink: #00BFEA;
+  --accent-glow: 0 0 20px rgba(0, 212, 255, 0.4), 0 0 60px rgba(0, 212, 255, 0.15);
+  --on-accent:  #000000;
+  /* Shadows: very soft, diffuse — elements float above black */
+  --shadow-e1:  0 0 0 1px rgba(255,255,255,0.06), 0 4px 16px rgba(0,0,0,0.4);
+  --shadow-e2:  0 0 0 1px rgba(255,255,255,0.10), 0 8px 32px rgba(0,0,0,0.6), 0 0 60px rgba(0,212,255,0.06);
+  --highlight:  inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
+  --nav-h:      68px;
+}
+
+/* Light mode: only applies when user explicitly forces it */
+[data-theme="light"] {
+  --bg:         #FAFAFA;
+  --surface:    #FFFFFF;
+  --surface-2:  #F5F5F7;
   --ink:        #000000;
   --ink-2:      #4A4A4A;
   --ink-3:      #8E8E93;
@@ -55,64 +83,28 @@
   --line-soft:  #F2F2F7;
   --accent:     #007AFF;
   --accent-ink: #0056B3;
+  --accent-glow: 0 0 20px rgba(0, 122, 255, 0.3);
   --on-accent:  #FFFFFF;
-  --shadow-e1:  0 4px 12px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
-  --shadow-e2:  0 12px 32px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.04);
+  --shadow-e1:  0 4px 12px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
+  --shadow-e2:  0 12px 32px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
   --highlight:  inset 0 1px 0 0 rgb(255 255 255 / .8);
-  --nav-h:      68px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg:         #000000;
-    --surface:    #1C1C1E;
-    --surface-2:  #2C2C2E;
-    --ink:        #FFFFFF;
-    --ink-2:      #EBEBEF;
-    --ink-3:      #8E8E93;
-    --line:       #3A3A3C;
-    --line-soft:  #2C2C2E;
-    --accent:     #0A84FF;
-    --accent-ink: #64D2FF;
-    --on-accent:  #FFFFFF;
-    --shadow-e1:  0 4px 12px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1);
-    --shadow-e2:  0 12px 32px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.2);
-    --highlight:  inset 0 1px 0 0 rgb(255 255 255 / .08);
-  }
-}
-
-:root[data-theme="dark"] {
-  --bg:         #000000;
-  --surface:    #1C1C1E;
-  --surface-2:  #2C2C2E;
-  --ink:        #FFFFFF;
-  --ink-2:      #EBEBEF;
-  --ink-3:      #8E8E93;
-  --line:       #3A3A3C;
-  --line-soft:  #2C2C2E;
-  --accent:     #0A84FF;
-  --accent-ink: #64D2FF;
-  --on-accent:  #FFFFFF;
-  --shadow-e1:  0 4px 12px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1);
-  --shadow-e2:  0 12px 32px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.2);
-  --highlight:  inset 0 1px 0 0 rgb(255 255 255 / .08);
-}
-
-/* Expose the semantic tokens to Tailwind utilities */
+/* Expose semantic tokens to Tailwind */
 @theme inline {
-  --color-bg:        var(--bg);
-  --color-surface:   var(--surface);
-  --color-surface-2: var(--surface-2);
-  --color-ink:       var(--ink);
-  --color-ink-2:     var(--ink-2);
-  --color-ink-3:     var(--ink-3);
-  --color-line:      var(--line);
-  --color-line-soft: var(--line-soft);
-  --color-accent:    var(--accent);
-  --color-accent-ink:var(--accent-ink);
-  --color-on-accent: var(--on-accent);
-  --shadow-e1:       var(--shadow-e1);
-  --shadow-e2:       var(--shadow-e2);
+  --color-bg:         var(--bg);
+  --color-surface:    var(--surface);
+  --color-surface-2:  var(--surface-2);
+  --color-ink:        var(--ink);
+  --color-ink-2:      var(--ink-2);
+  --color-ink-3:      var(--ink-3);
+  --color-line:       var(--line);
+  --color-line-soft:  var(--line-soft);
+  --color-accent:     var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-on-accent:  var(--on-accent);
+  --shadow-e1:        var(--shadow-e1);
+  --shadow-e2:        var(--shadow-e2);
 }
 
 @layer base {
@@ -124,31 +116,37 @@
     font-size: 16.5px;
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   h1, h2, h3, h4 {
     font-family: var(--font-display);
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: -0.03em;
     line-height: 0.92;
     text-wrap: balance;
+    color: var(--ink);
   }
   .prose-aok p, .prose-aok li { max-width: 62ch; }
-  ::selection { background: var(--color-parchment); color: var(--color-teal-deep); }
+  /* Selection: cyan highlight */
+  ::selection { background: rgba(0, 212, 255, 0.25); color: var(--ink); }
   :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
-  
+
   html:not([data-splash="skip"]):not([data-splash="done"]) body { overflow: hidden; }
 }
 
+/* ----------------------------------------------------------------
+   Utilities
+---------------------------------------------------------------- */
 @layer utilities {
-  /* The signature asset. Once per screen — never behind body copy. */
+  /* Signal gradient bar — thin horizontal rule above footer */
   .signal {
-    background-image: linear-gradient(100deg,
-      var(--color-orange) 0%, var(--color-rose) 38%,
-      var(--color-mauve) 66%, var(--color-indigo) 100%);
+    background-image: linear-gradient(90deg,
+      #00D4FF 0%, #0066FF 35%, #7B2FFF 68%, #FF3CAC 100%);
   }
+  /* Accent gradient text — hero headline highlight */
   .signal-text {
-    background-image: linear-gradient(100deg,
-      var(--color-orange) 0%, var(--color-rose) 45%, var(--color-indigo) 100%);
+    background-image: linear-gradient(90deg,
+      #00D4FF 0%, #0066FF 50%, #7B2FFF 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -156,27 +154,31 @@
   .tnum { font-variant-numeric: tabular-nums; }
   .label {
     font-family: var(--font-mono);
-    font-size: 12px;
-    letter-spacing: 0.18em;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--ink-3);
   }
 }
 
 /* ----------------------------------------------------------------
-   Interaction layer — everything responds in 400-500ms spring ease.
-   Cards lift. Links draw underlines from left. Focus uses --accent.
-   Nothing changes colour alone on hover.
+   Interaction layer — spring ease, lift on hover, glow on accent.
 ---------------------------------------------------------------- */
 @layer utilities {
+  /* Card: elevated dark surface with 1px edge definition */
   .card {
-    border: 1px solid var(--line-soft);
+    background: var(--surface);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: var(--shadow-e1), var(--highlight);
-    transition: transform 450ms var(--ease-spring),
-                box-shadow 450ms var(--ease-spring);
+    transition:
+      transform 450ms var(--ease-spring),
+      box-shadow 450ms var(--ease-spring),
+      border-color 300ms ease;
   }
   .card:hover {
-    transform: translateY(-4px);
+    transform: translateY(-3px);
+    border-color: rgba(255, 255, 255, 0.14);
     box-shadow: var(--shadow-e2), var(--highlight);
   }
 
@@ -199,10 +201,16 @@
   .link-draw:hover::after {
     transform: scaleX(1);
   }
+
+  /* Accent glow — use on CTA buttons */
+  .glow-accent:hover {
+    box-shadow: var(--accent-glow);
+  }
 }
 
-/* Long-form article body. The blog is the only place raw HTML is rendered,
-   so its typography is defined once here rather than per element. */
+/* ----------------------------------------------------------------
+   Prose / long-form blog content
+---------------------------------------------------------------- */
 .prose-aok { font-size: 17.5px; line-height: 1.75; color: var(--ink-2); }
 .prose-aok > * + * { margin-top: 1.15em; }
 .prose-aok h2 {
@@ -229,78 +237,58 @@
 }
 .prose-aok blockquote p { margin: 0; }
 
-/* Night-city backdrop for the opening card and the hero.
-   The photo layer sits on top and is optional: drop a licensed image at
-   /brand/skyline.jpg and it takes over automatically. Until then the
-   generated layers below carry it — no broken image, no licence risk,
-   and a fraction of the bytes. */
+/* ----------------------------------------------------------------
+   Hero backgrounds
+   .skyline — night city, generated gradient fallback
+   .hero-photo — full-bleed photograph with dark overlay
+---------------------------------------------------------------- */
 .skyline {
-  background-color: var(--color-teal-deep);
+  background-color: #0A0A0A;
   background-image:
     url("/brand/skyline.jpg"),
-    radial-gradient(120% 52% at 16% 100%, rgba(227,164,107,.34), transparent 62%),
-    radial-gradient(95% 44% at 74% 100%, rgba(182,87,26,.26), transparent 64%),
-    radial-gradient(64% 34% at 46% 104%, rgba(245,214,180,.30), transparent 58%),
-    linear-gradient(180deg, #06171A 0%, #0A2023 40%, #102C30 72%, #16383C 100%);
+    radial-gradient(120% 52% at 16% 100%, rgba(0,212,255,.12), transparent 62%),
+    radial-gradient(95% 44% at 74% 100%, rgba(0,102,255,.10), transparent 64%),
+    radial-gradient(64% 34% at 46% 104%, rgba(123,47,255,.10), transparent 58%),
+    linear-gradient(180deg, #0A0A0A 0%, #0D0D0D 40%, #111111 72%, #141414 100%);
   background-size: cover, cover, cover, cover, cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 
-/* Scattered light, drawn rather than photographed. */
-.skyline::before {
-  content: "";
-  position: absolute;
-  inset: 55% 0 0 0;
-  pointer-events: none;
-  opacity: .75;
-  background-image:
-    radial-gradient(1.5px 1.5px at 12% 30%, rgba(255,214,150,.9), transparent),
-    radial-gradient(1.5px 1.5px at 27% 62%, rgba(255,226,180,.75), transparent),
-    radial-gradient(1.5px 1.5px at 41% 18%, rgba(255,206,140,.8), transparent),
-    radial-gradient(1.5px 1.5px at 55% 74%, rgba(255,232,190,.7), transparent),
-    radial-gradient(1.5px 1.5px at 68% 40%, rgba(255,210,150,.85), transparent),
-    radial-gradient(1.5px 1.5px at 82% 66%, rgba(255,224,175,.7), transparent),
-    radial-gradient(1.5px 1.5px at 92% 26%, rgba(255,214,150,.8), transparent),
-    radial-gradient(1.5px 1.5px at 34% 88%, rgba(255,236,200,.6), transparent),
-    radial-gradient(1.5px 1.5px at 74% 92%, rgba(255,218,165,.6), transparent);
-}
-
-/* Hero photograph. The subject sits right of centre with dark room on the
-   left, so the frame is anchored right and the veil is weighted left — the
-   headline gets a quiet ground and the photo keeps the half that carries it. */
 .hero-photo {
-  background-color: var(--color-teal-deep);
+  background-color: #050505;
   background-image:
     url("/brand/hero.jpg"),
-    radial-gradient(46% 62% at 74% 52%, rgba(227,164,107,.26), transparent 68%),
-    radial-gradient(34% 44% at 62% 60%, rgba(143,184,180,.20), transparent 70%),
-    radial-gradient(40% 50% at 88% 38%, rgba(182,87,26,.16), transparent 72%),
-    linear-gradient(115deg, #071A1D 0%, #0B2226 42%, #123033 74%, #17393D 100%);
+    /* Radial overlay: top-centre vignette to push text contrast */
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,0,0,0.85) 0%, transparent 70%),
+    /* Subtle cyan bleed right */
+    radial-gradient(46% 62% at 74% 52%, rgba(0,212,255,.06), transparent 68%),
+    linear-gradient(165deg, #050505 0%, #0A0A0A 42%, #0D0D0D 74%, #111111 100%);
   background-size: cover;
   background-position: 72% center;
   background-repeat: no-repeat;
 }
 
-.img-treat { position: relative; }
-.img-treat::after {
-  content: ""; position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(180deg,
-    rgba(6, 21, 15, 0.4) 0%,
-    rgba(6, 21, 15, 0.8) 100%);
-}
-.img-treat img { filter: saturate(0.85) contrast(1.05); }
-
+/* Veil: pulls text away from bg image on hero */
 .hero-veil {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(to right, var(--color-ink) 10%, rgba(6, 21, 15, 0.8) 40%, transparent 100%);
+  background:
+    radial-gradient(ellipse 100% 80% at 50% -10%, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.70) 45%, transparent 75%),
+    linear-gradient(to right, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.55) 45%, rgba(0,0,0,0.20) 100%);
 }
 
+@media (max-width: 900px) {
+  .hero-veil {
+    background: linear-gradient(180deg, rgba(0,0,0,0.92), rgba(0,0,0,0.80) 55%, rgba(0,0,0,0.94));
+  }
+}
+
+/* Dark directional veil — used on inner page headers */
 .header-veil {
   position: absolute; inset: 0; z-index: 10; pointer-events: none;
-  background: linear-gradient(to right, var(--color-ink) 10%, color-mix(in srgb, var(--color-ink) 80%, transparent) 40%, transparent 100%);
+  background: linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.65) 45%, transparent 100%);
 }
 
 .header-veil-dark {
@@ -310,38 +298,41 @@
   content: ""; position: absolute; inset: 0; pointer-events: none;
 }
 .header-veil-dark::before {
-  background: linear-gradient(to right, var(--color-forest), color-mix(in srgb, var(--color-forest) 80%, transparent) 50%, transparent);
+  background: linear-gradient(to right, rgba(5,5,5,0.95), rgba(5,5,5,0.70) 50%, transparent);
   mix-blend-mode: multiply;
 }
 .header-veil-dark::after {
-  background: linear-gradient(to right, color-mix(in srgb, var(--color-forest) 90%, transparent), color-mix(in srgb, var(--color-forest) 50%, transparent) 50%, transparent);
+  background: linear-gradient(to right, rgba(5,5,5,0.85), rgba(5,5,5,0.45) 50%, transparent);
 }
 
-@media (max-width: 900px) {
-  /* On a narrow screen the text covers the whole frame, so the photo becomes
-     texture rather than subject and needs to sit further back. */
-  .hero-veil {
-    background: linear-gradient(180deg, rgba(6,23,26,.90), rgba(6,23,26,.82) 55%, rgba(6,23,26,.94));
-  }
-}
-
-/* The teal wash that keeps type legible over any of it. */
+/* Skyline veil */
 .skyline-veil {
   position: absolute;
   inset: 0;
   pointer-events: none;
   background:
-    linear-gradient(115deg, rgba(6,23,26,.90), rgba(6,23,26,.66) 48%, rgba(6,23,26,.94)),
-    radial-gradient(58% 46% at 50% 46%, rgba(6,23,26,.55), transparent 72%);
+    linear-gradient(115deg, rgba(0,0,0,0.94), rgba(0,0,0,0.70) 48%, rgba(0,0,0,0.96)),
+    radial-gradient(58% 46% at 50% 46%, rgba(0,0,0,0.60), transparent 72%);
 }
 
+/* Image treatment overlay */
+.img-treat { position: relative; }
+.img-treat::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.75) 100%);
+}
+.img-treat img { filter: saturate(0.8) contrast(1.08); }
+
+/* ----------------------------------------------------------------
+   Splash animation
+---------------------------------------------------------------- */
 @keyframes splashUp {
   from { opacity: 0; transform: translateY(14px); }
   to   { opacity: 1; transform: none; }
 }
 
 @keyframes splash-out {
-  0% { opacity: 1; }
+  0%   { opacity: 1; }
   100% { opacity: 0; pointer-events: none; visibility: hidden; }
 }
 
@@ -357,20 +348,31 @@ html[data-splash="skip"] #splash {
   }
 }
 
+/* ----------------------------------------------------------------
+   Glass / bento card — premium dark surface with edge definition.
+   The 1px border at rgba(255,255,255,0.08) is the critical detail
+   that makes cards "float" cleanly above the #0A0A0A canvas.
+---------------------------------------------------------------- */
 .glass {
   position: relative;
   overflow: hidden;
   background: var(--surface);
-  border: 1px solid var(--line-soft);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: var(--shadow-e1);
+  transition:
+    border-color 300ms ease,
+    box-shadow 450ms var(--ease-spring),
+    transform 450ms var(--ease-spring);
 }
+
 @supports (backdrop-filter: blur(12px)) {
   .glass {
-    backdrop-filter: blur(12px) saturate(1.2);
-    background: color-mix(in srgb, var(--surface) 85%, transparent);
+    backdrop-filter: blur(16px) saturate(1.4);
+    background: color-mix(in srgb, var(--surface) 80%, transparent);
   }
 }
 
+/* Mouse-following glow: cyan tint on cursor position */
 .glass::before {
   content: "";
   position: absolute;
@@ -380,16 +382,18 @@ html[data-splash="skip"] #splash {
   height: 100%;
   pointer-events: none;
   background: radial-gradient(
-    600px circle at var(--mouse-x, 0) var(--mouse-y, 0),
-    rgba(255, 255, 255, 0.4),
+    500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(0, 212, 255, 0.07),
     transparent 40%
   );
   opacity: 0;
-  transition: opacity 0.5s;
+  transition: opacity 0.5s ease;
 }
 
 .glass:hover {
+  border-color: rgba(255, 255, 255, 0.14);
   box-shadow: var(--shadow-e2);
+  transform: translateY(-2px);
 }
 
 .glass:hover::before {

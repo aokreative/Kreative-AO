@@ -7,17 +7,17 @@ import { Container } from "./ui/primitives";
 export function SiteFooter() {
   const year = new Date().getFullYear();
   return (
-    <footer className="mt-8 bg-ink text-surface">
+    <footer className="mt-8" style={{ background: '#0A0A0A', color: 'var(--ink)' }}>
       <div aria-hidden className="signal h-[3px] w-full" />
       <Container className="grid gap-12 py-16 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div className="flex flex-col gap-4">
           <Logo width={110} onDark />
-          <p className="max-w-[34ch] text-[15px] leading-relaxed text-surface-2">
+          <p className="max-w-[34ch] text-[15px] leading-relaxed" style={{ color: 'rgba(255,255,255,0.45)' }}>
             {SITE.promise}
           </p>
           <a
             href={`mailto:${SITE.email}`}
-            className="w-fit text-[14.5px] text-surface underline decoration-ink-3 underline-offset-4 hover:decoration-accent"
+            className="w-fit text-[14.5px] text-white underline decoration-white/20 underline-offset-4 hover:decoration-accent transition-all"
           >
             {SITE.email}
           </a>
@@ -25,11 +25,11 @@ export function SiteFooter() {
             href={SITE.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-fit text-[14.5px] text-surface underline decoration-ink-3 underline-offset-4 hover:decoration-accent"
+            className="w-fit text-[14.5px] text-white underline decoration-white/20 underline-offset-4 hover:decoration-accent transition-all"
           >
             {SITE.phone}
           </a>
-          <p className="text-[13.5px] text-surface-2 mt-2">
+          <p className="text-[13.5px] mt-2" style={{ color: 'rgba(255,255,255,0.35)' }}>
             The Piano, Westlands — Nairobi
           </p>
         </div>
@@ -47,7 +47,7 @@ export function SiteFooter() {
             <FooterLink key={p.slug} href={p.href}>
               {p.name}
               {p.status === "building" && (
-                <span className="ml-1.5 text-[11px] text-surface-2">soon</span>
+                <span className="ml-1.5 text-[11px]" style={{ color: 'rgba(255,255,255,0.35)' }}>soon</span>
               )}
             </FooterLink>
           ))}
@@ -64,7 +64,7 @@ export function SiteFooter() {
         </FooterCol>
       </Container>
 
-      <Container className="flex flex-col gap-4 border-t border-ink-3/40 py-6 text-[13px] text-surface-2 sm:flex-row sm:items-center sm:justify-between">
+      <Container className="flex flex-col gap-4 py-6 text-[13px] sm:flex-row sm:items-center sm:justify-between" style={{ borderTop: '1px solid rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.35)' }}>
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-6">
           <span>
             © {year} {SITE.name}. All rights reserved.
@@ -81,7 +81,7 @@ export function SiteFooter() {
             </a>
           </div>
         </div>
-        <span className="label text-ink-3">{SITE.tagline}</span>
+        <span className="label" style={{ color: 'rgba(255,255,255,0.25)' }}>{SITE.tagline}</span>
       </Container>
     </footer>
   );
@@ -96,7 +96,7 @@ function FooterCol({
 }) {
   return (
     <div className="flex flex-col gap-3">
-      <h3 className="label text-surface-2">{title}</h3>
+      <h3 className="label" style={{ color: 'rgba(255,255,255,0.35)' }}>{title}</h3>
       <div className="flex flex-col gap-2.5">{children}</div>
     </div>
   );
@@ -112,7 +112,7 @@ function FooterLink({
   return (
     <Link
       href={href}
-      className="w-fit text-[14.5px] text-surface-2 transition-colors hover:text-surface"
+      className="w-fit text-[14.5px] transition-colors hover:text-white" style={{ color: 'rgba(255,255,255,0.50)' }}
     >
       {children}
     </Link>

@@ -25,29 +25,29 @@ export function Hero() {
         <Image src="/brand/hero.jpg" fill priority className="object-cover object-center" alt="Workspace" />
       </div>
       
-      {/* 2. THE DARK VEIL LAYER (HARDCODED) */}
-      <div className="header-veil-dark"></div>
+      {/* 2. DARK RADIAL GRADIENT OVERLAY — ensures text is always readable */}
+      <div className="hero-veil" />
 
       {/* 3. THE TEXT CONTENT LAYER */}
       <div className="relative z-20 w-full container mx-auto px-6 grid lg:grid-cols-12 gap-8 pt-24 pb-4">
-        <div className="col-span-12 lg:col-span-7 text-[#F3F0E6] text-left flex flex-col items-start">
+        <div className="col-span-12 lg:col-span-7 text-white text-left flex flex-col items-start">
           <Reveal>
                 <div className="inline-flex items-center rounded-full border border-white/20 bg-white/5 px-4 py-1.5 mb-6">
-                  <span className="text-xs font-mono uppercase tracking-wider text-teal-soft">Marketing · Branding · AI — Nairobi</span>
+                  <span className="text-xs font-mono uppercase tracking-wider" style={{ color: 'var(--accent)' }}>Marketing · Branding · AI — Nairobi</span>
                 </div>
               </Reveal>
               
               <motion.div style={{ scale: headlineScale, opacity: headlineOpacity, transformOrigin: "left center" }}>
                 <Reveal delay={0.1}>
-                  <h1 className="mt-5 max-w-[20ch] text-[clamp(44px,7.5vw,96px)] font-medium leading-[1.05] text-parchment drop-shadow-2xl">
+                  <h1 className="mt-5 max-w-[20ch] text-[clamp(44px,7.5vw,96px)] font-semibold leading-[1.05] text-white drop-shadow-2xl">
                     We build the software, and we bring you the{" "}
-                    <span className="signal-text bg-clip-text text-transparent bg-gradient-to-r from-orange-lift to-parchment">customers</span>.
+                    <span className="signal-text">customers</span>.
                   </h1>
                 </Reveal>
               </motion.div>
               
               <Reveal delay={0.2}>
-                <p className="mt-8 max-w-[56ch] text-[19px] leading-relaxed text-teal-soft/90 drop-shadow-md">
+                <p className="mt-8 max-w-[56ch] text-[19px] leading-relaxed drop-shadow-md" style={{ color: 'rgba(255,255,255,0.70)' }}>
                   Most agencies sell you activity — posts, reach, impressions. We care
                   about one thing: did it actually grow your business? Every project
                   starts with that question and ends with the numbers to answer it.
@@ -74,10 +74,10 @@ export function Hero() {
             <div className="col-span-12 lg:col-span-5 self-end pb-0">
               <Reveal delay={0.4}>
                 <div className="glass flex w-full flex-col items-center justify-center rounded-2xl p-6 shadow-2xl">
-                  <span className="tnum font-display text-[48px] leading-none text-parchment drop-shadow-lg">
+                  <span className="tnum font-display text-[48px] leading-none text-white drop-shadow-lg">
                     {HEADLINE_STATS[0].value}
                   </span>
-                  <span className="mt-2 text-[14px] leading-snug text-teal-soft uppercase tracking-widest text-center">
+                  <span className="mt-2 text-[14px] leading-snug uppercase tracking-widest text-center" style={{ color: 'rgba(255,255,255,0.50)' }}>
                     {HEADLINE_STATS[0].label}
                   </span>
                 </div>
