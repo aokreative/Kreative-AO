@@ -4,7 +4,46 @@ import { SERVICES } from "@/content/services";
 import { Section, Container, Eyebrow } from "@/components/ui/primitives";
 import { Reveal } from "@/components/motion/reveal";
 import { motion, useScroll, useTransform } from "motion/react";
+import Image from "next/image";
 import { useRef } from "react";
+
+function BentoCard({ s, i, isLarge }: { s: any; i: number; isLarge: boolean }) {
+  return (
+    <Link
+      href={`/services/${s.slug}`}
+      className={`group flex flex-col rounded-xl bg-[#12121a] border border-white/[0.08] overflow-hidden h-full transition-all duration-300 hover:-translate-y-1 hover:border-white/[0.14] hover:shadow-[0_8px_32px_rgba(0,0,0,0.5)] ${
+        i === 0 ? "sm:col-span-2" :
+        i === 3 ? "sm:col-span-2" :
+        i === 6 ? "sm:col-span-2" : ""
+      }`}
+    >
+      {/* Image Zone */}
+      <div className={`relative w-full shrink-0 overflow-hidden ${isLarge || i === 6 ? "aspect-video" : "aspect-[16/10]"}`}>
+        <Image
+          src={s.image}
+          fill
+          className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+          alt={s.name}
+          sizes={isLarge || i === 6 ? "(max-width: 768px) 100vw, 66vw" : "(max-width: 768px) 100vw, 33vw"}
+        />
+      </div>
+
+      {/* Text Zone */}
+      <div className="flex flex-col gap-3 p-6 sm:p-7 flex-grow">
+        <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-[#0070F3]">{s.kicker}</span>
+        <h3 className={`${isLarge || i === 6 ? "text-[26px]" : "text-[21px]"} font-semibold text-white leading-tight`}>
+          {s.name}
+        </h3>
+        <p className={`text-[14.5px] leading-relaxed text-white/70 ${isLarge ? "max-w-[42ch]" : ""}`}>
+          {s.summary}
+        </p>
+        <span className="mt-auto pt-3 text-[13px] font-medium text-[#0070F3] group-hover:text-[#3b9eff] transition-colors">
+          Learn more →
+        </span>
+      </div>
+    </Link>
+  );
+}
 
 export function Services() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -12,14 +51,13 @@ export function Services() {
     target: containerRef,
     offset: ["start end", "end start"]
   });
-  
-  // Fade out sticky heading as section ends
+
   const opacity = useTransform(scrollYProgress, [0.8, 1], [1, 0]);
   return (
     <Section>
       <div ref={containerRef} className="grid lg:grid-cols-12 gap-12 lg:gap-8">
         <div className="lg:col-span-4 h-full">
-          <motion.div 
+          <motion.div
             style={{ opacity }}
             className="lg:sticky lg:top-[calc(var(--nav-h)+40px)]"
           >
@@ -27,12 +65,12 @@ export function Services() {
               <Eyebrow>What we do</Eyebrow>
             </Reveal>
           <Reveal delay={0.1}>
-            <h2 className="mt-3 text-[clamp(28px,3.6vw,42px)] leading-[1.1]">
+            <h2 className="mt-3 text-[clamp(28px,3.6vw,42px)] leading-[1.1] text-white">
               Everything your brand needs to grow
             </h2>
           </Reveal>
           <Reveal delay={0.2}>
-            <p className="mt-4 text-[17px] text-ink-2">
+            <p className="mt-4 text-[17px] text-white/70">
               Seven things, done properly. Pick one or let us handle the lot —
               most clients start with whatever&apos;s hurting most right now.
             </p>
@@ -41,44 +79,11 @@ export function Services() {
       </div>
 
       <div className="lg:col-span-8 grid gap-5 sm:grid-cols-2">
-          {SERVICES.map((s, i) => {
-            const isLarge = i === 0 || i === 3;
-            const imgSrc = s.image;
-            return (
-              <Reveal key={s.slug} delay={i * 0.1}>
-                <Link
-                  href={`/services/${s.slug}`}
-                  className={`glass group relative overflow-hidden flex flex-col rounded-xl border border-line bg-surface shadow-e1 transition-all hover:border-ink-3 hover:shadow-lg ${
-                    i === 0 ? "sm:col-span-2" :
-                    i === 3 ? "sm:col-span-2" :
-                    i === 6 ? "sm:col-span-2 md:flex-row items-stretch" : ""
-                  } h-full`}
-                >
-                  <div className={`shrink-0 ${i === 6 ? "md:w-[40%] md:border-r md:border-b-0" : ""} border-b border-line`}>
-                    <div className="img-treat relative overflow-hidden aspect-[16/10] w-full">
-                      <img
-                        src={imgSrc}
-                        alt={s.name}
-                        loading="lazy"
-                        className="absolute inset-0 w-full h-full object-cover"
-                      />
-                    </div>
-                  </div>
-                  <div className="flex flex-col gap-4 p-7 sm:p-8 flex-grow">
-                    <div className="flex flex-col gap-2">
-                      <h3 className={`${isLarge || i === 6 ? "text-[26px]" : "text-[21px]"} leading-tight`}>{s.name}</h3>
-                      <p className={`text-[14.5px] leading-relaxed text-ink-2 ${isLarge ? "max-w-[42ch]" : ""}`}>
-                        {s.summary}
-                      </p>
-                    </div>
-                    <span className="mt-auto pt-2 text-[13.5px] font-semibold text-accent-ink group-hover:underline">
-                      {s.kicker} →
-                    </span>
-                  </div>
-                </Link>
-              </Reveal>
-            );
-          })}
+          {SERVICES.map((s, i) => (
+            <Reveal key={s.slug} delay={i * 0.1}>
+              <BentoCard s={s} i={i} isLarge={i === 0 || i === 3} />
+            </Reveal>
+          ))}
         </div>
       </div>
     </Section>

@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
 // Fonts are self-hosted via Fontsource: no request to Google at runtime,
 // which is faster for LCP and keeps visitor data off a third party.
-import "@fontsource-variable/newsreader";
-import "@fontsource-variable/karla";
+import { Inter } from "next/font/google";
 import "@fontsource-variable/jetbrains-mono";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
 import Script from "next/script";
 import { SiteHeader } from "@/components/site-header";
 import { SplashOverlay } from "@/components/splash-overlay";
@@ -11,6 +16,7 @@ import { Assistant } from "@/components/assistant";
 import { SiteFooter } from "@/components/site-footer";
 import { CursorTracker } from "@/components/cursor-tracker";
 import { CookieConsent } from "@/components/ui/cookie-consent";
+import { SvgFilters } from "@/components/ui/svg-filters";
 import { SITE } from "@/lib/site";
 import "./globals.css";
 
@@ -39,7 +45,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
       </head>
-      <body className="flex min-h-screen flex-col">
+      <body className={`flex min-h-screen flex-col ${inter.variable}`}>
         <Script id="splash-init" strategy="beforeInteractive">
           {`(function(){try{if(sessionStorage.getItem('ao-splash') || window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.dataset.splash='skip'}}catch(e){}})()`}
         </Script>
@@ -58,6 +64,7 @@ export default function RootLayout({
         <Assistant />
         <CursorTracker />
         <CookieConsent />
+        <SvgFilters />
         <Script id="schema-org" type="application/ld+json" strategy="afterInteractive">
           {JSON.stringify({
             "@context": "https://schema.org",

@@ -6,12 +6,12 @@
 ------------------------------------------------------------------ */
 @theme {
   /* brand palette */
-  --color-blue:        #007AFF;
-  --color-blue-deep:   #0056B3;
+  --color-blue:        #0070F3;
+  --color-blue-deep:   #0060D0;
   --color-cyan:        #00D4FF;
   --color-cyan-glow:   #00BFEA;
-  --color-parchment:   #EFE4CF;
-  --color-paper:       #FAF7F0;
+  --color-violet:      #8b5cf6;
+  --color-fuchsia:     #e879f9;
   --color-sand:        #E1D6BE;
 
   /* signal gradient — retained for hero accent span */
@@ -23,8 +23,8 @@
   --color-orange-lift: #E3A46B;
 
   /* typography — Inter, modern SaaS standard */
-  --font-display: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --font-body:    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-display: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-body:    var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --font-mono:    "JetBrains Mono Variable", ui-monospace, "SF Mono", Menlo, monospace;
 
   /* misc tokens */
@@ -46,27 +46,24 @@
 }
 
 /* ----------------------------------------------------------------
-   DARK MODE FIRST — absolute black canvas, elevated dark surfaces.
-   Light mode is intentionally left as a reduced fallback only.
+   DARK MODE FIRST — Precision MarTech.
+   Deep cool midnight, no flat black.
 ---------------------------------------------------------------- */
 :root {
-  /* Default: deep midnight cyber-luxury */
-  --bg:         #05050A;
-  --surface:    #0A0A0F;
-  --surface-2:  #0F0F14;
+  --bg:         #09090b;
+  --surface:    #12121a;
+  --surface-2:  #1a1a24;
   --ink:        #FFFFFF;
   --ink-2:      rgba(255, 255, 255, 0.65);
-  --ink-3:      rgba(255, 255, 255, 0.35);
+  --ink-3:      rgba(255, 255, 255, 0.40);
   --line:       rgba(255, 255, 255, 0.08);
   --line-soft:  rgba(255, 255, 255, 0.06);
-  /* Cyan / electric blue accent — glowing CTA */
-  --accent:     #00D4FF;
-  --accent-ink: #00BFEA;
-  --accent-glow: 0 0 20px rgba(0, 212, 255, 0.4), 0 0 60px rgba(0, 212, 255, 0.15);
-  --on-accent:  #000000;
-  /* Shadows: very soft, diffuse — elements float above black */
-  --shadow-e1:  0 0 0 1px rgba(255,255,255,0.06), 0 4px 16px rgba(0,0,0,0.4);
-  --shadow-e2:  0 0 0 1px rgba(255,255,255,0.10), 0 8px 32px rgba(0,0,0,0.6), 0 0 60px rgba(0,212,255,0.06);
+  --accent:     #0070F3;
+  --accent-ink: #0060D0;
+  --accent-glow: 0 0 20px rgba(0, 112, 243, 0.3), 0 0 60px rgba(0, 112, 243, 0.10);
+  --on-accent:  #FFFFFF;
+  --shadow-e1:  0 1px 2px rgba(0,0,0,0.3), 0 4px 16px rgba(0,0,0,0.25);
+  --shadow-e2:  0 4px 8px rgba(0,0,0,0.4), 0 12px 32px rgba(0,0,0,0.35);
   --highlight:  inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
   --nav-h:      68px;
 }
@@ -81,9 +78,9 @@
   --ink-3:      #8E8E93;
   --line:       #E5E5EA;
   --line-soft:  #F2F2F7;
-  --accent:     #007AFF;
-  --accent-ink: #0056B3;
-  --accent-glow: 0 0 20px rgba(0, 122, 255, 0.3);
+  --accent:     #0070F3;
+  --accent-ink: #0060D0;
+  --accent-glow: 0 0 20px rgba(0, 112, 243, 0.2);
   --on-accent:  #FFFFFF;
   --shadow-e1:  0 4px 12px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
   --shadow-e2:  0 12px 32px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
@@ -127,8 +124,8 @@
     color: var(--ink);
   }
   .prose-aok p, .prose-aok li { max-width: 62ch; }
-  /* Selection: cyan highlight */
-  ::selection { background: rgba(0, 212, 255, 0.25); color: var(--ink); }
+  /* Selection */
+  ::selection { background: rgba(0, 112, 243, 0.25); color: var(--ink); }
   :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
 
   html:not([data-splash="skip"]):not([data-splash="done"]) body { overflow: hidden; }
@@ -138,13 +135,13 @@
    Utilities
 ---------------------------------------------------------------- */
 @layer utilities {
-  /* Signal gradient bar — thin horizontal rule above footer */
+  /* Signal gradient bar */
   .signal {
-    background-image: linear-gradient(90deg, #FF0080 0%, #7928CA 50%, #00D4FF 100%);
+    background-image: linear-gradient(90deg, var(--color-fuchsia) 0%, var(--color-violet) 50%, var(--color-blue) 100%);
   }
   /* Accent gradient text — hero headline highlight */
-  .signal-text {
-    background-image: linear-gradient(90deg, #FF0080 0%, #7928CA 50%, #00D4FF 100%);
+  .text-gradient-brand {
+    background-image: linear-gradient(90deg, var(--color-fuchsia) 0%, var(--color-violet) 50%, var(--color-blue) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -161,35 +158,22 @@
 }
 
 /* ----------------------------------------------------------------
-   Interaction layer — spring ease, lift on hover, glow on accent.
+   Interaction layer
 ---------------------------------------------------------------- */
 @layer utilities {
-  /* Card: true glassmorphism with gradient border */
   .card {
     position: relative;
     overflow: hidden;
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(16px) saturate(1.4);
-    -webkit-backdrop-filter: blur(16px) saturate(1.4);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
     box-shadow: var(--shadow-e1);
-    border: 1px solid transparent;
-    transition: transform 450ms var(--ease-spring), box-shadow 450ms var(--ease-spring);
-  }
-  .card::after {
-    content: ""; position: absolute; inset: 0; pointer-events: none;
-    border-radius: inherit; padding: 1px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.02) 100%);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    transition: background 450ms ease;
+    transition: transform 300ms var(--ease-spring), box-shadow 300ms var(--ease-spring), border-color 300ms ease;
   }
   .card:hover {
-    transform: translateY(-3px);
+    transform: translateY(-2px);
     box-shadow: var(--shadow-e2);
-  }
-  .card:hover::after {
-    background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.05) 100%);
+    border-color: rgba(255, 255, 255, 0.12);
   }
 
   .link-draw {
@@ -249,31 +233,22 @@
 
 /* ----------------------------------------------------------------
    Hero backgrounds
-   .skyline — night city, generated gradient fallback
-   .hero-photo — full-bleed photograph with dark overlay
 ---------------------------------------------------------------- */
 .skyline {
-  background-color: #0A0A0A;
+  background-color: #09090b;
   background-image:
     url("/brand/skyline.jpg"),
-    radial-gradient(120% 52% at 16% 100%, rgba(0,212,255,.12), transparent 62%),
-    radial-gradient(95% 44% at 74% 100%, rgba(121,40,202,.10), transparent 64%),
-    radial-gradient(64% 34% at 46% 104%, rgba(255,0,128,.10), transparent 58%),
-    linear-gradient(180deg, #05050A 0%, #08080C 40%, #0A0A0F 72%, #0C0C12 100%);
-  background-size: cover, cover, cover, cover, cover;
+    linear-gradient(180deg, #09090b 0%, #12121a 100%);
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .hero-photo {
-  background-color: #050505;
+  background-color: #09090b;
   background-image:
     url("/brand/hero.jpg"),
-    /* Radial overlay: top-centre vignette to push text contrast */
-    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,0,0,0.85) 0%, transparent 70%),
-    /* Subtle cyan bleed right */
-    radial-gradient(46% 62% at 74% 52%, rgba(0,212,255,.06), transparent 68%),
-    linear-gradient(165deg, #05050A 0%, #07070B 42%, #0A0A0F 74%, #0C0C12 100%);
+    linear-gradient(165deg, #09090b 0%, #12121a 100%);
   background-size: cover;
   background-position: 72% center;
   background-repeat: no-repeat;
@@ -359,76 +334,50 @@ html[data-splash="skip"] #splash {
 }
 
 /* ----------------------------------------------------------------
-   Glass / bento card — true glassmorphism with subtle gradient border
+   Precision card — solid dark surface, thin border, clean lift
 ---------------------------------------------------------------- */
 .glass {
   position: relative;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(16px) saturate(1.4);
-  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  background: var(--surface);
+  border: 1px solid var(--line);
   box-shadow: var(--shadow-e1);
-  border: 1px solid transparent;
-  transition: transform 450ms var(--ease-spring), box-shadow 450ms var(--ease-spring);
+  transition: transform 300ms var(--ease-spring), box-shadow 300ms var(--ease-spring), border-color 300ms ease;
 }
-.glass::after {
-  content: ""; position: absolute; inset: 0; pointer-events: none;
-  border-radius: inherit; padding: 1px;
-  background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.02) 100%);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  transition: background 450ms ease;
-}
-
-/* Mouse-following glow: cyan tint on cursor position */
-.glass::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(
-    500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-    rgba(0, 212, 255, 0.07),
-    transparent 40%
-  );
-  opacity: 0;
-  transition: opacity 0.5s ease;
-  z-index: 1;
-}
-
 .glass:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-e2);
+  border-color: rgba(255, 255, 255, 0.12);
 }
 
-.glass:hover::after {
-  background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.05) 100%);
-}
-
-.glass:hover::before {
-  opacity: 1;
+/* Nav bar — solid dark, subtle border */
+.nav-glass {
+  position: relative;
+  background: rgba(9, 9, 11, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
 }
 
 /* ----------------------------------------------------------------
-   Hero Animation Glow
+   Hero Animation Glow — toned down
 ---------------------------------------------------------------- */
 @keyframes heroPulse {
-  0% { transform: scale(1); opacity: 0.4; }
-  50% { transform: scale(1.15); opacity: 0.6; }
-  100% { transform: scale(1); opacity: 0.4; }
+  0% { transform: scale(1); opacity: 0.15; }
+  50% { transform: scale(1.1); opacity: 0.25; }
+  100% { transform: scale(1); opacity: 0.15; }
 }
 
 .hero-glow {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 80vw;
-  height: 80vw;
-  background: radial-gradient(circle, rgba(121, 40, 202, 0.15) 0%, rgba(255, 0, 128, 0.08) 30%, transparent 60%);
+  width: 60vw;
+  height: 60vw;
+  background: radial-gradient(circle, rgba(0, 112, 243, 0.08) 0%, rgba(139, 92, 246, 0.04) 40%, transparent 70%);
   transform: translate(-50%, -50%);
   pointer-events: none;
   filter: blur(80px);
-  animation: heroPulse 10s infinite alternate ease-in-out;
-  z-index: 10; /* Behind text (z-20), above background (z-0) */
+  animation: heroPulse 12s infinite alternate ease-in-out;
+  z-index: 10;
 }

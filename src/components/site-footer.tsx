@@ -7,7 +7,7 @@ import { Container } from "./ui/primitives";
 export function SiteFooter() {
   const year = new Date().getFullYear();
   return (
-    <footer className="mt-8 bg-[#05050A] text-ink">
+    <footer className="mt-8 bg-[#070716] text-ink">
       <div aria-hidden className="signal h-[3px] w-full" />
       <Container className="grid gap-12 py-16 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div className="flex flex-col gap-4">
