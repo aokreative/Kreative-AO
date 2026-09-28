@@ -8,7 +8,7 @@ export type ServiceItem = { name: string; detail: string };
 
 export type Service = {
   slug: string;
-
+  image: string;
   name: string;
   kicker: string;
   summary: string;
@@ -20,7 +20,7 @@ export type Service = {
 export const SERVICES: Service[] = [
   {
     slug: "brand-strategy",
-
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1200",
     name: "Brand Strategy",
     kicker: "Positioning & identity",
     summary:
@@ -39,7 +39,7 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "web-design",
-
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1200",
     name: "Website Design & Development",
     kicker: "Sites that sell",
     summary:
@@ -58,7 +58,7 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "content-social",
-
+    image: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&q=80&w=1200",
     name: "Content & Social",
     kicker: "The stuff that keeps you visible",
     summary:
@@ -77,7 +77,7 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "campaigns",
-
+    image: "https://images.unsplash.com/photo-1555421689-491a97ff2040?auto=format&fit=crop&q=80&w=1200",
     name: "Campaigns",
     kicker: "Launches & big moments",
     summary:
@@ -96,7 +96,7 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "ads-growth",
-
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=1200",
     name: "Ads & Growth",
     kicker: "Paid media that pays back",
     summary:
@@ -115,7 +115,7 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "ai-automation",
-
+    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1200",
     name: "AI & Automation",
     kicker: "AI that does real work",
     summary:
@@ -134,7 +134,7 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "pos-erp",
-
+    image: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&q=80&w=1200",
     name: "POS & ERP Systems",
     kicker: "Run the back office",
     summary:

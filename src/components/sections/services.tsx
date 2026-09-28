@@ -44,7 +44,7 @@ export function Services() {
       <div className="lg:col-span-8 grid gap-5 sm:grid-cols-2">
           {SERVICES.map((s, i) => {
             const isLarge = i === 0 || i === 3;
-            const imgSrc = `/brand/services/${s.slug}.jpg`;
+            const imgSrc = s.image;
             return (
               <Reveal key={s.slug} delay={i * 0.1}>
                 <Link

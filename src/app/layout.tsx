@@ -10,6 +10,7 @@ import { SplashOverlay } from "@/components/splash-overlay";
 import { Assistant } from "@/components/assistant";
 import { SiteFooter } from "@/components/site-footer";
 import { CursorTracker } from "@/components/cursor-tracker";
+import { CookieConsent } from "@/components/ui/cookie-consent";
 import { SITE } from "@/lib/site";
 import "./globals.css";
 
@@ -56,6 +57,7 @@ export default function RootLayout({
         <SiteFooter />
         <Assistant />
         <CursorTracker />
+        <CookieConsent />
         <Script id="schema-org" type="application/ld+json" strategy="afterInteractive">
           {JSON.stringify({
             "@context": "https://schema.org",
