@@ -50,10 +50,10 @@
    Light mode is intentionally left as a reduced fallback only.
 ---------------------------------------------------------------- */
 :root {
-  /* Default: dark mode first */
-  --bg:         #0A0A0A;
-  --surface:    #141414;
-  --surface-2:  #1A1A1A;
+  /* Default: deep midnight cyber-luxury */
+  --bg:         #05050A;
+  --surface:    #0A0A0F;
+  --surface-2:  #0F0F14;
   --ink:        #FFFFFF;
   --ink-2:      rgba(255, 255, 255, 0.65);
   --ink-3:      rgba(255, 255, 255, 0.35);
@@ -140,13 +140,11 @@
 @layer utilities {
   /* Signal gradient bar — thin horizontal rule above footer */
   .signal {
-    background-image: linear-gradient(90deg,
-      #00D4FF 0%, #0066FF 35%, #7B2FFF 68%, #FF3CAC 100%);
+    background-image: linear-gradient(90deg, #FF0080 0%, #7928CA 50%, #00D4FF 100%);
   }
   /* Accent gradient text — hero headline highlight */
   .signal-text {
-    background-image: linear-gradient(90deg,
-      #00D4FF 0%, #0066FF 50%, #7B2FFF 100%);
+    background-image: linear-gradient(90deg, #FF0080 0%, #7928CA 50%, #00D4FF 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -166,20 +164,32 @@
    Interaction layer — spring ease, lift on hover, glow on accent.
 ---------------------------------------------------------------- */
 @layer utilities {
-  /* Card: elevated dark surface with 1px edge definition */
+  /* Card: true glassmorphism with gradient border */
   .card {
-    background: var(--surface);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: var(--shadow-e1), var(--highlight);
-    transition:
-      transform 450ms var(--ease-spring),
-      box-shadow 450ms var(--ease-spring),
-      border-color 300ms ease;
+    position: relative;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(16px) saturate(1.4);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
+    box-shadow: var(--shadow-e1);
+    border: 1px solid transparent;
+    transition: transform 450ms var(--ease-spring), box-shadow 450ms var(--ease-spring);
+  }
+  .card::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    border-radius: inherit; padding: 1px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.02) 100%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    transition: background 450ms ease;
   }
   .card:hover {
     transform: translateY(-3px);
-    border-color: rgba(255, 255, 255, 0.14);
-    box-shadow: var(--shadow-e2), var(--highlight);
+    box-shadow: var(--shadow-e2);
+  }
+  .card:hover::after {
+    background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.05) 100%);
   }
 
   .link-draw {
@@ -247,9 +257,9 @@
   background-image:
     url("/brand/skyline.jpg"),
     radial-gradient(120% 52% at 16% 100%, rgba(0,212,255,.12), transparent 62%),
-    radial-gradient(95% 44% at 74% 100%, rgba(0,102,255,.10), transparent 64%),
-    radial-gradient(64% 34% at 46% 104%, rgba(123,47,255,.10), transparent 58%),
-    linear-gradient(180deg, #0A0A0A 0%, #0D0D0D 40%, #111111 72%, #141414 100%);
+    radial-gradient(95% 44% at 74% 100%, rgba(121,40,202,.10), transparent 64%),
+    radial-gradient(64% 34% at 46% 104%, rgba(255,0,128,.10), transparent 58%),
+    linear-gradient(180deg, #05050A 0%, #08080C 40%, #0A0A0F 72%, #0C0C12 100%);
   background-size: cover, cover, cover, cover, cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -263,7 +273,7 @@
     radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,0,0,0.85) 0%, transparent 70%),
     /* Subtle cyan bleed right */
     radial-gradient(46% 62% at 74% 52%, rgba(0,212,255,.06), transparent 68%),
-    linear-gradient(165deg, #050505 0%, #0A0A0A 42%, #0D0D0D 74%, #111111 100%);
+    linear-gradient(165deg, #05050A 0%, #07070B 42%, #0A0A0F 74%, #0C0C12 100%);
   background-size: cover;
   background-position: 72% center;
   background-repeat: no-repeat;
@@ -349,37 +359,33 @@ html[data-splash="skip"] #splash {
 }
 
 /* ----------------------------------------------------------------
-   Glass / bento card — premium dark surface with edge definition.
-   The 1px border at rgba(255,255,255,0.08) is the critical detail
-   that makes cards "float" cleanly above the #0A0A0A canvas.
+   Glass / bento card — true glassmorphism with subtle gradient border
 ---------------------------------------------------------------- */
 .glass {
   position: relative;
   overflow: hidden;
-  background: var(--surface);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
   box-shadow: var(--shadow-e1);
-  transition:
-    border-color 300ms ease,
-    box-shadow 450ms var(--ease-spring),
-    transform 450ms var(--ease-spring);
+  border: 1px solid transparent;
+  transition: transform 450ms var(--ease-spring), box-shadow 450ms var(--ease-spring);
 }
-
-@supports (backdrop-filter: blur(12px)) {
-  .glass {
-    backdrop-filter: blur(16px) saturate(1.4);
-    background: color-mix(in srgb, var(--surface) 80%, transparent);
-  }
+.glass::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  border-radius: inherit; padding: 1px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.02) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  transition: background 450ms ease;
 }
 
 /* Mouse-following glow: cyan tint on cursor position */
 .glass::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   pointer-events: none;
   background: radial-gradient(
     500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
@@ -388,14 +394,41 @@ html[data-splash="skip"] #splash {
   );
   opacity: 0;
   transition: opacity 0.5s ease;
+  z-index: 1;
 }
 
 .glass:hover {
-  border-color: rgba(255, 255, 255, 0.14);
-  box-shadow: var(--shadow-e2);
   transform: translateY(-2px);
+  box-shadow: var(--shadow-e2);
+}
+
+.glass:hover::after {
+  background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.05) 100%);
 }
 
 .glass:hover::before {
   opacity: 1;
+}
+
+/* ----------------------------------------------------------------
+   Hero Animation Glow
+---------------------------------------------------------------- */
+@keyframes heroPulse {
+  0% { transform: scale(1); opacity: 0.4; }
+  50% { transform: scale(1.15); opacity: 0.6; }
+  100% { transform: scale(1); opacity: 0.4; }
+}
+
+.hero-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80vw;
+  height: 80vw;
+  background: radial-gradient(circle, rgba(121, 40, 202, 0.15) 0%, rgba(255, 0, 128, 0.08) 30%, transparent 60%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  filter: blur(80px);
+  animation: heroPulse 10s infinite alternate ease-in-out;
+  z-index: 10; /* Behind text (z-20), above background (z-0) */
 }

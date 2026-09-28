@@ -27,6 +27,9 @@ export function Hero() {
       
       {/* 2. DARK RADIAL GRADIENT OVERLAY — ensures text is always readable */}
       <div className="hero-veil" />
+      
+      {/* 2.5 ANIMATED GLOW LAYER */}
+      <div className="hero-glow" />
 
       {/* 3. THE TEXT CONTENT LAYER */}
       <div className="relative z-20 w-full container mx-auto px-6 grid lg:grid-cols-12 gap-8 pt-24 pb-4">
