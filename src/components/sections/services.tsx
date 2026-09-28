@@ -3,7 +3,6 @@ import Link from "next/link";
 import { SERVICES } from "@/content/services";
 import { Section, Container, Eyebrow } from "@/components/ui/primitives";
 import { Reveal } from "@/components/motion/reveal";
-import { Frame } from "@/components/frame";
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 
@@ -56,7 +55,14 @@ export function Services() {
                   } h-full`}
                 >
                   <div className={`shrink-0 ${i === 6 ? "md:w-[40%] md:border-r md:border-b-0" : ""} border-b border-line`}>
-                    <Frame src={imgSrc} alt={s.name} className="w-full h-full" />
+                    <div className="img-treat relative overflow-hidden aspect-[16/10] w-full">
+                      <img
+                        src={imgSrc}
+                        alt={s.name}
+                        loading="lazy"
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                    </div>
                   </div>
                   <div className="flex flex-col gap-4 p-7 sm:p-8 flex-grow">
                     <div className="flex flex-col gap-2">

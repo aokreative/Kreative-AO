@@ -7,12 +7,12 @@ import { Container } from "./ui/primitives";
 export function SiteFooter() {
   const year = new Date().getFullYear();
   return (
-    <footer className="mt-8" style={{ background: '#0A0A0A', color: 'var(--ink)' }}>
+    <footer className="mt-8 bg-[#0A0A0A] text-ink">
       <div aria-hidden className="signal h-[3px] w-full" />
       <Container className="grid gap-12 py-16 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div className="flex flex-col gap-4">
           <Logo width={110} onDark />
-          <p className="max-w-[34ch] text-[15px] leading-relaxed" style={{ color: 'rgba(255,255,255,0.45)' }}>
+          <p className="max-w-[34ch] text-[15px] leading-relaxed text-white/45">
             {SITE.promise}
           </p>
           <a
@@ -29,7 +29,7 @@ export function SiteFooter() {
           >
             {SITE.phone}
           </a>
-          <p className="text-[13.5px] mt-2" style={{ color: 'rgba(255,255,255,0.35)' }}>
+          <p className="text-[13.5px] mt-2 text-white/35">
             The Piano, Westlands — Nairobi
           </p>
         </div>
@@ -47,7 +47,7 @@ export function SiteFooter() {
             <FooterLink key={p.slug} href={p.href}>
               {p.name}
               {p.status === "building" && (
-                <span className="ml-1.5 text-[11px]" style={{ color: 'rgba(255,255,255,0.35)' }}>soon</span>
+                <span className="ml-1.5 text-[11px] text-white/35">soon</span>
               )}
             </FooterLink>
           ))}
@@ -64,7 +64,7 @@ export function SiteFooter() {
         </FooterCol>
       </Container>
 
-      <Container className="flex flex-col gap-4 py-6 text-[13px] sm:flex-row sm:items-center sm:justify-between" style={{ borderTop: '1px solid rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.35)' }}>
+      <Container className="flex flex-col gap-4 py-6 text-[13px] sm:flex-row sm:items-center sm:justify-between border-t border-white/[0.06] text-white/35">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-6">
           <span>
             © {year} {SITE.name}. All rights reserved.
@@ -81,7 +81,7 @@ export function SiteFooter() {
             </a>
           </div>
         </div>
-        <span className="label" style={{ color: 'rgba(255,255,255,0.25)' }}>{SITE.tagline}</span>
+        <span className="label text-white/25">{SITE.tagline}</span>
       </Container>
     </footer>
   );
@@ -96,7 +96,7 @@ function FooterCol({
 }) {
   return (
     <div className="flex flex-col gap-3">
-      <h3 className="label" style={{ color: 'rgba(255,255,255,0.35)' }}>{title}</h3>
+      <h3 className="label text-white/35">{title}</h3>
       <div className="flex flex-col gap-2.5">{children}</div>
     </div>
   );
@@ -112,7 +112,7 @@ function FooterLink({
   return (
     <Link
       href={href}
-      className="w-fit text-[14.5px] transition-colors hover:text-white" style={{ color: 'rgba(255,255,255,0.50)' }}
+      className="w-fit text-[14.5px] transition-colors hover:text-white text-white/50"
     >
       {children}
     </Link>
