@@ -1,13 +1,18 @@
 import type { Metadata } from "next";
-// Fonts are self-hosted via Fontsource: no request to Google at runtime,
-// which is faster for LCP and keeps visitor data off a third party.
-import { Inter } from "next/font/google";
-import "@fontsource-variable/jetbrains-mono";
+import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 
-const inter = Inter({
+const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
   display: "swap",
-  variable: "--font-inter",
+  variable: "--font-cormorant",
+});
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["300", "400", "500"],
+  display: "swap",
+  variable: "--font-dm-sans",
 });
 import Script from "next/script";
 import { SiteHeader } from "@/components/site-header";
@@ -45,7 +50,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
       </head>
-      <body className={`flex min-h-screen flex-col ${inter.variable}`}>
+      <body className={`flex min-h-screen flex-col ${cormorant.variable} ${dmSans.variable}`}>
         <Script id="splash-init" strategy="beforeInteractive">
           {`(function(){try{if(sessionStorage.getItem('ao-splash') || window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.dataset.splash='skip'}}catch(e){}})()`}
         </Script>

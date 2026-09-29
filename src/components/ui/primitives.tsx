@@ -35,11 +35,11 @@ type ButtonProps = {
 
 const VARIANTS: Record<string, string> = {
   primary:
-    "bg-teal text-parchment hover:bg-teal-deep border-transparent dark:bg-parchment dark:text-teal-deep dark:hover:bg-sand",
+    "bg-navy text-cream hover:bg-gold hover:text-navy border-transparent",
   accent:
-    "bg-accent text-on-accent hover:brightness-95 border-transparent",
+    "bg-gold text-navy hover:bg-cream hover:text-navy border-transparent",
   ghost:
-    "bg-transparent text-ink border-line hover:border-ink-3 hover:bg-surface-2",
+    "bg-transparent text-navy border-gold/35 hover:bg-gold hover:border-gold hover:text-navy",
 };
 
 export function Button({
@@ -49,7 +49,7 @@ export function Button({
   external = false,
   className = "",
 }: ButtonProps) {
-  const cls = `group inline-flex items-center justify-center gap-2 rounded-[7px] border border-line-soft px-5 py-3 text-[14.5px] font-semibold shadow-e1 transition-[transform,box-shadow,filter] duration-[450ms] ease-[cubic-bezier(.22,1,.36,1)] hover:-translate-y-1 hover:shadow-e2 ${VARIANTS[variant]} ${className}`;
+  const cls = `group inline-flex items-center justify-center gap-2 rounded-sm border px-8 py-4 text-[13px] font-medium tracking-[0.06em] uppercase transition-colors duration-[350ms] ease-spring ${VARIANTS[variant]} ${className}`;
   
   const content = (
     <>

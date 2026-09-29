@@ -29,21 +29,25 @@ export function SiteHeader() {
           : "border-b border-transparent bg-transparent"
       }`}
     >
-      <Container className="flex h-[68px] items-center justify-between gap-6">
-        <LogoLink />
+      <Container className="flex h-[70px] items-center justify-between gap-6 px-[5vw]">
+        <LogoLink onDark={!scrolled} />
 
         <div className="hidden items-center md:flex">
           <nav aria-label="Main" className="flex items-center gap-8">
             {NAV.map((item) => {
               const active =
                 pathname === item.href || pathname.startsWith(item.href + "/");
+              
+              const textColor = scrolled ? "text-navy" : "text-cream";
+              const hoverColor = scrolled ? "hover:text-gold" : "hover:text-gold";
+              
               return (
                 <Link
                   key={item.href}
                   href={item.href}
                   aria-current={active ? "page" : undefined}
-                  className={`font-mono text-xs uppercase tracking-[0.18em] transition-colors ${
-                    active ? "text-white" : "text-white/60 hover:text-white"
+                  className={`font-sans text-[13px] font-normal tracking-[0.04em] transition-colors relative after:absolute after:bottom-[-2px] after:left-0 after:right-0 after:h-px after:bg-gold after:scale-x-0 after:origin-left after:transition-transform hover:after:scale-x-100 ${
+                    active ? `${textColor} after:scale-x-100` : `${textColor} ${hoverColor}`
                   }`}
                 >
                   {item.label}
@@ -52,11 +56,11 @@ export function SiteHeader() {
             })}
           </nav>
           
-          <div className="ml-8 h-4 w-px bg-white/[0.08]" />
-          
           <div className="ml-8">
-            <Button href="/book" variant="accent" className="!py-2.5 !px-4">
-              Book a call
+            <Button href="/book" variant="ghost" className={`!py-[9px] !px-5 !text-[12px] !font-medium !rounded-[40px] !border-[1.5px] !tracking-[0.06em] transition-colors ${
+              scrolled ? "!border-navy !text-navy hover:!bg-gold hover:!border-gold hover:!text-navy" : "!border-cream !text-cream hover:!bg-gold hover:!border-gold hover:!text-navy"
+            }`}>
+              Start a Project
             </Button>
           </div>
         </div>
@@ -66,27 +70,29 @@ export function SiteHeader() {
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls="mobile-nav"
-          className="rounded-md border border-white/[0.08] px-3 py-2 text-[13px] font-semibold text-white md:hidden"
+          className={`rounded-md border px-3 py-2 text-[13px] font-semibold md:hidden transition-colors ${
+            scrolled ? "border-navy/20 text-navy" : "border-cream/20 text-cream"
+          }`}
         >
           {open ? "Close" : "Menu"}
         </button>
       </Container>
 
       {open && (
-        <div id="mobile-nav" className="border-t border-white/[0.06] bg-[#09090b]/95 backdrop-blur-sm md:hidden">
+        <div id="mobile-nav" className="border-t border-cream-dark bg-cream/95 backdrop-blur-sm md:hidden">
           <Container className="flex flex-col gap-1 py-4">
             {NAV.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="font-mono text-xs uppercase tracking-[0.18em] rounded-md px-2 py-3 text-white/60 hover:bg-white/[0.04] hover:text-white"
+                className="font-display text-[34px] font-normal tracking-[-0.02em] text-navy border-b border-cream-dark py-2.5 text-left transition-colors hover:text-gold"
               >
                 {item.label}
               </Link>
             ))}
             <Button href="/book" variant="accent" className="mt-4 w-full justify-center">
-              Book a call
+              Start a Project
             </Button>
           </Container>
         </div>

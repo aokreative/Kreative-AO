@@ -1,64 +1,31 @@
 import Link from "next/link";
 
-/**
- * The mark is an SVG traced from the original artwork: sharp at any size,
- * ~12KB gzipped, and no longer a raster with the paper texture baked in.
- *
- * Two files rather than one inlined component: inlining 40KB of path data
- * into every page's HTML costs far more than serving a cached image. The
- * teal mark measures 1.43:1 against the dark ground, so dark surfaces get
- * the reversed file instead.
- */
-const RATIO = 1251 / 1869;
-
-export function Logo({
-  width = 116,
+export function Logo({ 
   onDark = false,
-  priority = false,
-}: {
-  width?: number;
+  width,
+  priority
+}: { 
   onDark?: boolean;
+  width?: number;
   priority?: boolean;
 }) {
-  const height = Math.round(width * RATIO);
-  const common = {
-    width,
-    height,
-    decoding: "async" as const,
-    fetchPriority: priority ? ("high" as const) : undefined,
-    loading: priority ? ("eager" as const) : ("lazy" as const),
-  };
-
-  if (onDark) {
-    return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img
-        {...common}
-        src="/brand/aok-mark-reverse.svg"
-        alt="A&O Kreative"
-        className="h-auto"
-      />
-    );
-  }
-
+  const textColor = onDark ? "#F5F0E6" : "#0D1B35";
+  
   return (
-    <>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        {...common}
-        src="/brand/aok-mark.svg"
-        alt="A&O Kreative"
-        className="h-auto dark:hidden"
-      />
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        {...common}
-        src="/brand/aok-mark-reverse.svg"
-        alt=""
-        aria-hidden
-        className="hidden h-auto dark:block"
-      />
-    </>
+    <svg 
+      viewBox="0 0 240 48" 
+      fill="none" 
+      xmlns="http://www.w3.org/2000/svg" 
+      className={width ? "h-auto" : "h-[36px] w-auto"}
+      style={width ? { width: `${width}px` } : undefined}
+    >
+      <polygon points="14,38 22,14 30,38" fill="none" stroke="#C8A05A" strokeWidth="1.8" strokeLinejoin="round"/>
+      <line x1="17" y1="30" x2="27" y2="30" stroke="#C8A05A" strokeWidth="1.8"/>
+      <circle cx="36" cy="28" r="12" fill="none" stroke="#C8A05A" strokeWidth="1.8"/>
+      <text x="56" y="24" fontFamily="var(--font-cormorant), Georgia, serif" fontSize="21" fontWeight="500" fill={textColor} letterSpacing="-0.5">A&amp;O</text>
+      <text x="57" y="40" fontFamily="var(--font-dm-sans), system-ui, sans-serif" fontSize="8.5" fontWeight="400" fill={textColor} letterSpacing="3.2">KREATIVE</text>
+      <text x="125" y="40" fontFamily="var(--font-dm-sans), system-ui, sans-serif" fontSize="7" fontWeight="300" fill="#C8A05A" letterSpacing="1.5">AURA</text>
+    </svg>
   );
 }
 
@@ -69,7 +36,7 @@ export function LogoLink({ onDark = false }: { onDark?: boolean }) {
       className="inline-flex items-center"
       aria-label="A&O Kreative — home"
     >
-      <Logo width={104} onDark={onDark} priority />
+      <Logo onDark={onDark} />
     </Link>
   );
 }

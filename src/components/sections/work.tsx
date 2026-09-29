@@ -9,19 +9,19 @@ import { motion } from "motion/react";
 export function Work() {
 
   return (
-    <Section className="border-t border-white/[0.06]">
+    <Section className="border-t border-cream-dark">
       <div className="grid lg:grid-cols-12 gap-8 items-end w-full pb-12">
         <div className="col-span-12 lg:col-span-7 flex flex-col items-start">
           <Reveal>
             <Eyebrow>Recent work</Eyebrow>
           </Reveal>
           <Reveal delay={0.1}>
-            <h2 className="mt-3 text-[clamp(28px,3.6vw,42px)] leading-[1.1] text-white">
+            <h2 className="mt-3 text-[clamp(28px,3.6vw,42px)] leading-[1.1] text-navy">
               Brands we&apos;ve built
             </h2>
           </Reveal>
           <Reveal delay={0.2}>
-            <p className="mt-4 text-[17px] max-w-[52ch] text-white/65">
+            <p className="mt-4 text-[17px] max-w-[52ch] text-navy/65">
               Real results from recent projects — the problem, the work, and the
               numbers that came out the other side.
             </p>
@@ -31,10 +31,10 @@ export function Work() {
           <dl className="hidden gap-12 sm:flex">
             {HEADLINE_STATS.slice(1).map((s, i) => (
               <div key={s.label} className="relative z-10 flex flex-col justify-center items-start">
-                <dt className="tnum font-display text-[32px] leading-none text-white">
+                <dt className="tnum font-display text-[32px] leading-none text-navy">
                   {s.value}
                 </dt>
-                <dd className="mt-1 text-[13px] leading-snug text-white/40">
+                <dd className="mt-1 text-[13px] leading-snug text-navy/60">
                   {s.label}
                 </dd>
               </div>
@@ -53,26 +53,26 @@ export function Work() {
           <Reveal key={c.slug} delay={0.1 * i}>
             <Link
               href={`/work/${c.slug}`}
-              className="group flex h-full flex-col overflow-hidden rounded-xl bg-[#12121a] border border-white/[0.08] transition-all duration-300 hover:-translate-y-1 hover:border-white/[0.14] hover:shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
+              className="group flex h-full flex-col overflow-hidden rounded-xl bg-transparent border border-transparent transition-all duration-300"
             >
-              <div className="relative h-[240px] w-full overflow-hidden shrink-0">
+              <div className="relative h-[240px] w-full overflow-hidden shrink-0 rounded-lg">
                 <Frame 
                   src={`/brand/work/${c.slug}.jpg`} 
                   alt={c.client} 
                   className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" 
                 />
               </div>
-              <div className="flex flex-1 flex-col gap-3 p-6">
-                <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-[#0070F3]">{c.category}</span>
-                <h3 className="text-[20px] font-medium leading-tight text-white">{c.client}</h3>
-                <p className="text-[15px] leading-relaxed text-white/70 line-clamp-2 flex-1">
+              <div className="flex flex-1 flex-col gap-3 pt-6 pb-2">
+                <span className="text-[11px] font-sans uppercase tracking-[0.15em] text-gold">{c.category}</span>
+                <h3 className="text-[20px] font-normal leading-tight text-navy transition-colors group-hover:text-gold">{c.client}</h3>
+                <p className="text-[15px] leading-relaxed text-navy/70 line-clamp-2 flex-1">
                   {c.headline}
                 </p>
-                <div className="mt-3 pt-4 border-t border-white/[0.06]">
-                  <p className="tnum font-display text-[26px] font-medium leading-none text-white">
+                <div className="mt-3 pt-4 border-t border-cream-dark">
+                  <p className="tnum font-display text-[26px] font-normal leading-none text-navy">
                     {c.metrics[0].value}
                   </p>
-                  <p className="mt-1.5 text-[12.5px] leading-snug text-white/40 font-medium uppercase tracking-wider">
+                  <p className="mt-1.5 text-[12.5px] leading-snug text-navy/50 font-normal uppercase tracking-wider">
                     {c.metrics[0].label}
                   </p>
                 </div>

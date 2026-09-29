@@ -1,8 +1,9 @@
 "use client";
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
-import { Button, Container, Eyebrow } from "@/components/ui/primitives";
+import { Button } from "@/components/ui/primitives";
 import { Reveal } from "@/components/motion/reveal";
+
 import Image from "next/image";
 
 export function Hero() {
@@ -12,86 +13,89 @@ export function Hero() {
     offset: ["start start", "end start"],
   });
 
-  const headlineScale = useTransform(scrollYProgress, [0, 1], [1, 0.94]);
-  const headlineOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.4]);
+  const yTransform = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const opacityTransform = useTransform(scrollYProgress, [0, 1], [1, 0.4]);
 
   return (
-    <section ref={ref} className="relative w-full min-h-[100vh] lg:min-h-[80vh] flex items-end lg:items-center overflow-hidden">
-      {/* 1. BACKGROUND IMAGE — sharp, visible, no heavy filters */}
-      <div className="absolute inset-0 z-0">
+    <section 
+      ref={ref} 
+      className="relative w-full min-h-[100vh] flex items-end pb-[13vh] pt-32 overflow-hidden bg-navy"
+    >
+      {/* BACKGROUND IMAGE */}
+      <div className="absolute inset-0 z-0 bg-navy">
         <Image
           src="/brand/hero.jpg"
           fill
           priority
-          className="object-cover object-[70%_center]"
+          className="object-cover object-[70%_center] opacity-50 mix-blend-luminosity"
           alt="Workspace"
-          style={{ filter: "url(#grade-hero) contrast(1.08) saturate(1.05)" }}
         />
-        {/* Bottom fade to transition into next section */}
-        <div className="absolute inset-x-0 bottom-0 h-[40%] pointer-events-none bg-gradient-to-t from-[#09090b] to-transparent" />
+        {/* Dark gradient overlay so the light text pops */}
+        <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/60 to-transparent w-[65%]" />
       </div>
+      
+      {/* Animated blob */}
+      <motion.div 
+        animate={{ 
+          borderRadius: ["60% 40% 55% 45%/50% 55% 45% 50%", "45% 55% 42% 58%/55% 45% 58% 42%", "55% 45% 60% 40%/42% 58% 45% 55%", "60% 40% 55% 45%/50% 55% 45% 50%"],
+          y: [0, -18, 10, 0]
+        }}
+        transition={{ duration: 9, ease: "easeInOut", repeat: Infinity }}
+        className="absolute top-[6%] right-0 w-[58vw] max-w-[860px] h-[82vh] pointer-events-none z-0 mix-blend-screen opacity-60"
+        style={{
+          background: "radial-gradient(ellipse at 45% 45%, rgba(200,160,90,.12) 0%, rgba(13,27,53,.06) 50%, transparent 70%)"
+        }}
+      />
 
-      {/* Localized text scrim — left side only */}
-      <div className="absolute inset-y-0 left-0 w-[55%] pointer-events-none z-10 bg-gradient-to-r from-[#09090b]/90 via-[#09090b]/60 to-transparent" />
-
-      {/* Subtle glow */}
-      <div className="hero-glow z-10" />
-
-      {/* 2. TEXT CONTENT */}
-      <div className="relative z-20 w-full container mx-auto px-6 pb-16 pt-32 lg:py-0">
-        <div className="w-full lg:w-[46%] text-white text-left flex flex-col items-start">
+      <div className="relative z-20 w-full container mx-auto px-6 max-w-[880px] ml-[7vw]">
+        <motion.div style={{ y: yTransform, opacity: opacityTransform }}>
           <Reveal>
-            <div className="inline-flex items-center rounded-full border border-white/[0.08] bg-white/[0.03] px-4 py-1.5 mb-6">
-              <span className="text-xs font-mono uppercase tracking-wider text-white/60">Marketing · Branding · AI — Nairobi</span>
-            </div>
+            <p className="text-[11px] font-normal tracking-[0.14em] uppercase text-gold mb-6">
+              Digital Marketing & Creative Strategy — Nairobi, Kenya
+            </p>
           </Reveal>
 
-          <motion.div style={{ scale: headlineScale, opacity: headlineOpacity, transformOrigin: "left center" }}>
-            <Reveal delay={0.1}>
-              <h1 className="mt-2 text-[clamp(2.5rem,5vw,4.5rem)] font-semibold leading-[1.02] tracking-[-0.03em] text-white" style={{ textShadow: "0 2px 24px rgba(0,0,0,0.5)" }}>
-                We build the software, and we bring you the{" "}
-                <span className="text-gradient-brand">customers</span>.
-              </h1>
-            </Reveal>
-          </motion.div>
+          <Reveal delay={0.1}>
+            <h1 className="font-display text-[clamp(58px,9.5vw,130px)] font-normal leading-[0.91] tracking-[-0.03em] text-cream mb-8">
+              <span className="block overflow-hidden"><span className="inline-block">Strategy that</span></span>
+              <span className="block overflow-hidden"><span className="inline-block text-gold">moves culture.</span></span>
+            </h1>
+          </Reveal>
 
           <Reveal delay={0.2}>
-            <p className="mt-6 max-w-[46ch] text-[19px] leading-relaxed text-white/75" style={{ textShadow: "0 2px 12px rgba(0,0,0,0.5)" }}>
-              Most agencies sell you activity — posts, reach, impressions. We care
-              about one thing: did it actually grow your business? Every project
-              starts with that question and ends with the numbers to answer it.
+            <p className="text-[16px] font-light leading-[1.75] text-cream/70 max-w-[400px]">
+              A&O Kreative is a creative strategy and digital marketing partner for brands ready to own their next chapter.
             </p>
           </Reveal>
 
           <Reveal delay={0.3}>
-            <div className="mt-10 flex flex-wrap justify-start gap-4">
-              <Button href="/book" className="!px-8 !py-4 text-lg font-medium text-white bg-[#0070F3] hover:bg-[#0060D0] rounded-lg transition-colors border-0 shadow-[0_0_20px_rgba(0,112,243,0.25)]">
-                Book a call
-              </Button>
-              <Button
-                href="/work"
-                className="!px-8 !py-4 text-lg font-medium text-white/90 hover:text-white bg-white/[0.06] hover:bg-white/[0.10] rounded-lg transition-colors border border-white/[0.08] hover:border-white/[0.14]"
-              >
+            <div className="mt-9 flex items-center gap-6 flex-wrap">
+              <Button href="/work" variant="accent">
                 See our work
               </Button>
+              <Button href="/services" variant="ghost" className="!border-cream/35 !text-cream hover:!bg-gold hover:!text-navy hover:!border-gold">
+                Explore services
+              </Button>
             </div>
           </Reveal>
-        </div>
-
-        {/* Stat Card */}
-        <div className="mt-16 lg:mt-0 lg:absolute lg:bottom-12 lg:right-12 z-20">
-          <Reveal delay={0.4}>
-            <div className="flex flex-col items-center justify-center rounded-xl p-6 bg-[#12121a] border border-white/[0.08] w-64 text-center shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
-              <span className="tnum font-display text-[48px] leading-none text-white font-bold">
-                46+
-              </span>
-              <span className="mt-2 text-[14px] leading-snug uppercase tracking-widest text-white/50">
-                Brands helped grow across East Africa
-              </span>
-            </div>
-          </Reveal>
-        </div>
+        </motion.div>
       </div>
+      
+      {/* Scroll indicator */}
+      <Reveal delay={0.5}>
+        <div className="absolute bottom-11 right-[7vw] flex flex-col items-center gap-2.5 z-20">
+          <motion.div 
+            animate={{ scaleY: [1, 0.2], y: [0, 28], opacity: [1, 0] }}
+            transition={{ duration: 2, ease: "easeInOut", repeat: Infinity }}
+            className="w-px h-14 origin-top"
+            style={{ background: "linear-gradient(to bottom, var(--color-gold), transparent)" }}
+          />
+          <span className="text-[10px] tracking-[0.14em] uppercase text-cream/30 [writing-mode:vertical-rl]">
+            Scroll
+          </span>
+        </div>
+      </Reveal>
     </section>
   );
 }

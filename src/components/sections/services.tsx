@@ -11,7 +11,7 @@ function BentoCard({ s, i, isLarge }: { s: any; i: number; isLarge: boolean }) {
   return (
     <Link
       href={`/services/${s.slug}`}
-      className={`group flex flex-col rounded-xl bg-[#12121a] border border-white/[0.08] overflow-hidden h-full transition-all duration-300 hover:-translate-y-1 hover:border-white/[0.14] hover:shadow-[0_8px_32px_rgba(0,0,0,0.5)] ${
+      className={`group flex flex-col rounded-xl bg-navy-mid border border-gold/15 overflow-hidden h-full transition-all duration-300 hover:-translate-y-1 hover:border-gold/40 ${
         i === 0 ? "sm:col-span-2" :
         i === 3 ? "sm:col-span-2" :
         i === 6 ? "sm:col-span-2" : ""
@@ -30,14 +30,14 @@ function BentoCard({ s, i, isLarge }: { s: any; i: number; isLarge: boolean }) {
 
       {/* Text Zone */}
       <div className="flex flex-col gap-3 p-6 sm:p-7 flex-grow">
-        <span className="text-[11px] font-mono uppercase tracking-[0.15em] text-[#0070F3]">{s.kicker}</span>
-        <h3 className={`${isLarge || i === 6 ? "text-[26px]" : "text-[21px]"} font-semibold text-white leading-tight`}>
+        <span className="text-[11px] font-sans uppercase tracking-[0.15em] text-gold">{s.kicker}</span>
+        <h3 className={`${isLarge || i === 6 ? "text-[26px]" : "text-[21px]"} font-normal text-cream leading-tight`}>
           {s.name}
         </h3>
-        <p className={`text-[14.5px] leading-relaxed text-white/70 ${isLarge ? "max-w-[42ch]" : ""}`}>
+        <p className={`text-[14.5px] leading-relaxed text-cream/70 ${isLarge ? "max-w-[42ch]" : ""}`}>
           {s.summary}
         </p>
-        <span className="mt-auto pt-3 text-[13px] font-medium text-[#0070F3] group-hover:text-[#3b9eff] transition-colors">
+        <span className="mt-auto pt-3 text-[13px] font-medium text-gold group-hover:text-gold/80 transition-colors">
           Learn more →
         </span>
       </div>
@@ -65,12 +65,12 @@ export function Services() {
               <Eyebrow>What we do</Eyebrow>
             </Reveal>
           <Reveal delay={0.1}>
-            <h2 className="mt-3 text-[clamp(28px,3.6vw,42px)] leading-[1.1] text-white">
+            <h2 className="mt-3 text-[clamp(28px,3.6vw,42px)] leading-[1.1] text-navy">
               Everything your brand needs to grow
             </h2>
           </Reveal>
           <Reveal delay={0.2}>
-            <p className="mt-4 text-[17px] text-white/70">
+            <p className="mt-4 text-[17px] text-navy/70">
               Seven things, done properly. Pick one or let us handle the lot —
               most clients start with whatever&apos;s hurting most right now.
             </p>
