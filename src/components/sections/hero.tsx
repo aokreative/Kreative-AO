@@ -1,11 +1,11 @@
 "use client";
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
-import { Button } from "@/components/ui/primitives";
+import { Button, Container, Eyebrow } from "@/components/ui/primitives";
+import { HEADLINE_STATS } from "@/content/case-studies";
 import { Reveal } from "@/components/motion/reveal";
-
+import { Frame } from "@/components/frame";
 import Image from "next/image";
-
 export function Hero() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -13,89 +13,74 @@ export function Hero() {
     offset: ["start start", "end start"],
   });
 
-  const yTransform = useTransform(scrollYProgress, [0, 1], [0, 100]);
-  const opacityTransform = useTransform(scrollYProgress, [0, 1], [1, 0.4]);
+  const headlineScale = useTransform(scrollYProgress, [0, 1], [1, 0.94]);
+  const headlineOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.4]);
+  const photoY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
+  const veilOpacity = useTransform(scrollYProgress, [0, 1], [0.6, 1]);
 
   return (
-    <section 
-      ref={ref} 
-      className="relative w-full min-h-[100vh] flex items-end pb-[13vh] pt-32 overflow-hidden bg-navy"
-    >
-      {/* BACKGROUND IMAGE */}
-      <div className="absolute inset-0 z-0 bg-navy">
-        <Image
-          src="/brand/hero.jpg"
-          fill
-          priority
-          className="object-cover object-[70%_center] opacity-50 mix-blend-luminosity"
-          alt="Workspace"
-        />
-        {/* Dark gradient overlay so the light text pops */}
-        <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/60 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/60 to-transparent w-[65%]" />
+    <section ref={ref} className="relative w-full min-h-[70vh] flex items-center overflow-hidden bg-[#0D1B35]">
+      {/* 1. BACKGROUND IMAGE LAYER */}
+      <div className="absolute inset-0 z-0 bg-[#0D1B35]">
+        <Image src="/brand/hero.jpg" fill priority className="object-cover object-center opacity-40 mix-blend-luminosity" alt="Workspace" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0D1B35] via-[#0D1B35]/60 to-transparent" />
       </div>
-      
-      {/* Animated blob */}
-      <motion.div 
-        animate={{ 
-          borderRadius: ["60% 40% 55% 45%/50% 55% 45% 50%", "45% 55% 42% 58%/55% 45% 58% 42%", "55% 45% 60% 40%/42% 58% 45% 55%", "60% 40% 55% 45%/50% 55% 45% 50%"],
-          y: [0, -18, 10, 0]
-        }}
-        transition={{ duration: 9, ease: "easeInOut", repeat: Infinity }}
-        className="absolute top-[6%] right-0 w-[58vw] max-w-[860px] h-[82vh] pointer-events-none z-0 mix-blend-screen opacity-60"
-        style={{
-          background: "radial-gradient(ellipse at 45% 45%, rgba(200,160,90,.12) 0%, rgba(13,27,53,.06) 50%, transparent 70%)"
-        }}
-      />
 
-      <div className="relative z-20 w-full container mx-auto px-6 max-w-[880px] ml-[7vw]">
-        <motion.div style={{ y: yTransform, opacity: opacityTransform }}>
+      {/* 3. THE TEXT CONTENT LAYER */}
+      <div className="relative z-20 w-full container mx-auto px-6 grid lg:grid-cols-12 gap-8 pt-24 pb-4">
+        <div className="col-span-12 lg:col-span-7 text-[#F5F0E6] text-left flex flex-col items-start">
           <Reveal>
-            <p className="text-[11px] font-normal tracking-[0.14em] uppercase text-gold mb-6">
-              Digital Marketing & Creative Strategy — Nairobi, Kenya
-            </p>
-          </Reveal>
-
-          <Reveal delay={0.1}>
-            <h1 className="font-display text-[clamp(58px,9.5vw,130px)] font-normal leading-[0.91] tracking-[-0.03em] text-cream mb-8">
-              <span className="block overflow-hidden"><span className="inline-block">Strategy that</span></span>
-              <span className="block overflow-hidden"><span className="inline-block text-gold">moves culture.</span></span>
-            </h1>
-          </Reveal>
-
-          <Reveal delay={0.2}>
-            <p className="text-[16px] font-light leading-[1.75] text-cream/70 max-w-[400px]">
-              A&O Kreative is a creative strategy and digital marketing partner for brands ready to own their next chapter.
-            </p>
-          </Reveal>
-
-          <Reveal delay={0.3}>
-            <div className="mt-9 flex items-center gap-6 flex-wrap">
-              <Button href="/work" variant="accent">
-                See our work
-              </Button>
-              <Button href="/services" variant="ghost" className="!border-cream/35 !text-cream hover:!bg-gold hover:!text-navy hover:!border-gold">
-                Explore services
-              </Button>
+                <div className="inline-flex items-center rounded-full border border-[#C8A05A]/20 bg-[#C8A05A]/5 px-4 py-1.5 mb-6">
+                  <span className="text-xs font-mono uppercase tracking-wider text-[#C8A05A]">Marketing · Branding · AI — Nairobi</span>
+                </div>
+              </Reveal>
+              
+              <motion.div style={{ scale: headlineScale, opacity: headlineOpacity, transformOrigin: "left center" }}>
+                <Reveal delay={0.1}>
+                  <h1 className="mt-5 max-w-[20ch] text-[clamp(44px,7.5vw,96px)] font-medium leading-[1.05] text-[#F5F0E6] drop-shadow-2xl">
+                    We build the software, and we bring you the{" "}
+                    <span className="text-[#C8A05A]">customers</span>.
+                  </h1>
+                </Reveal>
+              </motion.div>
+              
+              <Reveal delay={0.2}>
+                <p className="mt-8 max-w-[56ch] text-[19px] leading-relaxed text-[#F5F0E6]/90 drop-shadow-md">
+                  Most agencies sell you activity — posts, reach, impressions. We care
+                  about one thing: did it actually grow your business? Every project
+                  starts with that question and ends with the numbers to answer it.
+                </p>
+              </Reveal>
+              
+              <Reveal delay={0.3}>
+                <div className="mt-10 flex flex-wrap justify-start gap-4">
+                  <Button href="/book" className="!px-8 !py-4 text-lg bg-[#C8A05A] text-[#0D1B35] hover:bg-[#0D1B35] hover:text-[#F5F0E6] transition-colors rounded-full border-0 font-medium">
+                    Book a call
+                  </Button>
+                  <Button
+                    href="/work"
+                    className="!px-8 !py-4 text-lg bg-transparent text-[#F5F0E6] border border-[#F5F0E6]/20 hover:border-[#F5F0E6]/40 hover:bg-[#F5F0E6]/10 transition-colors rounded-full font-medium"
+                  >
+                    See our work
+                  </Button>
+                </div>
+              </Reveal>
             </div>
-          </Reveal>
-        </motion.div>
-      </div>
-      
-      {/* Scroll indicator */}
-      <Reveal delay={0.5}>
-        <div className="absolute bottom-11 right-[7vw] flex flex-col items-center gap-2.5 z-20">
-          <motion.div 
-            animate={{ scaleY: [1, 0.2], y: [0, 28], opacity: [1, 0] }}
-            transition={{ duration: 2, ease: "easeInOut", repeat: Infinity }}
-            className="w-px h-14 origin-top"
-            style={{ background: "linear-gradient(to bottom, var(--color-gold), transparent)" }}
-          />
-          <span className="text-[10px] tracking-[0.14em] uppercase text-cream/30 [writing-mode:vertical-rl]">
-            Scroll
-          </span>
-        </div>
-      </Reveal>
+
+            {/* Stat Card */}
+            <div className="col-span-12 lg:col-span-5 self-end pb-0">
+              <Reveal delay={0.4}>
+                <div className="flex w-full flex-col items-center justify-center rounded-2xl p-6 shadow-2xl bg-[#0D1B35] border border-[#C8A05A]/15">
+                  <span className="tnum font-display text-[48px] leading-none text-[#F5F0E6] drop-shadow-lg">
+                    {HEADLINE_STATS[0].value}
+                  </span>
+                  <span className="mt-2 text-[14px] leading-snug text-[#F5F0E6]/60 uppercase tracking-widest text-center">
+                    {HEADLINE_STATS[0].label}
+                  </span>
+                </div>
+              </Reveal>
+            </div>
+          </div>
     </section>
   );
 }

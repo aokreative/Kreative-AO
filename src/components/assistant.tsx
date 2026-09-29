@@ -100,31 +100,20 @@ export function Assistant() {
   }
 
   return (
-    <>
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        aria-expanded={open}
-        aria-controls="aok-assistant"
-        className="glass fixed bottom-5 right-5 z-[90] flex items-center gap-2.5 rounded-full bg-teal py-3.5 pl-4 pr-5 text-[14px] font-semibold text-parchment shadow-e1 transition-transform hover:-translate-y-0.5 dark:bg-parchment dark:text-teal-deep"
-      >
-        <span aria-hidden className="signal h-2.5 w-2.5 rounded-full" />
-        {open ? "Close" : "Ask us anything"}
-      </button>
-
+    <div className="fixed bottom-6 right-6 z-[100] flex flex-col items-end">
       {open && (
         <div
           id="aok-assistant"
           ref={panelRef}
           role="dialog"
           aria-label="A&O Kreative assistant"
-          className="fixed bottom-24 right-5 z-[90] flex max-h-[min(620px,calc(100vh-8rem))] w-[min(400px,calc(100vw-2.5rem))] flex-col overflow-hidden rounded-lg border border-line bg-surface shadow-e1"
+          className="absolute bottom-full right-0 mb-4 flex max-h-[min(620px,calc(100vh-8rem))] w-[min(400px,calc(100vw-2.5rem))] flex-col overflow-hidden rounded-xl border border-[#0D1B35]/10 bg-[#F5F0E6] shadow-2xl"
         >
-          <header className="flex items-center gap-3 border-b border-line-soft px-5 py-4">
-            <span aria-hidden className="signal h-8 w-1 rounded-full" />
+          <header className="flex items-center gap-3 border-b border-[#0D1B35]/10 px-5 py-4 bg-[#0D1B35] text-[#F5F0E6]">
+            <span aria-hidden className="signal h-8 w-1 rounded-full bg-[#C8A05A]" />
             <div>
-              <p className="text-[15px] font-semibold">A&amp;O Assistant</p>
-              <p className="text-[12.5px] text-ink-3">
+              <p className="text-[15px] font-semibold text-[#F5F0E6]">A&amp;O Assistant</p>
+              <p className="text-[12.5px] text-[#F5F0E6]/70">
                 Answers from our real work — not a sales script
               </p>
             </div>
@@ -132,7 +121,7 @@ export function Assistant() {
 
           <div
             ref={logRef}
-            className="flex flex-1 flex-col gap-3.5 overflow-y-auto px-5 py-5"
+            className="flex flex-1 flex-col gap-3.5 overflow-y-auto px-5 py-5 bg-[#F5F0E6]"
             aria-live="polite"
           >
             {messages.map((m, i) => (
@@ -140,23 +129,23 @@ export function Assistant() {
                 key={i}
                 className={
                   m.role === "user"
-                    ? "ml-auto max-w-[85%] rounded-lg rounded-br-sm bg-teal px-3.5 py-2.5 text-[14.5px] leading-relaxed text-parchment dark:bg-teal-mid"
-                    : "max-w-[92%] whitespace-pre-wrap text-[14.5px] leading-relaxed text-ink-2"
+                    ? "ml-auto max-w-[85%] rounded-lg rounded-br-sm bg-[#0D1B35] px-3.5 py-2.5 text-[14.5px] leading-relaxed text-[#F5F0E6]"
+                    : "max-w-[92%] whitespace-pre-wrap text-[14.5px] leading-relaxed text-[#0D1B35]/80"
                 }
               >
                 {m.content}
                 {busy && i === messages.length - 1 && m.role === "assistant" && (
-                  <span className="ml-0.5 inline-block h-3.5 w-[2px] animate-pulse bg-accent align-middle" />
+                  <span className="ml-0.5 inline-block h-3.5 w-[2px] animate-pulse bg-[#C8A05A] align-middle" />
                 )}
               </div>
             ))}
 
             {busy && messages[messages.length - 1]?.role === "user" && (
-              <p className="text-[13px] text-ink-3">Thinking…</p>
+              <p className="text-[13px] text-[#0D1B35]/50">Thinking…</p>
             )}
 
             {error && (
-              <p role="alert" className="text-[13.5px] text-accent-ink">
+              <p role="alert" className="text-[13.5px] text-red-500">
                 {error}
               </p>
             )}
@@ -168,7 +157,7 @@ export function Assistant() {
                     key={p}
                     type="button"
                     onClick={() => send(p)}
-                    className="rounded-full border border-line px-3 py-1.5 text-[13px] text-ink-2 transition-colors hover:border-ink-3 hover:text-ink"
+                    className="rounded-full border border-[#0D1B35]/20 px-3 py-1.5 text-[13px] text-[#0D1B35]/70 transition-colors hover:border-[#0D1B35] hover:text-[#0D1B35]"
                   >
                     {p}
                   </button>
@@ -182,7 +171,7 @@ export function Assistant() {
               e.preventDefault();
               send(input);
             }}
-            className="flex items-end gap-2 border-t border-line-soft p-3"
+            className="flex items-end gap-2 border-t border-[#0D1B35]/10 p-3 bg-white"
           >
             <label htmlFor="aok-msg" className="sr-only">
               Message the assistant
@@ -199,26 +188,46 @@ export function Assistant() {
                 }
               }}
               placeholder="Ask about services, pricing or our work…"
-              className="max-h-28 min-h-[42px] flex-1 resize-none rounded-[7px] border border-line bg-bg px-3 py-2.5 text-[14.5px] text-ink"
+              className="max-h-28 min-h-[42px] flex-1 resize-none rounded-[7px] border border-[#0D1B35]/20 bg-transparent px-3 py-2.5 text-[14.5px] text-[#0D1B35] focus:outline-none focus:border-[#C8A05A]"
             />
             <button
               type="submit"
               disabled={busy || !input.trim()}
-              className="rounded-[7px] bg-accent px-4 py-2.5 text-[14px] font-semibold text-on-accent disabled:opacity-50"
+              className="rounded-[7px] bg-[#C8A05A] px-4 py-2.5 text-[14px] font-semibold text-[#0D1B35] disabled:opacity-50 transition-colors hover:bg-[#0D1B35] hover:text-[#F5F0E6]"
             >
               Send
             </button>
           </form>
 
-          <p className="border-t border-line-soft px-5 py-2.5 text-[11.5px] text-ink-3">
+          <p className="border-t border-[#0D1B35]/10 px-5 py-2.5 text-[11.5px] text-[#0D1B35]/50 bg-[#F5F0E6]">
             AI assistant — it can be wrong. For anything that matters,{" "}
-            <a href="/book" className="underline underline-offset-2">
+            <a href="/book" className="underline underline-offset-2 text-[#0D1B35]">
               book a call
             </a>
             .
           </p>
         </div>
       )}
-    </>
+
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        aria-controls="aok-assistant"
+        className="group flex items-center gap-3 transition-transform duration-300 hover:scale-105"
+      >
+        {open ? (
+          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#0D1B35] text-[#F5F0E6] shadow-lg">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+            <span className="sr-only">Close</span>
+          </div>
+        ) : (
+          <div className="flex h-14 items-center justify-center rounded-full bg-[#0D1B35] px-6 text-[14px] font-medium text-[#F5F0E6] shadow-lg border border-[#0D1B35]/5 gap-2">
+            <span aria-hidden className="signal h-2.5 w-2.5 rounded-full bg-[#C8A05A]" />
+            Ask us anything
+          </div>
+        )}
+      </button>
+    </div>
   );
 }

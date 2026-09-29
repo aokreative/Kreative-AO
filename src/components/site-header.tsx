@@ -38,15 +38,15 @@ export function SiteHeader() {
               const active =
                 pathname === item.href || pathname.startsWith(item.href + "/");
               
-              const textColor = scrolled ? "text-navy" : "text-cream";
-              const hoverColor = scrolled ? "hover:text-gold" : "hover:text-gold";
+              const textColor = scrolled ? "text-[#0D1B35]" : "text-[#F5F0E6]";
+              const hoverColor = scrolled ? "hover:text-[#C8A05A]" : "hover:text-[#C8A05A]";
               
               return (
                 <Link
                   key={item.href}
                   href={item.href}
                   aria-current={active ? "page" : undefined}
-                  className={`font-sans text-[13px] font-normal tracking-[0.04em] transition-colors relative after:absolute after:bottom-[-2px] after:left-0 after:right-0 after:h-px after:bg-gold after:scale-x-0 after:origin-left after:transition-transform hover:after:scale-x-100 ${
+                  className={`font-sans text-[13px] font-normal tracking-[0.04em] transition-colors relative after:absolute after:bottom-[-2px] after:left-0 after:right-0 after:h-px after:bg-[#C8A05A] after:scale-x-0 after:origin-left after:transition-transform hover:after:scale-x-100 ${
                     active ? `${textColor} after:scale-x-100` : `${textColor} ${hoverColor}`
                   }`}
                 >
@@ -57,8 +57,8 @@ export function SiteHeader() {
           </nav>
           
           <div className="ml-8">
-            <Button href="/book" variant="ghost" className={`!py-[9px] !px-5 !text-[12px] !font-medium !rounded-[40px] !border-[1.5px] !tracking-[0.06em] transition-colors ${
-              scrolled ? "!border-navy !text-navy hover:!bg-gold hover:!border-gold hover:!text-navy" : "!border-cream !text-cream hover:!bg-gold hover:!border-gold hover:!text-navy"
+            <Button href="/book" className={`!py-[9px] !px-5 !text-[13px] !font-medium !rounded-full transition-colors ${
+              scrolled ? "bg-[#C8A05A] text-[#0D1B35] hover:bg-[#0D1B35] hover:text-[#F5F0E6] border-0" : "bg-transparent border border-[#F5F0E6]/20 text-[#F5F0E6] hover:bg-[#F5F0E6]/10 hover:border-[#F5F0E6]/40"
             }`}>
               Start a Project
             </Button>
