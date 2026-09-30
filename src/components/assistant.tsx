@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { motion } from "motion/react";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
@@ -100,19 +101,25 @@ export function Assistant() {
   }
 
   return (
-    <div className="fixed bottom-6 right-6 z-[100] flex flex-col items-end">
+    <motion.div 
+      className="fixed bottom-6 right-6 z-[100] flex flex-col items-end"
+      drag
+      dragMomentum={false}
+      style={{ touchAction: "none" }}
+    >
       {open && (
         <div
           id="aok-assistant"
           ref={panelRef}
           role="dialog"
           aria-label="A&O Kreative assistant"
-          className="absolute bottom-full right-0 mb-4 flex max-h-[min(620px,calc(100vh-8rem))] w-[min(400px,calc(100vw-2.5rem))] flex-col overflow-hidden rounded-xl border border-[#0D1B35]/10 bg-[#F5F0E6] shadow-2xl"
+          onPointerDown={(e) => e.stopPropagation()}
+          className="absolute bottom-full right-0 mb-4 flex max-h-[min(620px,calc(100vh-8rem))] w-[min(400px,calc(100vw-2.5rem))] flex-col overflow-hidden rounded-xl border border-[#0D1B35]/10 bg-[#F5F0E6] shadow-2xl cursor-default"
         >
           <header className="flex items-center gap-3 border-b border-[#0D1B35]/10 px-5 py-4 bg-[#0D1B35] text-[#F5F0E6]">
             <span aria-hidden className="signal h-8 w-1 rounded-full bg-[#C8A05A]" />
             <div>
-              <p className="text-[15px] font-semibold text-[#F5F0E6]">A&amp;O Assistant</p>
+              <p className="text-[15px] font-semibold text-[#F5F0E6]">A&amp;O AI Assistant</p>
               <p className="text-[12.5px] text-[#F5F0E6]/70">
                 Answers from our real work — not a sales script
               </p>
@@ -214,7 +221,7 @@ export function Assistant() {
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-controls="aok-assistant"
-        className="group flex items-center gap-3 transition-transform duration-300 hover:scale-105"
+        className="group flex items-center gap-3 transition-transform duration-300 hover:scale-105 cursor-grab active:cursor-grabbing"
       >
         {open ? (
           <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#0D1B35] text-[#F5F0E6] shadow-lg">
@@ -224,10 +231,10 @@ export function Assistant() {
         ) : (
           <div className="flex h-14 items-center justify-center rounded-full bg-[#0D1B35] px-6 text-[14px] font-medium text-[#F5F0E6] shadow-lg border border-[#0D1B35]/5 gap-2">
             <span aria-hidden className="signal h-2.5 w-2.5 rounded-full bg-[#C8A05A]" />
-            Ask us anything
+            Chat with AI Assistant
           </div>
         )}
       </button>
-    </div>
+    </motion.div>
   );
 }

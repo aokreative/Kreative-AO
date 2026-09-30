@@ -3,7 +3,7 @@ import { SITE } from "@/lib/site";
 import { Container, Eyebrow, Section } from "@/components/ui/primitives";
 
 export const metadata: Metadata = {
-  title: "Terms of Service",
+  title: "Terms and Conditions",
   description: "Terms and conditions for using our website and services.",
   robots: { index: false, follow: true },
 };
@@ -13,10 +13,10 @@ export default function TermsPage() {
     <Section>
       <Container>
         <Eyebrow>Legal</Eyebrow>
-        <h1 className="mt-3 text-[clamp(30px,4vw,44px)] leading-tight">Terms of Service</h1>
+        <h1 className="mt-3 text-[clamp(30px,4vw,44px)] leading-tight">Terms and Conditions</h1>
         <div className="mt-8 flex max-w-[68ch] flex-col gap-5 text-[16.5px] leading-relaxed text-ink-2 prose-aok">
           <p>
-            Welcome to {SITE.name}. By accessing or using our website and services, you agree to be bound by these Terms of Service. Please read them carefully.
+            Welcome to {SITE.name}. By accessing or using our website and services, you agree to be bound by these Terms and Conditions. Please read them carefully.
           </p>
 
           <h2 className="mt-4 text-[22px] text-ink">1. Services</h2>
@@ -41,7 +41,7 @@ export default function TermsPage() {
 
           <h2 className="mt-4 text-[22px] text-ink">5. Modifications</h2>
           <p>
-            We may revise these Terms of Service at any time without notice. By using this website, you are agreeing to be bound by the then-current version of these Terms of Service.
+            We may revise these Terms and Conditions at any time without notice. By using this website, you are agreeing to be bound by the then-current version of these Terms and Conditions.
           </p>
 
           <h2 className="mt-4 text-[22px] text-ink">6. Contact Us</h2>
