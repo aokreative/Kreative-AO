@@ -1,84 +1,349 @@
 @import "tailwindcss";
 
+/* ------------------------------------------------------------------
+   A&O Kreative — design tokens
+   Every value sampled from the logo artwork. See the brand system doc.
+------------------------------------------------------------------ */
 @theme {
-  --color-cream: #F5F0E6;
-  --color-cream-mid: #EDE7D8;
-  --color-cream-dark: #D8D0BE;
-  --color-navy: #0D1B35;
-  --color-navy-mid: #162040;
-  --color-gold: #C8A05A;
-  --color-ai-dark: #080417;
-  --color-ai-mid: #11082A;
-  --color-ai-card: #130930;
-  --color-electric: #A78BFA;
-  --color-violet: #7C3AED;
+  /* brand */
+  --color-teal:        #194044;
+  --color-teal-deep:   #0E2427;
+  --color-teal-mid:    #2C5F63;
+  --color-teal-soft:   #8FB8B4;
+  --color-parchment:   #EFE4CF;
+  --color-paper:       #FAF7F0;
+  --color-sand:        #E1D6BE;
 
-  --font-display: var(--font-cormorant), Georgia, serif;
-  --font-body: var(--font-dm-sans), system-ui, sans-serif;
-  --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
+  /* signal gradient */
+  --color-orange:      #B6571A;
+  --color-orange-deep: #8E4413;
+  --color-rose:        #B65E58;
+  --color-mauve:       #7A5460;
+  --color-indigo:      #393C56;
+  --color-orange-lift: #E3A46B;
 
+  /* product colours — Duka POS only, never site chrome */
+  --color-duka:        #15803D;
+  --color-duka-deep:   #14532D;
+  --color-duka-tint:   #EAF6EE;
+
+  /* type — self-hosted via Fontsource (see layout.tsx) */
+  --font-display: "Newsreader Variable", Georgia, "Times New Roman", serif;
+  --font-body:    "Karla Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono:    "JetBrains Mono Variable", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* new tokens */
+  --color-ink: #06150F;
+  --color-forest: #0B2119;
+  --color-moss: #102E23;
+  --color-ridge: #1A4034;
+  --color-bone: #F3F0E6;
+  --color-sage: #9FB5AA;
+  --color-clay: #E0A175;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-spring: cubic-bezier(.22, 1, .36, 1);
+
+  /* geometry — 8pt base */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+
+  /* spacing scale — clamp-based, no arbitrary values */
+  --space-section: clamp(5rem, 10vw, 9rem);
+  --space-gutter:  clamp(1.25rem, 5vw, 4rem);
+  --space-card:    clamp(1.5rem, 2.5vw, 2.5rem);
+}
+
+/* Semantic surface tokens — light is the default palette. */
+:root {
+  --bg:         #FAF7F0;
+  --surface:    #FFFFFF;
+  --surface-2:  #F3EEE3;
+  --ink:        #132F32;
+  --ink-2:      #3D5B5E;
+  --ink-3:      #6C8487;
+  --line:       #DED3BE;
+  --line-soft:  #EAE1D0;
+  --accent:     #B6571A;
+  --accent-ink: #8E4413;
+  --on-accent:  #FFF6EC;
+  --shadow-e1:  0 1px 2px -1px rgb(0 0 0 / .12), 0 8px 24px -12px rgb(0 0 0 / .28);
+  --shadow-e2:  0 2px 4px -2px rgb(0 0 0 / .16), 0 20px 48px -20px rgb(0 0 0 / .4);
+  --highlight:  inset 0 1px 0 0 rgb(255 255 255 / .05);
+  --nav-h:      68px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:         #0E2427;
+    --surface:    #143034;
+    --surface-2:  #1A3B3F;
+    --ink:        #EDE6D6;
+    --ink-2:      #B4C6C4;
+    --ink-3:      #87A2A1;
+    --line:       #265055;
+    --line-soft:  #1E4348;
+    --accent:     #E3A46B;
+    --accent-ink: #F0C79B;
+    --on-accent:  #17282A;
+    --shadow-e1:  0 1px 2px -1px rgb(0 0 0 / .2), 0 8px 24px -12px rgb(0 0 0 / .5);
+    --shadow-e2:  0 2px 4px -2px rgb(0 0 0 / .3), 0 20px 48px -20px rgb(0 0 0 / .7);
+    --highlight:  inset 0 1px 0 0 rgb(255 255 255 / .08);
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg:         #0E2427;
+  --surface:    #143034;
+  --surface-2:  #1A3B3F;
+  --ink:        #EDE6D6;
+  --ink-2:      #B4C6C4;
+  --ink-3:      #87A2A1;
+  --line:       #265055;
+  --line-soft:  #1E4348;
+  --accent:     #E3A46B;
+  --accent-ink: #F0C79B;
+  --on-accent:  #17282A;
+  --shadow-e1:  0 1px 2px -1px rgb(0 0 0 / .2), 0 8px 24px -12px rgb(0 0 0 / .5);
+  --shadow-e2:  0 2px 4px -2px rgb(0 0 0 / .3), 0 20px 48px -20px rgb(0 0 0 / .7);
+  --highlight:  inset 0 1px 0 0 rgb(255 255 255 / .08);
+}
+
+/* Expose the semantic tokens to Tailwind utilities */
+@theme inline {
+  --color-bg:        var(--bg);
+  --color-surface:   var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink:       var(--ink);
+  --color-ink-2:     var(--ink-2);
+  --color-ink-3:     var(--ink-3);
+  --color-line:      var(--line);
+  --color-line-soft: var(--line-soft);
+  --color-accent:    var(--accent);
+  --color-accent-ink:var(--accent-ink);
+  --color-on-accent: var(--on-accent);
+  --shadow-e1:       var(--shadow-e1);
+  --shadow-e2:       var(--shadow-e2);
 }
 
 @layer base {
-  html { 
-    -webkit-text-size-adjust: 100%; 
-    scroll-behavior: smooth;
-  }
+  html { -webkit-text-size-adjust: 100%; }
   body {
-    background: var(--color-cream);
-    color: var(--color-navy);
+    background: var(--bg);
+    color: var(--ink);
     font-family: var(--font-body);
-    font-size: 16px;
+    font-size: 16.5px;
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    cursor: none;
-  }
-  a, button {
-    cursor: none;
   }
   h1, h2, h3, h4 {
     font-family: var(--font-display);
-    font-weight: 400;
-    letter-spacing: -0.02em;
-    line-height: 1;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 0.92;
+    text-wrap: balance;
   }
+  .prose-aok p, .prose-aok li { max-width: 62ch; }
+  ::selection { background: var(--color-parchment); color: var(--color-teal-deep); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
   
-  html:not([data-splash="skip"]):not([data-splash="done"]) body { /* overflow removed to fix sticky scroll */ }
+  html:not([data-splash="skip"]):not([data-splash="done"]) body { overflow: hidden; }
 }
 
 @layer utilities {
-  .nav-glass {
+  /* The signature asset. Once per screen — never behind body copy. */
+  .signal {
+    background-image: linear-gradient(100deg,
+      var(--color-orange) 0%, var(--color-rose) 38%,
+      var(--color-mauve) 66%, var(--color-indigo) 100%);
+  }
+  .signal-text {
+    background-image: linear-gradient(100deg,
+      var(--color-orange) 0%, var(--color-rose) 45%, var(--color-indigo) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .tnum { font-variant-numeric: tabular-nums; }
+  .label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+}
+
+/* ----------------------------------------------------------------
+   Interaction layer — everything responds in 400-500ms spring ease.
+   Cards lift. Links draw underlines from left. Focus uses --accent.
+   Nothing changes colour alone on hover.
+---------------------------------------------------------------- */
+@layer utilities {
+  .card {
+    border: 1px solid var(--line-soft);
+    box-shadow: var(--shadow-e1), var(--highlight);
+    transition: transform 450ms var(--ease-spring),
+                box-shadow 450ms var(--ease-spring);
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-e2), var(--highlight);
+  }
+
+  .link-draw {
     position: relative;
-    background: rgba(245, 240, 230, 0.93);
-    backdrop-filter: blur(14px);
-    border-bottom: 1px solid var(--color-cream-dark);
+    text-decoration: none;
   }
-  
-  .dark-nav.nav-glass {
-    background: rgba(13, 27, 53, 0.93);
-    border-bottom-color: rgba(200, 160, 90, 0.15);
+  .link-draw::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 100%;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 400ms var(--ease-spring);
   }
-
-  .reveal {
-    opacity: 0;
-    transform: translateY(26px);
-    transition: opacity 0.85s var(--ease-spring), transform 0.85s var(--ease-spring);
-  }
-  .reveal.vis {
-    opacity: 1;
-    transform: translateY(0);
+  .link-draw:hover::after {
+    transform: scaleX(1);
   }
 }
 
-@keyframes splashFadeIn {
-  to { opacity: 1; }
+/* Long-form article body. The blog is the only place raw HTML is rendered,
+   so its typography is defined once here rather than per element. */
+.prose-aok { font-size: 17.5px; line-height: 1.75; color: var(--ink-2); }
+.prose-aok > * + * { margin-top: 1.15em; }
+.prose-aok h2 {
+  font-family: var(--font-display);
+  font-size: 27px;
+  line-height: 1.22;
+  color: var(--ink);
+  margin-top: 2em;
+}
+.prose-aok strong { color: var(--ink); font-weight: 600; }
+.prose-aok ul { padding-left: 1.15rem; list-style: disc; }
+.prose-aok li { margin-top: .55em; }
+.prose-aok li::marker { color: var(--accent); }
+.prose-aok blockquote {
+  margin-top: 1.6em;
+  padding: 1.1rem 1.4rem;
+  border-left: 3px solid var(--accent);
+  background: var(--surface-2);
+  border-radius: 0 10px 10px 0;
+  font-family: var(--font-display);
+  font-size: 20px;
+  line-height: 1.45;
+  color: var(--ink);
+}
+.prose-aok blockquote p { margin: 0; }
+
+/* Night-city backdrop for the opening card and the hero.
+   The photo layer sits on top and is optional: drop a licensed image at
+   /brand/skyline.jpg and it takes over automatically. Until then the
+   generated layers below carry it — no broken image, no licence risk,
+   and a fraction of the bytes. */
+.skyline {
+  background-color: var(--color-teal-deep);
+  background-image:
+    url("/brand/skyline.jpg"),
+    radial-gradient(120% 52% at 16% 100%, rgba(227,164,107,.34), transparent 62%),
+    radial-gradient(95% 44% at 74% 100%, rgba(182,87,26,.26), transparent 64%),
+    radial-gradient(64% 34% at 46% 104%, rgba(245,214,180,.30), transparent 58%),
+    linear-gradient(180deg, #06171A 0%, #0A2023 40%, #102C30 72%, #16383C 100%);
+  background-size: cover, cover, cover, cover, cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-@keyframes splashScan {
-  0% { left: -100%; }
-  100% { left: 100%; }
+/* Scattered light, drawn rather than photographed. */
+.skyline::before {
+  content: "";
+  position: absolute;
+  inset: 55% 0 0 0;
+  pointer-events: none;
+  opacity: .75;
+  background-image:
+    radial-gradient(1.5px 1.5px at 12% 30%, rgba(255,214,150,.9), transparent),
+    radial-gradient(1.5px 1.5px at 27% 62%, rgba(255,226,180,.75), transparent),
+    radial-gradient(1.5px 1.5px at 41% 18%, rgba(255,206,140,.8), transparent),
+    radial-gradient(1.5px 1.5px at 55% 74%, rgba(255,232,190,.7), transparent),
+    radial-gradient(1.5px 1.5px at 68% 40%, rgba(255,210,150,.85), transparent),
+    radial-gradient(1.5px 1.5px at 82% 66%, rgba(255,224,175,.7), transparent),
+    radial-gradient(1.5px 1.5px at 92% 26%, rgba(255,214,150,.8), transparent),
+    radial-gradient(1.5px 1.5px at 34% 88%, rgba(255,236,200,.6), transparent),
+    radial-gradient(1.5px 1.5px at 74% 92%, rgba(255,218,165,.6), transparent);
+}
+
+/* Hero photograph. The subject sits right of centre with dark room on the
+   left, so the frame is anchored right and the veil is weighted left — the
+   headline gets a quiet ground and the photo keeps the half that carries it. */
+.hero-photo {
+  background-color: var(--color-teal-deep);
+  background-image:
+    url("/brand/hero.jpg"),
+    radial-gradient(46% 62% at 74% 52%, rgba(227,164,107,.26), transparent 68%),
+    radial-gradient(34% 44% at 62% 60%, rgba(143,184,180,.20), transparent 70%),
+    radial-gradient(40% 50% at 88% 38%, rgba(182,87,26,.16), transparent 72%),
+    linear-gradient(115deg, #071A1D 0%, #0B2226 42%, #123033 74%, #17393D 100%);
+  background-size: cover;
+  background-position: 72% center;
+  background-repeat: no-repeat;
+}
+
+.img-treat { position: relative; }
+.img-treat::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg,
+    rgba(6, 21, 15, 0.4) 0%,
+    rgba(6, 21, 15, 0.8) 100%);
+}
+.img-treat img { filter: saturate(0.85) contrast(1.05); }
+
+.hero-veil {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to right, var(--color-ink) 10%, rgba(6, 21, 15, 0.8) 40%, transparent 100%);
+}
+
+.header-veil {
+  position: absolute; inset: 0; z-index: 10; pointer-events: none;
+  background: linear-gradient(to right, var(--color-ink) 10%, color-mix(in srgb, var(--color-ink) 80%, transparent) 40%, transparent 100%);
+}
+
+.header-veil-dark {
+  position: absolute; inset: 0; z-index: 10; pointer-events: none;
+}
+.header-veil-dark::before, .header-veil-dark::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+}
+.header-veil-dark::before {
+  background: linear-gradient(to right, var(--color-forest), color-mix(in srgb, var(--color-forest) 80%, transparent) 50%, transparent);
+  mix-blend-mode: multiply;
+}
+.header-veil-dark::after {
+  background: linear-gradient(to right, color-mix(in srgb, var(--color-forest) 90%, transparent), color-mix(in srgb, var(--color-forest) 50%, transparent) 50%, transparent);
+}
+
+@media (max-width: 900px) {
+  /* On a narrow screen the text covers the whole frame, so the photo becomes
+     texture rather than subject and needs to sit further back. */
+  .hero-veil {
+    background: linear-gradient(180deg, rgba(6,23,26,.90), rgba(6,23,26,.82) 55%, rgba(6,23,26,.94));
+  }
+}
+
+/* The teal wash that keeps type legible over any of it. */
+.skyline-veil {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(115deg, rgba(6,23,26,.90), rgba(6,23,26,.66) 48%, rgba(6,23,26,.94)),
+    radial-gradient(58% 46% at 50% 46%, rgba(6,23,26,.55), transparent 72%);
 }
 
 @keyframes splashUp {
@@ -87,15 +352,52 @@
 }
 
 @keyframes splash-out {
-  0%   { opacity: 1; }
+  0% { opacity: 1; }
   100% { opacity: 0; pointer-events: none; visibility: hidden; }
 }
 
 html[data-splash="skip"] #splash {
   display: none !important;
 }
-html[data-splash="done"] #splash {
-  opacity: 0 !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.glass {
+  position: relative;
+  overflow: hidden;
+  background: color-mix(in oklab, var(--color-moss) 80%, transparent);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+@supports (backdrop-filter: blur(12px)) {
+  .glass {
+    backdrop-filter: blur(12px) saturate(1.2);
+    background: color-mix(in oklab, var(--color-moss) 45%, transparent);
+  }
+}
+
+.glass::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: radial-gradient(
+    600px circle at var(--mouse-x, 0) var(--mouse-y, 0),
+    rgba(255, 255, 255, 0.1),
+    transparent 40%
+  );
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.glass:hover::before {
+  opacity: 1;
 }

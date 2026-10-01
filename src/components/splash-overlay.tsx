@@ -1,7 +1,15 @@
 "use client";
 
 import { useEffect } from "react";
+import { Logo } from "./logo";
+import { Ridges } from "./graphics/ridges";
 
+/**
+ * Opening title card.
+ * Markup ships in the server-rendered HTML from layout.tsx, id="splash", always present.
+ * A blocking inline script in <head> sets document.documentElement.dataset.splash = 'skip' before first paint if seen.
+ * CSS keyframes drive the entire sequence. It runs correctly before React hydrates.
+ */
 export function SplashOverlay() {
   useEffect(() => {
     const el = document.documentElement;
@@ -32,7 +40,7 @@ export function SplashOverlay() {
       window.removeEventListener("wheel", dismiss);
     };
 
-    const t = setTimeout(dismiss, 1900);
+    const t = setTimeout(dismiss, 2800);
     window.addEventListener("keydown", dismiss, { once: true });
     window.addEventListener("pointerdown", dismiss, { once: true });
     window.addEventListener("wheel", dismiss, { once: true, passive: true });
@@ -47,12 +55,41 @@ export function SplashOverlay() {
     <div
       id="splash"
       aria-hidden
-      className="fixed inset-0 z-[10000] bg-navy flex flex-col items-center justify-center gap-6 transition-[opacity,visibility] duration-[900ms] ease-spring [.splash-done_&]:opacity-0 [.splash-done_&]:invisible [.splash-done_&]:pointer-events-none"
+      className="skyline fixed inset-0 z-[200] grid place-items-center overflow-hidden animate-[splash-out_700ms_forwards_2100ms]"
     >
-      <div className="font-display text-[28px] text-cream tracking-[-0.02em] opacity-0 animate-[splashFadeIn_0.6s_0.3s_forwards]">
-        A<span className="text-gold">&amp;</span>O Kreative
+      {/* 0.00s .skyline ground, already painted. Grain overlay at 6%. */}
+      <div className="skyline-veil" />
+      <div className="absolute inset-0 bg-white/[0.06] opacity-100" style={{ mixBlendMode: 'overlay' }}></div>
+      
+      <div className="relative flex flex-col items-center gap-6 px-6 text-center mt-32">
+        {/* 0.05s Ridges draw. 20 concentric fingerprint paths, 40ms stagger, 1.0s total, --color-orange-lift */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-orange-lift">
+          <Ridges size={600} draw={true} />
+        </div>
+        
+        {/* 0.85s Logo mark rises 16px into the ridge centre, 600ms. */}
+        <div className="animate-[splashLogoUp_600ms_cubic-bezier(.22,1,.36,1)_850ms_both]">
+          <Logo width={132} onDark priority />
+        </div>
+        
+        {/* 1.25s A&O KREATIVE wordmark, letters staggered 25ms. */}
+        <h1 className="font-display text-[clamp(38px,6vw,64px)] font-medium leading-none text-parchment flex gap-[2px]">
+          {"A&O KREATIVE".split("").map((char, i) => (
+            <span 
+              key={i} 
+              className="animate-[splashFadeUp_400ms_cubic-bezier(.22,1,.36,1)_both]" 
+              style={{ animationDelay: `${1250 + i * 25}ms` }}
+            >
+              {char === " " ? "\u00A0" : char}
+            </span>
+          ))}
+        </h1>
+        
+        {/* 1.55s Mono line beneath */}
+        <p className="label text-orange-lift animate-[splashFadeUp_400ms_cubic-bezier(.22,1,.36,1)_1550ms_both]">
+          MARKETING · BRANDING · AI — NAIROBI
+        </p>
       </div>
-      <div className="w-[130px] h-[1px] bg-[rgba(200,160,90,.18)] relative overflow-hidden opacity-0 animate-[splashFadeIn_0.4s_0.5s_forwards] after:content-[''] after:absolute after:left-[-100%] after:top-0 after:bottom-0 after:w-full after:bg-[linear-gradient(90deg,transparent,var(--color-gold),transparent)] after:animate-[splashScan_1.3s_0.7s_ease-in-out_infinite]" />
     </div>
   );
 }

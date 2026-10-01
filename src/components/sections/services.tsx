@@ -28,12 +28,12 @@ export function Services() {
               <Eyebrow>What we do</Eyebrow>
             </Reveal>
           <Reveal delay={0.1}>
-            <h2 className="mt-3 text-[clamp(28px,3.6vw,42px)] leading-[1.1] text-[#0D1B35]">
+            <h2 className="mt-3 text-[clamp(28px,3.6vw,42px)] leading-[1.1]">
               Everything your brand needs to grow
             </h2>
           </Reveal>
           <Reveal delay={0.2}>
-            <p className="mt-4 text-[17px] text-[#0D1B35]/70">
+            <p className="mt-4 text-[17px] text-ink-2">
               Seven things, done properly. Pick one or let us handle the lot —
               most clients start with whatever&apos;s hurting most right now.
             </p>
@@ -49,23 +49,23 @@ export function Services() {
               <Reveal key={s.slug} delay={i * 0.1}>
                 <Link
                   href={`/services/${s.slug}`}
-                  className={`group relative overflow-hidden flex flex-col rounded-2xl border border-[#C8A05A]/15 bg-[#0D1B35] transition-all hover:border-[#C8A05A]/40 ${
+                  className={`glass group relative overflow-hidden flex flex-col rounded-xl border border-line bg-surface shadow-e1 transition-all hover:border-ink-3 hover:shadow-lg ${
                     i === 0 ? "sm:col-span-2" :
                     i === 3 ? "sm:col-span-2" :
                     i === 6 ? "sm:col-span-2 md:flex-row items-stretch" : ""
                   } h-full`}
                 >
-                  <div className={`shrink-0 ${i === 6 ? "md:w-[40%] md:border-r md:border-b-0 border-[#C8A05A]/15" : ""} border-b border-[#C8A05A]/15`}>
+                  <div className={`shrink-0 ${i === 6 ? "md:w-[40%] md:border-r md:border-b-0" : ""} border-b border-line`}>
                     <Frame src={imgSrc} alt={s.name} className="w-full h-full" />
                   </div>
                   <div className="flex flex-col gap-4 p-7 sm:p-8 flex-grow">
                     <div className="flex flex-col gap-2">
-                      <h3 className={`${isLarge || i === 6 ? "text-[26px]" : "text-[21px]"} leading-tight text-[#F5F0E6]`}>{s.name}</h3>
-                      <p className={`text-[14.5px] leading-relaxed text-[#F5F0E6]/70 ${isLarge ? "max-w-[42ch]" : ""}`}>
+                      <h3 className={`${isLarge || i === 6 ? "text-[26px]" : "text-[21px]"} leading-tight`}>{s.name}</h3>
+                      <p className={`text-[14.5px] leading-relaxed text-ink-2 ${isLarge ? "max-w-[42ch]" : ""}`}>
                         {s.summary}
                       </p>
                     </div>
-                    <span className="mt-auto pt-2 text-[13.5px] font-semibold text-[#C8A05A] group-hover:underline">
+                    <span className="mt-auto pt-2 text-[13.5px] font-semibold text-accent-ink group-hover:underline">
                       {s.kicker} &rarr;
                     </span>
                   </div>

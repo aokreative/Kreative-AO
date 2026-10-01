@@ -25,29 +25,25 @@ export function SiteHeader() {
     <header
       className={`fixed top-0 z-50 w-full transition-all duration-300 ${
         scrolled
-          ? "nav-glass"
+          ? "border-b border-white/20 glass text-parchment"
           : "border-b border-transparent bg-transparent"
       }`}
     >
-      <Container className="flex h-[70px] items-center justify-between gap-6 px-[5vw]">
-        <LogoLink onDark={!scrolled} />
+      <Container className="flex h-[68px] items-center justify-between gap-6">
+        <LogoLink />
 
         <div className="hidden items-center md:flex">
           <nav aria-label="Main" className="flex items-center gap-8">
             {NAV.map((item) => {
               const active =
                 pathname === item.href || pathname.startsWith(item.href + "/");
-              
-              const textColor = scrolled ? "text-[#0D1B35]" : "text-[#F5F0E6]";
-              const hoverColor = scrolled ? "hover:text-[#C8A05A]" : "hover:text-[#C8A05A]";
-              
               return (
                 <Link
                   key={item.href}
                   href={item.href}
                   aria-current={active ? "page" : undefined}
-                  className={`font-sans text-[13px] font-normal tracking-[0.04em] transition-colors relative after:absolute after:bottom-[-2px] after:left-0 after:right-0 after:h-px after:bg-[#C8A05A] after:scale-x-0 after:origin-left after:transition-transform hover:after:scale-x-100 ${
-                    active ? `${textColor} after:scale-x-100` : `${textColor} ${hoverColor}`
+                  className={`font-mono text-xs uppercase tracking-[0.18em] transition-colors ${
+                    active ? "text-ink" : "text-ink-2 hover:text-ink"
                   }`}
                 >
                   {item.label}
@@ -56,11 +52,11 @@ export function SiteHeader() {
             })}
           </nav>
           
+          <div className="ml-8 h-4 w-px bg-line" />
+          
           <div className="ml-8">
-            <Button href="/book" className={`!py-[9px] !px-5 !text-[13px] !font-medium !rounded-full transition-colors ${
-              scrolled ? "bg-[#C8A05A] text-[#0D1B35] hover:bg-[#0D1B35] hover:text-[#F5F0E6] border-0" : "bg-transparent border border-[#F5F0E6]/20 text-[#F5F0E6] hover:bg-[#F5F0E6]/10 hover:border-[#F5F0E6]/40"
-            }`}>
-              Start a Project
+            <Button href="/book" variant="accent" className="!py-2.5 !px-4">
+              Book a call
             </Button>
           </div>
         </div>
@@ -70,29 +66,27 @@ export function SiteHeader() {
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls="mobile-nav"
-          className={`rounded-md border px-3 py-2 text-[13px] font-semibold md:hidden transition-colors ${
-            scrolled ? "border-navy/20 text-navy" : "border-cream/20 text-cream"
-          }`}
+          className="rounded-md border border-line px-3 py-2 text-[13px] font-semibold md:hidden"
         >
           {open ? "Close" : "Menu"}
         </button>
       </Container>
 
       {open && (
-        <div id="mobile-nav" className="border-t border-cream-dark bg-cream/95 backdrop-blur-sm md:hidden">
+        <div id="mobile-nav" className="border-t border-line-soft bg-bg/95 backdrop-blur-xl md:hidden">
           <Container className="flex flex-col gap-1 py-4">
             {NAV.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="font-display text-[34px] font-normal tracking-[-0.02em] text-navy border-b border-cream-dark py-2.5 text-left transition-colors hover:text-gold"
+                className="font-mono text-xs uppercase tracking-[0.18em] rounded-md px-2 py-3 text-ink-2 hover:bg-surface-2 hover:text-ink"
               >
                 {item.label}
               </Link>
             ))}
             <Button href="/book" variant="accent" className="mt-4 w-full justify-center">
-              Start a Project
+              Book a call
             </Button>
           </Container>
         </div>

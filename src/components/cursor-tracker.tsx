@@ -54,12 +54,12 @@ export function CursorTracker() {
       <div 
         id="cdot" 
         ref={dotRef} 
-        className="fixed top-0 left-0 z-[9999] w-2 h-2 bg-gold rounded-full pointer-events-none -translate-x-1/2 -translate-y-1/2 mix-blend-multiply hidden md:block" 
+        className="fixed top-0 left-0 z-[9999] w-2 h-2 bg-accent rounded-full pointer-events-none -translate-x-1/2 -translate-y-1/2 mix-blend-multiply hidden md:block" 
       />
       <div 
         id="cring" 
         ref={ringRef} 
-        className="fixed top-0 left-0 z-[9998] w-10 h-10 border-[1.5px] border-gold rounded-full pointer-events-none -translate-x-1/2 -translate-y-1/2 opacity-60 transition-[width,height,opacity] duration-[180ms] ease-spring hidden md:block [.cx_&]:w-16 [.cx_&]:h-16 [.cx_&]:opacity-95" 
+        className="fixed top-0 left-0 z-[9998] w-10 h-10 border-[1.5px] border-accent rounded-full pointer-events-none -translate-x-1/2 -translate-y-1/2 opacity-60 transition-[width,height,opacity] duration-[180ms] ease-spring hidden md:block [.cx_&]:w-16 [.cx_&]:h-16 [.cx_&]:opacity-95" 
       />
     </>
   );
