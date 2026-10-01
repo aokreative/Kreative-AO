@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { motion } from "motion/react";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
@@ -100,30 +101,25 @@ export function Assistant() {
   }
 
   return (
-    <>
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        aria-expanded={open}
-        aria-controls="aok-assistant"
-        className="glass fixed bottom-5 right-5 z-[90] flex items-center gap-2.5 rounded-full bg-teal py-3.5 pl-4 pr-5 text-[14px] font-semibold text-parchment shadow-e1 transition-transform hover:-translate-y-0.5 dark:bg-parchment dark:text-teal-deep"
-      >
-        <span aria-hidden className="signal h-2.5 w-2.5 rounded-full" />
-        {open ? "Close" : "Ask us anything"}
-      </button>
-
+    <motion.div 
+      className="fixed bottom-6 right-6 z-[100] flex flex-col items-end"
+      drag
+      dragMomentum={false}
+      style={{ touchAction: "none" }}
+    >
       {open && (
         <div
           id="aok-assistant"
           ref={panelRef}
           role="dialog"
           aria-label="A&O Kreative assistant"
-          className="fixed bottom-24 right-5 z-[90] flex max-h-[min(620px,calc(100vh-8rem))] w-[min(400px,calc(100vw-2.5rem))] flex-col overflow-hidden rounded-lg border border-line bg-surface shadow-e1"
+          onPointerDown={(e) => e.stopPropagation()}
+          className="absolute bottom-full right-0 mb-4 flex max-h-[min(620px,calc(100vh-8rem))] w-[min(400px,calc(100vw-2.5rem))] flex-col overflow-hidden rounded-lg border border-line bg-surface shadow-e1 cursor-default"
         >
           <header className="flex items-center gap-3 border-b border-line-soft px-5 py-4">
             <span aria-hidden className="signal h-8 w-1 rounded-full" />
             <div>
-              <p className="text-[15px] font-semibold">A&amp;O Assistant</p>
+              <p className="text-[15px] font-semibold">A&amp;O AI Assistant</p>
               <p className="text-[12.5px] text-ink-3">
                 Answers from our real work — not a sales script
               </p>
@@ -219,6 +215,16 @@ export function Assistant() {
           </p>
         </div>
       )}
-    </>
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        aria-controls="aok-assistant"
+        className="glass flex items-center gap-2.5 rounded-full bg-teal py-3.5 pl-4 pr-5 text-[14px] font-semibold text-parchment shadow-e1 transition-transform hover:-translate-y-0.5 dark:bg-parchment dark:text-teal-deep cursor-grab active:cursor-grabbing"
+      >
+        <span aria-hidden className="signal h-2.5 w-2.5 rounded-full" />
+        {open ? "Close" : "Chat with AI Assistant"}
+      </button>
+    </motion.div>
   );
 }

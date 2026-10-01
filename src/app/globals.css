@@ -191,6 +191,12 @@
     box-shadow: var(--shadow-e2), var(--highlight);
   }
 
+  .nav-glass {
+    background: rgba(245, 240, 230, 0.93);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line-soft);
+  }
+
   .link-draw {
     position: relative;
     text-decoration: none;

@@ -59,7 +59,8 @@ export function SiteFooter() {
           <FooterLink href="/about">About</FooterLink>
           <FooterLink href="/contact">Contact</FooterLink>
           <FooterLink href="/book">Book a call</FooterLink>
-          <FooterLink href="/legal/privacy">Privacy</FooterLink>
+          <FooterLink href="/legal/privacy">Privacy Policy</FooterLink>
+          <FooterLink href="/legal/terms">Terms and Conditions</FooterLink>
         </FooterCol>
       </Container>
 
