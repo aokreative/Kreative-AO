@@ -77,7 +77,7 @@ export async function POST(req: Request) {
       try {
         const s = await ai.models.generateContentStream({
           model: MODEL,
-          systemInstruction: { parts: [{ text: buildSystemPrompt() }] },
+          config: { systemInstruction: buildSystemPrompt() },
           contents: messages.map((m) => ({ 
             role: m.role === "assistant" ? "model" : "user", 
             parts: [{ text: m.content }] 
@@ -238,12 +238,13 @@ async function extractLead(
 
   const res = await ai.models.generateContent({
     model: MODEL,
-    systemInstruction: { parts: [{text: 
-      "Extract lead details from a website chat. Reply with JSON only, no prose. " +
-      `Schema: {"name": string|null, "company": string|null, "interest": one of ${INTERESTS.join("|")}, "summary": string}. ` +
-      "summary is one or two sentences describing what the visitor needs, written for the sales team. " +
-      "Use null when a field was not actually stated — never guess a name from an email address."
-    }]},
+    config: {
+      systemInstruction: 
+        "Extract lead details from a website chat. Reply with JSON only, no prose. " +
+        `Schema: {"name": string|null, "company": string|null, "interest": one of ${INTERESTS.join("|")}, "summary": string}. ` +
+        "summary is one or two sentences describing what the visitor needs, written for the sales team. " +
+        "Use null when a field was not actually stated — never guess a name from an email address."
+    },
     contents: `Visitor email: ${email}\n\nConversation:\n${conversation}`,
   });
 
