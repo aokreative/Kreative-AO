@@ -44,7 +44,7 @@ export function SiteHeader() {
                   href={item.href}
                   aria-current={active ? "page" : undefined}
                   className={`font-mono text-xs uppercase tracking-[0.18em] transition-colors ${
-                    active ? "text-ink" : "text-ink-2 hover:text-ink"
+                    active ? "text-current" : "text-current opacity-70 hover:opacity-100"
                   }`}
                 >
                   {item.label}
@@ -53,7 +53,7 @@ export function SiteHeader() {
             })}
           </nav>
           
-          <div className="ml-8 h-4 w-px bg-line" />
+          <div className="ml-8 h-4 w-px bg-current opacity-30" />
           
           <div className="ml-8">
             <Button href="/book" variant="accent" className="!py-2.5 !px-4">
@@ -67,7 +67,9 @@ export function SiteHeader() {
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls="mobile-nav"
-          className="rounded-md border border-line px-3 py-2 text-[13px] font-semibold md:hidden"
+          className={`rounded-md border px-3 py-2 text-[13px] font-semibold md:hidden transition-colors ${
+            scrolled ? "border-white/20 text-parchment" : "border-line text-ink"
+          }`}
         >
           {open ? "Close" : "Menu"}
         </button>

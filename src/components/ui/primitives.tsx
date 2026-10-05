@@ -97,9 +97,16 @@ export function Badge({
     <span
       className={`label inline-flex w-fit items-center gap-1.5 rounded-full px-2.5 py-1 ${tones[tone]}`}
     >
-      <span aria-hidden className={`text-[8px] leading-none ${tone === 'live' ? 'animate-pulse' : ''}`}>
-        ●
-      </span>
+      {tone === 'live' ? (
+        <span className="relative flex h-2 w-2">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#22c55e] opacity-75"></span>
+          <span className="relative inline-flex rounded-full h-2 w-2 bg-[#22c55e]"></span>
+        </span>
+      ) : (
+        <span aria-hidden className="text-[8px] leading-none">
+          ●
+        </span>
+      )}
       {children}
     </span>
   );
