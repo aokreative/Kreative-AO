@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ARTICLES, articleBySlug } from "@/content/articles";
 import { Button, Container, Eyebrow, Section } from "@/components/ui/primitives";
+import { Frame } from "@/components/frame";
 
 export function generateStaticParams() {
   return ARTICLES.map((a) => ({ slug: a.slug }));
@@ -47,6 +48,11 @@ export default async function ArticlePage({
           <p className="mt-5 max-w-[58ch] text-[18px] leading-relaxed text-ink-2">
             {a.excerpt}
           </p>
+          {a.image && (
+            <div className="mt-12 aspect-[16/7] w-full overflow-hidden">
+              <Frame src={a.image} alt={a.title} className="w-full h-full object-cover" />
+            </div>
+          )}
         </Container>
       </section>
 

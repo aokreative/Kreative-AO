@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ARTICLES } from "@/content/articles";
 import { Container, Eyebrow, Section } from "@/components/ui/primitives";
@@ -8,7 +8,7 @@ import Image from "next/image";
 export const metadata: Metadata = {
   title: "Blog",
   description:
-    "Practical thinking on marketing, branding and growing a business in Kenya — written for people who'd rather do the work than read theory.",
+    "Practical thinking on marketing, tech and growing a business in Kenya — written for people who'd rather do the work than read theory.",
 };
 
 export default function BlogPage() {
@@ -33,7 +33,7 @@ export default function BlogPage() {
               Ideas worth stealing
             </h1>
             <p className="mt-6 max-w-[60ch] text-[17px] text-[#F3F0E6]/90">
-              Practical thinking on marketing, branding and growing a business in
+              Practical thinking on marketing, tech and growing a business in
               Kenya — written for people who&apos;d rather do the work than read
               theory.
             </p>

@@ -81,7 +81,7 @@ export function Splash() {
           A&amp;O Kreative
         </h1>
         <p className="label animate-[splashUp_.9s_ease-out_.3s_both] text-orange-lift">
-          Marketing · Branding · AI — Nairobi
+          Marketing · Tech · AI — Nairobi
         </p>
       </div>
     </div>

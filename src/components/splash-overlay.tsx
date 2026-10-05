@@ -87,7 +87,7 @@ export function SplashOverlay() {
         
         {/* 1.55s Mono line beneath */}
         <p className="label text-orange-lift animate-[splashFadeUp_400ms_cubic-bezier(.22,1,.36,1)_1550ms_both]">
-          MARKETING · BRANDING · AI — NAIROBI
+          MARKETING · TECH · AI — NAIROBI
         </p>
       </div>
     </div>

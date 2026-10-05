@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { NAV } from "@/lib/site";
 import { LogoLink } from "./logo";
 import { Button, Container } from "./ui/primitives";
@@ -13,20 +13,29 @@ export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
 
+  const lastY = useRef(0);
+
   useEffect(() => {
-    let lastScrollY = window.scrollY;
+    lastY.current = window.scrollY;
     
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       setScrolled(currentScrollY > 80);
       
-      // Hide if scrolling down past 150px, show if scrolling up
-      if (currentScrollY > lastScrollY && currentScrollY > 150) {
+      // Always show at the top
+      if (currentScrollY <= 0) {
+        setHidden(false);
+      } 
+      // Hide if scrolling down past 150px
+      else if (currentScrollY > lastY.current && currentScrollY > 150) {
         setHidden(true);
-      } else {
+      } 
+      // Show if scrolling up
+      else if (currentScrollY < lastY.current) {
         setHidden(false);
       }
-      lastScrollY = currentScrollY;
+      
+      lastY.current = currentScrollY;
     };
     
     handleScroll();

@@ -33,7 +33,7 @@ export function Hero() {
         <div className="col-span-12 lg:col-span-7 text-[#F3F0E6] text-left flex flex-col items-start">
           <Reveal>
                 <div className="inline-flex items-center rounded-full border border-white/20 bg-white/5 px-4 py-1.5 mb-6">
-                  <span className="text-xs font-mono uppercase tracking-wider text-teal-soft">Marketing · Branding · AI — Nairobi</span>
+                  <span className="text-xs font-mono uppercase tracking-wider text-teal-soft">Marketing · Tech · AI — Nairobi</span>
                 </div>
               </Reveal>
               
