@@ -11,31 +11,10 @@ export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [hidden, setHidden] = useState(false);
-
-  const lastY = useRef(0);
 
   useEffect(() => {
-    lastY.current = window.scrollY;
-    
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      setScrolled(currentScrollY > 80);
-      
-      // Always show at the top
-      if (currentScrollY <= 0) {
-        setHidden(false);
-      } 
-      // Hide if scrolling down past 150px
-      else if (currentScrollY > lastY.current && currentScrollY > 150) {
-        setHidden(true);
-      } 
-      // Show if scrolling up
-      else if (currentScrollY < lastY.current) {
-        setHidden(false);
-      }
-      
-      lastY.current = currentScrollY;
+      setScrolled(window.scrollY > 80);
     };
     
     handleScroll();
@@ -45,9 +24,7 @@ export function SiteHeader() {
 
   return (
     <header
-      className={`fixed top-0 z-50 w-full transition-all duration-300 ${
-        hidden ? "-translate-y-full" : "translate-y-0"
-      } ${
+      className={`fixed top-0 z-50 w-full transition-colors duration-300 ${
         scrolled
           ? "border-b border-white/20 glass text-parchment"
           : "border-b border-transparent bg-transparent"

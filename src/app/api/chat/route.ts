@@ -1,4 +1,4 @@
-import Anthropic from "@anthropic-ai/sdk";
+import { GoogleGenAI } from "@google/genai";
 import { z } from "zod";
 import { buildSystemPrompt } from "@/lib/knowledge";
 import { supabaseAdmin } from "@/lib/supabase";
@@ -8,7 +8,7 @@ import { sendInternalAlert, sendVisitorAutoReply } from "@/lib/email";
 export const runtime = "nodejs";
 export const maxDuration = 30;
 
-const MODEL = process.env.ANTHROPIC_MODEL ?? "claude-haiku-4-5-20251001";
+const MODEL = process.env.GEMINI_MODEL ?? "gemini-2.5-flash";
 const MAX_TURNS = 24;
 
 const bodySchema = z.object({
@@ -45,7 +45,7 @@ function rateLimited(id: string) {
 }
 
 export async function POST(req: Request) {
-  const key = process.env.ANTHROPIC_API_KEY;
+  const key = process.env.GEMINI_API_KEY;
   if (!key) {
     return Response.json(
       { error: "The assistant isn't configured yet. Please use the contact form." },
@@ -68,27 +68,26 @@ export async function POST(req: Request) {
     );
   }
 
-  const anthropic = new Anthropic({ apiKey: key });
+  const ai = new GoogleGenAI({ apiKey: key });
 
   const stream = new ReadableStream<Uint8Array>({
     async start(controller) {
       const enc = new TextEncoder();
       let full = "";
       try {
-        const s = anthropic.messages.stream({
+        const s = await ai.models.generateContentStream({
           model: MODEL,
-          max_tokens: 700,
-          system: buildSystemPrompt(),
-          messages: messages.map((m) => ({ role: m.role, content: m.content })),
+          systemInstruction: { parts: [{ text: buildSystemPrompt() }] },
+          contents: messages.map((m) => ({ 
+            role: m.role === "assistant" ? "model" : "user", 
+            parts: [{ text: m.content }] 
+          })),
         });
 
-        for await (const event of s) {
-          if (
-            event.type === "content_block_delta" &&
-            event.delta.type === "text_delta"
-          ) {
-            full += event.delta.text;
-            controller.enqueue(enc.encode(event.delta.text));
+        for await (const chunk of s) {
+          if (chunk.text) {
+            full += chunk.text;
+            controller.enqueue(enc.encode(chunk.text));
           }
         }
       } catch (err) {
@@ -233,30 +232,22 @@ async function extractLead(
   conversation: string,
   email: string,
 ): Promise<LeadDetails | null> {
-  const key = process.env.ANTHROPIC_API_KEY;
+  const key = process.env.GEMINI_API_KEY;
   if (!key) return null;
-  const anthropic = new Anthropic({ apiKey: key });
+  const ai = new GoogleGenAI({ apiKey: key });
 
-  const res = await anthropic.messages.create({
+  const res = await ai.models.generateContent({
     model: MODEL,
-    max_tokens: 400,
-    system:
+    systemInstruction: { parts: [{text: 
       "Extract lead details from a website chat. Reply with JSON only, no prose. " +
       `Schema: {"name": string|null, "company": string|null, "interest": one of ${INTERESTS.join("|")}, "summary": string}. ` +
       "summary is one or two sentences describing what the visitor needs, written for the sales team. " +
-      "Use null when a field was not actually stated — never guess a name from an email address.",
-    messages: [
-      {
-        role: "user",
-        content: `Visitor email: ${email}\n\nConversation:\n${conversation}`,
-      },
-    ],
+      "Use null when a field was not actually stated — never guess a name from an email address."
+    }]},
+    contents: `Visitor email: ${email}\n\nConversation:\n${conversation}`,
   });
 
-  const text = res.content
-    .map((b) => (b.type === "text" ? b.text : ""))
-    .join("")
-    .trim();
+  const text = res.text ?? "";
 
   try {
     const json = JSON.parse(text.replace(/^```(?:json)?|```$/g, "").trim());
