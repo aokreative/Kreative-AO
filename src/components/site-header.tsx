@@ -11,29 +11,28 @@ export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [hidden, setHidden] = useState(false);
-  const prevScrollY = useRef(0);
+  const [isVisible, setIsVisible] = useState(true);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      const current = window.scrollY;
-      const prev = prevScrollY.current;
+      const currentScrollY = window.scrollY;
 
       // Apply glass background after 80px
-      setScrolled(current > 80);
+      setScrolled(currentScrollY > 80);
 
       // Hide on scroll down, reveal on any scroll up
-      if (current > prev && current > 80) {
-        setHidden(true);
-      } else if (current < prev) {
-        setHidden(false);
+      if (currentScrollY < lastScrollY.current) {
+        setIsVisible(true);
+      } else if (currentScrollY > lastScrollY.current && currentScrollY > 80) {
+        setIsVisible(false);
       }
 
-      prevScrollY.current = current;
+      lastScrollY.current = currentScrollY;
     };
 
     // Run once on mount
-    prevScrollY.current = window.scrollY;
+    lastScrollY.current = window.scrollY;
     handleScroll();
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -42,13 +41,13 @@ export function SiteHeader() {
 
   // Close mobile menu when navbar hides
   useEffect(() => {
-    if (hidden) setOpen(false);
-  }, [hidden]);
+    if (!isVisible) setOpen(false);
+  }, [isVisible]);
 
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ${
-        hidden ? "-translate-y-full" : "translate-y-0"
+        isVisible ? "translate-y-0" : "-translate-y-full"
       } ${
         scrolled
           ? "border-b border-white/20 glass text-parchment"

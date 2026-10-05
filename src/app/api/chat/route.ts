@@ -1,5 +1,5 @@
 import { streamText } from "ai";
-import { google } from "@ai-sdk/google";
+import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { z } from "zod";
 import { buildSystemPrompt } from "@/lib/knowledge";
 import { supabaseAdmin } from "@/lib/supabase";
@@ -53,9 +53,6 @@ export async function POST(req: Request) {
       { status: 503 },
     );
   }
-  // @ai-sdk/google reads GOOGLE_GENERATIVE_AI_API_KEY — bridge our var at runtime.
-  process.env.GOOGLE_GENERATIVE_AI_API_KEY = key;
-
   let parsed;
   try {
     parsed = bodySchema.parse(await req.json());
@@ -71,10 +68,12 @@ export async function POST(req: Request) {
     );
   }
 
-  const result = streamText({
+  const google = createGoogleGenerativeAI({ apiKey: key });
+
+  const result = await streamText({
     model: google(MODEL),
     system: buildSystemPrompt(),
-    messages: messages.map((m) => ({ role: m.role, content: m.content })),
+    messages: messages.map((m) => ({ role: m.role as any, content: m.content })),
   });
 
   // Capture the full reply in a detached promise for persistence/lead capture.
@@ -93,7 +92,7 @@ export async function POST(req: Request) {
     );
   })();
 
-  return result.toTextStreamResponse();
+  return result.toDataStreamResponse();
 }
 
 const EMAIL_RE = /[\w.+-]+@[\w-]+\.[\w.-]{2,}/;
@@ -213,6 +212,8 @@ async function extractLead(
   if (!process.env.GEMINI_API_KEY) return null;
 
   const { generateText } = await import("ai");
+  const { createGoogleGenerativeAI } = await import("@ai-sdk/google");
+  const google = createGoogleGenerativeAI({ apiKey: process.env.GEMINI_API_KEY });
 
   const { text } = await generateText({
     model: google(MODEL),

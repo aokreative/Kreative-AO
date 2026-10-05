@@ -2,10 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
+import { useChat } from "ai/react";
 
-type Msg = { role: "user" | "assistant"; content: string };
+type Msg = { id?: string; role: "user" | "assistant" | "system" | "data"; content: string };
 
 const OPENER: Msg = {
+  id: "opener",
   role: "assistant",
   content:
     "Hi — I'm the A&O assistant. Tell me what you're trying to do and I'll tell you whether we can help, and roughly how we'd approach it.",
@@ -33,16 +35,17 @@ function visitorId() {
 
 export function Assistant() {
   const [open, setOpen] = useState(false);
-  const [messages, setMessages] = useState<Msg[]>([OPENER]);
-  const [input, setInput] = useState("");
-  const [busy, setBusy] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const logRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
 
+  const { messages, input, handleInputChange, handleSubmit, isLoading, error, append } = useChat({
+    initialMessages: [OPENER as any],
+    body: { visitorId: visitorId() },
+  });
+
   useEffect(() => {
     logRef.current?.scrollTo({ top: logRef.current.scrollHeight });
-  }, [messages, busy]);
+  }, [messages, isLoading]);
 
   useEffect(() => {
     if (!open) return;
@@ -52,52 +55,8 @@ export function Assistant() {
   }, [open]);
 
   async function send(text: string) {
-    const trimmed = text.trim();
-    if (!trimmed || busy) return;
-
-    const next = [...messages, { role: "user" as const, content: trimmed }];
-    setMessages(next);
-    setInput("");
-    setBusy(true);
-    setError(null);
-
-    try {
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          visitorId: visitorId(),
-          messages: next.slice(1).slice(-20),
-        }),
-      });
-
-      if (!res.ok || !res.body) {
-        const j = await res.json().catch(() => null);
-        setError(j?.error ?? "The assistant is unavailable right now.");
-        setBusy(false);
-        return;
-      }
-
-      const reader = res.body.getReader();
-      const dec = new TextDecoder();
-      let acc = "";
-      setMessages((m) => [...m, { role: "assistant", content: "" }]);
-
-      for (;;) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        acc += dec.decode(value, { stream: true });
-        setMessages((m) => {
-          const copy = [...m];
-          copy[copy.length - 1] = { role: "assistant", content: acc };
-          return copy;
-        });
-      }
-    } catch {
-      setError("Connection dropped. Try again, or email info@aokreative.com.");
-    } finally {
-      setBusy(false);
-    }
+    if (!text.trim() || isLoading) return;
+    await append({ role: "user", content: text });
   }
 
   return (
@@ -141,19 +100,19 @@ export function Assistant() {
                 }
               >
                 {m.content}
-                {busy && i === messages.length - 1 && m.role === "assistant" && (
+                {isLoading && i === messages.length - 1 && m.role === "assistant" && (
                   <span className="ml-0.5 inline-block h-3.5 w-[2px] animate-pulse bg-accent align-middle" />
                 )}
               </div>
             ))}
 
-            {busy && messages[messages.length - 1]?.role === "user" && (
+            {isLoading && messages[messages.length - 1]?.role === "user" && (
               <p className="text-[13px] text-ink-3">Thinking…</p>
             )}
 
             {error && (
               <p role="alert" className="text-[13.5px] text-accent-ink">
-                {error}
+                {error.message}
               </p>
             )}
 
@@ -174,10 +133,7 @@ export function Assistant() {
           </div>
 
           <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              send(input);
-            }}
+            onSubmit={handleSubmit}
             className="flex items-end gap-2 border-t border-line-soft p-3"
           >
             <label htmlFor="aok-msg" className="sr-only">
@@ -187,11 +143,15 @@ export function Assistant() {
               id="aok-msg"
               rows={1}
               value={input}
-              onChange={(e) => setInput(e.target.value)}
+              onChange={handleInputChange}
               onKeyDown={(e) => {
                 if (e.key === "Enter" && !e.shiftKey) {
                   e.preventDefault();
-                  send(input);
+                  // We must construct a synthetic event for handleSubmit
+                  const form = e.currentTarget.form;
+                  if (form) {
+                    form.requestSubmit();
+                  }
                 }
               }}
               placeholder="Ask about services, pricing or our work…"
@@ -199,7 +159,7 @@ export function Assistant() {
             />
             <button
               type="submit"
-              disabled={busy || !input.trim()}
+              disabled={isLoading || !input.trim()}
               className="rounded-[7px] bg-accent px-4 py-2.5 text-[14px] font-semibold text-on-accent disabled:opacity-50"
             >
               Send
