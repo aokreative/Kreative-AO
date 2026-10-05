@@ -94,7 +94,7 @@ export function Assistant() {
         });
       }
     } catch {
-      setError("Connection dropped. Try again, or email hello@aokreative.com.");
+      setError("Connection dropped. Try again, or email info@aokreative.com.");
     } finally {
       setBusy(false);
     }

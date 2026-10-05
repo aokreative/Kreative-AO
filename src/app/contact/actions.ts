@@ -116,7 +116,7 @@ export async function submitContact(
     return {
       ok: false,
       message:
-        "Something went wrong on our side. Email hello@aokreative.com and we'll pick it up there.",
+        "Something went wrong on our side. Email info@aokreative.com and we'll pick it up there.",
     };
   }
 }

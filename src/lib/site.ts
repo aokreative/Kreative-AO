@@ -3,7 +3,7 @@ export const SITE = {
   tagline: "Crafting brands that command",
   promise: "We build the software, and we bring you the customers.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://aokreative.vercel.app",
-  email: "hello@aokreative.com",
+  email: "info@aokreative.com",
   phone: "0182297245",
   whatsapp: "https://wa.me/254182297245",
   socials: {
@@ -169,7 +169,7 @@ export function dukaTrialLink(tier?: string) {
    with us.
 --------------------------------------------------------------- */
 export const CAL_USERNAME =
-  process.env.NEXT_PUBLIC_CAL_USERNAME ?? "aokreative";
+  process.env.NEXT_PUBLIC_CAL_USERNAME ?? "a-o-kreative-rblh1w";
 
 export type CalEvent = {
   slug: string;

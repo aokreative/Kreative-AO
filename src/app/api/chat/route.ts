@@ -94,7 +94,7 @@ export async function POST(req: Request) {
         console.error("[chat] stream failed", err);
         controller.enqueue(
           enc.encode(
-            "\n\nSomething went wrong on my end. Email hello@aokreative.com and a human will pick it up.",
+            "\n\nSomething went wrong on my end. Email info@aokreative.com and a human will pick it up.",
           ),
         );
       } finally {
