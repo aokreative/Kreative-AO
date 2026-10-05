@@ -11,20 +11,45 @@ export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const prevScrollY = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 80);
+      const current = window.scrollY;
+      const prev = prevScrollY.current;
+
+      // Apply glass background after 80px
+      setScrolled(current > 80);
+
+      // Hide on scroll down, reveal on any scroll up
+      if (current > prev && current > 80) {
+        setHidden(true);
+      } else if (current < prev) {
+        setHidden(false);
+      }
+
+      prevScrollY.current = current;
     };
-    
+
+    // Run once on mount
+    prevScrollY.current = window.scrollY;
     handleScroll();
+
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Close mobile menu when navbar hides
+  useEffect(() => {
+    if (hidden) setOpen(false);
+  }, [hidden]);
+
   return (
     <header
-      className={`!fixed top-0 z-50 w-full transition-colors duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ${
+        hidden ? "-translate-y-full" : "translate-y-0"
+      } ${
         scrolled
           ? "border-b border-white/20 glass text-parchment"
           : "border-b border-transparent bg-transparent"
@@ -52,9 +77,9 @@ export function SiteHeader() {
               );
             })}
           </nav>
-          
+
           <div className="ml-8 h-4 w-px bg-current opacity-30" />
-          
+
           <div className="ml-8">
             <Button href="/book" variant="accent" className="!py-2.5 !px-4">
               Book a call

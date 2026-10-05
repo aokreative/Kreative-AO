@@ -1,4 +1,5 @@
-import { GoogleGenAI } from "@google/genai";
+import { streamText } from "ai";
+import { google } from "@ai-sdk/google";
 import { z } from "zod";
 import { buildSystemPrompt } from "@/lib/knowledge";
 import { supabaseAdmin } from "@/lib/supabase";
@@ -8,7 +9,7 @@ import { sendInternalAlert, sendVisitorAutoReply } from "@/lib/email";
 export const runtime = "nodejs";
 export const maxDuration = 30;
 
-const MODEL = process.env.GEMINI_MODEL ?? "gemini-3.8-flash";
+const MODEL = process.env.GEMINI_MODEL ?? "gemini-1.5-flash";
 const MAX_TURNS = 24;
 
 const bodySchema = z.object({
@@ -52,6 +53,8 @@ export async function POST(req: Request) {
       { status: 503 },
     );
   }
+  // @ai-sdk/google reads GOOGLE_GENERATIVE_AI_API_KEY — bridge our var at runtime.
+  process.env.GOOGLE_GENERATIVE_AI_API_KEY = key;
 
   let parsed;
   try {
@@ -68,54 +71,29 @@ export async function POST(req: Request) {
     );
   }
 
-  const ai = new GoogleGenAI({ apiKey: key });
+  const result = streamText({
+    model: google(MODEL),
+    system: buildSystemPrompt(),
+    messages: messages.map((m) => ({ role: m.role, content: m.content })),
+  });
 
-  const stream = new ReadableStream<Uint8Array>({
-    async start(controller) {
-      const enc = new TextEncoder();
-      let full = "";
-      try {
-        const s = await ai.models.generateContentStream({
-          model: MODEL,
-          config: { systemInstruction: buildSystemPrompt() },
-          contents: messages.map((m) => ({ 
-            role: m.role === "assistant" ? "model" : "user", 
-            parts: [{ text: m.content }] 
-          })),
-        });
-
-        for await (const chunk of s) {
-          if (chunk.text) {
-            full += chunk.text;
-            controller.enqueue(enc.encode(chunk.text));
-          }
-        }
-      } catch (err) {
-        console.error("[chat] stream failed", err);
-        controller.enqueue(
-          enc.encode(
-            "\n\nSomething went wrong on my end. Email info@aokreative.com and a human will pick it up.",
-          ),
-        );
-      } finally {
-        controller.close();
+  // Capture the full reply in a detached promise for persistence/lead capture.
+  // This must not block or break the streaming response.
+  void (async () => {
+    let full = "";
+    try {
+      for await (const chunk of result.textStream) {
+        full += chunk;
       }
+    } catch (e) {
+      console.error("[chat] persist read failed", e);
+    }
+    void persist(parsed, full).catch((e) =>
+      console.error("[chat] persist failed", e),
+    );
+  })();
 
-      // Persistence and lead capture happen after the visitor has their
-      // answer, so neither can slow down or break the reply.
-      void persist(parsed, full).catch((e) =>
-        console.error("[chat] persist failed", e),
-      );
-    },
-  });
-
-  return new Response(stream, {
-    headers: {
-      "Content-Type": "text/plain; charset=utf-8",
-      "Cache-Control": "no-store",
-      "X-Accel-Buffering": "no",
-    },
-  });
+  return result.toTextStreamResponse();
 }
 
 const EMAIL_RE = /[\w.+-]+@[\w-]+\.[\w.-]{2,}/;
@@ -232,23 +210,19 @@ async function extractLead(
   conversation: string,
   email: string,
 ): Promise<LeadDetails | null> {
-  const key = process.env.GEMINI_API_KEY;
-  if (!key) return null;
-  const ai = new GoogleGenAI({ apiKey: key });
+  if (!process.env.GEMINI_API_KEY) return null;
 
-  const res = await ai.models.generateContent({
-    model: MODEL,
-    config: {
-      systemInstruction: 
-        "Extract lead details from a website chat. Reply with JSON only, no prose. " +
-        `Schema: {"name": string|null, "company": string|null, "interest": one of ${INTERESTS.join("|")}, "summary": string}. ` +
-        "summary is one or two sentences describing what the visitor needs, written for the sales team. " +
-        "Use null when a field was not actually stated — never guess a name from an email address."
-    },
-    contents: `Visitor email: ${email}\n\nConversation:\n${conversation}`,
+  const { generateText } = await import("ai");
+
+  const { text } = await generateText({
+    model: google(MODEL),
+    system:
+      "Extract lead details from a website chat. Reply with JSON only, no prose. " +
+      `Schema: {"name": string|null, "company": string|null, "interest": one of ${INTERESTS.join("|")}, "summary": string}. ` +
+      "summary is one or two sentences describing what the visitor needs, written for the sales team. " +
+      "Use null when a field was not actually stated — never guess a name from an email address.",
+    prompt: `Visitor email: ${email}\n\nConversation:\n${conversation}`,
   });
-
-  const text = res.text ?? "";
 
   try {
     const json = JSON.parse(text.replace(/^```(?:json)?|```$/g, "").trim());
