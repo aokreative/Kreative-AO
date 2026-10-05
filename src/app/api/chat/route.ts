@@ -8,7 +8,7 @@ import { sendInternalAlert, sendVisitorAutoReply } from "@/lib/email";
 export const runtime = "nodejs";
 export const maxDuration = 30;
 
-const MODEL = process.env.GEMINI_MODEL ?? "gemini-2.5-flash";
+const MODEL = process.env.GEMINI_MODEL ?? "gemini-3.8-flash";
 const MAX_TURNS = 24;
 
 const bodySchema = z.object({
