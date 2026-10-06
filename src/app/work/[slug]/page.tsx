@@ -94,7 +94,7 @@ export default async function CaseStudyPage({
           ))}
         </div>
         <div className="mt-12 flex flex-wrap gap-3">
-          <Button href="/book" variant="accent">
+          <Button href="/contact" variant="accent">
             Start a project like this
           </Button>
           <Button href="/work" variant="ghost">

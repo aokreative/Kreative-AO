@@ -10,7 +10,7 @@ export function Work() {
 
   return (
     <Section className="border-t border-line-soft bg-surface-2">
-      <div className="grid lg:grid-cols-12 gap-8 items-end w-full pb-12">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end w-full pb-12">
         <div className="col-span-12 lg:col-span-7 flex flex-col items-start">
           <Reveal>
             <Eyebrow>Recent work</Eyebrow>
@@ -48,7 +48,7 @@ export function Work() {
         </div>
       </div>
 
-      <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {CASE_STUDIES.slice(0, 4).map((c, i) => (
           <Reveal key={c.slug} delay={0.1 * i}>
             <Link

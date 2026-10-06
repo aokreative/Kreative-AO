@@ -24,10 +24,10 @@ export function Products() {
         </Reveal>
       </div>
 
-      <div className="mt-12 grid gap-6 md:grid-cols-2">
+      <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
         {PRODUCTS.map((p, i) => (
           <Reveal key={p.slug} delay={i * 0.1}>
-            <div className="flex h-full flex-col gap-4 rounded-lg border border-line bg-surface p-8 shadow-e1">
+            <div className="flex h-full flex-col gap-4 rounded-lg border border-line bg-surface p-6 sm:p-8 shadow-e1">
               <Badge tone={p.status === "live" ? "live" : "building"}>
                 {p.statusLabel}
               </Badge>

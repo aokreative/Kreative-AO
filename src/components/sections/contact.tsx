@@ -1,11 +1,12 @@
 "use client";
 import { SITE } from "@/lib/site";
-import { Button, Section } from "@/components/ui/primitives";
+import { Button, Container } from "@/components/ui/primitives";
 import { Reveal } from "@/components/motion/reveal";
 
 export function Contact() {
   return (
-    <Section className="border-t border-line-soft bg-surface-2">
+    <section id="contact-section" className="py-[var(--space-section)] border-t border-line-soft bg-surface-2">
+      <Container>
       <div className="mx-auto flex max-w-[52ch] flex-col items-center gap-6 text-center">
         <Reveal>
           <h2 className="text-[clamp(28px,3.6vw,42px)] leading-[1.1]">
@@ -33,6 +34,7 @@ export function Contact() {
           <p className="label mt-2 text-ink-3">{SITE.tagline}</p>
         </Reveal>
       </div>
-    </Section>
+      </Container>
+    </section>
   );
 }

@@ -16,10 +16,10 @@ export function Testimonials() {
           </h2>
         </Reveal>
       </div>
-      <div className="mt-12 grid gap-5 md:grid-cols-3">
+      <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-3">
         {TESTIMONIALS.map((t, i) => (
           <Reveal key={t.name} delay={i * 0.1}>
-            <figure className="flex h-full flex-col gap-5 rounded-lg border border-line bg-surface p-7 shadow-e1">
+            <figure className="flex h-full flex-col gap-5 rounded-lg border border-line bg-surface p-6 sm:p-7 shadow-e1">
               <blockquote className="font-display text-[18px] leading-[1.5] text-ink">
                 “{t.quote}”
               </blockquote>

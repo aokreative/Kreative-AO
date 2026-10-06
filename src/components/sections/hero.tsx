@@ -29,8 +29,8 @@ export function Hero() {
       <div className="header-veil-dark"></div>
 
       {/* 3. THE TEXT CONTENT LAYER */}
-      <div className="relative z-20 w-full container mx-auto px-6 grid lg:grid-cols-12 gap-8 pt-24 pb-4">
-        <div className="col-span-12 lg:col-span-7 text-[#F3F0E6] text-left flex flex-col items-start">
+      <div className="relative z-20 w-full container mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 pt-24 pb-8 sm:pb-4">
+        <div className="lg:col-span-7 text-[#F3F0E6] text-left flex flex-col items-start">
           <Reveal>
                 <div className="inline-flex items-center rounded-full border border-white/20 bg-white/5 px-4 py-1.5 mb-6">
                   <span className="text-xs font-mono uppercase tracking-wider text-teal-soft">Marketing · Tech · AI — Nairobi</span>
@@ -39,7 +39,7 @@ export function Hero() {
               
               <motion.div style={{ scale: headlineScale, opacity: headlineOpacity, transformOrigin: "left center" }}>
                 <Reveal delay={0.1}>
-                  <h1 className="mt-5 max-w-[20ch] text-[clamp(44px,7.5vw,96px)] font-medium leading-[1.05] text-parchment drop-shadow-2xl">
+                  <h1 className="mt-5 max-w-[20ch] text-[clamp(32px,7.5vw,96px)] font-medium leading-[1.05] text-parchment drop-shadow-2xl">
                     We build the software, and we bring you the{" "}
                     <span className="signal-text bg-clip-text text-transparent bg-gradient-to-r from-orange-lift to-parchment">customers</span>.
                   </h1>
@@ -47,7 +47,7 @@ export function Hero() {
               </motion.div>
               
               <Reveal delay={0.2}>
-                <p className="mt-8 max-w-[56ch] text-[19px] leading-relaxed text-teal-soft/90 drop-shadow-md">
+                <p className="mt-6 sm:mt-8 max-w-[56ch] text-[16px] sm:text-[19px] leading-relaxed text-teal-soft/90 drop-shadow-md">
                   Most agencies sell you activity — posts, reach, impressions. We care
                   about one thing: did it actually grow your business? Every project
                   starts with that question and ends with the numbers to answer it.
@@ -55,23 +55,23 @@ export function Hero() {
               </Reveal>
               
               <Reveal delay={0.3}>
-                <div className="mt-10 flex flex-wrap justify-start gap-4">
-                  <Button href="/book" variant="accent" className="!px-8 !py-4 text-lg">
+                <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row flex-wrap justify-start gap-3 sm:gap-4">
+                  <Button href="/book" variant="accent" className="!px-6 sm:!px-8 !py-3.5 sm:!py-4 text-base sm:text-lg">
                     Book a call
                   </Button>
                   <Button
-                    href="/work"
+                    href="#contact-section"
                     variant="ghost"
-                    className="!border-white/20 !bg-white/5 !text-parchment hover:!bg-white/10 !px-8 !py-4 text-lg"
+                    className="!border-white/20 !bg-white/5 !text-parchment hover:!bg-white/10 !px-6 sm:!px-8 !py-3.5 sm:!py-4 text-base sm:text-lg"
                   >
-                    See our work
+                    Start a project
                   </Button>
                 </div>
               </Reveal>
             </div>
 
             {/* Stat Card */}
-            <div className="col-span-12 lg:col-span-5 self-end pb-0">
+            <div className="lg:col-span-5 self-end pb-0 hidden lg:block">
               <Reveal delay={0.4}>
                 <div className="glass flex w-full flex-col items-center justify-center rounded-2xl p-6 shadow-2xl">
                   <span className="tnum font-display text-[48px] leading-none text-parchment drop-shadow-lg">

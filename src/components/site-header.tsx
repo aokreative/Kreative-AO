@@ -112,6 +112,13 @@ export function SiteHeader() {
                 {item.label}
               </Link>
             ))}
+              <Link
+                href="#contact-section"
+                onClick={() => setOpen(false)}
+                className="font-mono text-xs uppercase tracking-[0.18em] rounded-md px-2 py-3 text-accent-ink hover:bg-surface-2 hover:text-ink font-semibold"
+              >
+                Start a project
+              </Link>
             <Button href="/book" variant="accent" className="mt-4 w-full justify-center">
               Book a call
             </Button>

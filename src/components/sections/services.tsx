@@ -18,7 +18,7 @@ export function Services() {
   const opacity = useTransform(scrollYProgress, [0.8, 1], [1, 0]);
   return (
     <Section>
-      <div ref={containerRef} className="grid lg:grid-cols-12 gap-12 lg:gap-8">
+      <div ref={containerRef} className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8">
         <div className="lg:col-span-4 h-full">
           <motion.div 
             style={{ opacity }}
@@ -41,7 +41,7 @@ export function Services() {
         </motion.div>
       </div>
 
-      <div className="lg:col-span-8 grid gap-5 sm:grid-cols-2">
+      <div className="lg:col-span-8 grid grid-cols-1 gap-5 sm:grid-cols-2">
           {SERVICES.map((s, i) => {
             const isLarge = i === 0 || i === 3;
             const imgSrc = `/brand/services/${s.slug}.jpg`;
@@ -58,7 +58,7 @@ export function Services() {
                   <div className={`shrink-0 ${i === 6 ? "md:w-[40%] md:border-r md:border-b-0" : ""} border-b border-line`}>
                     <Frame src={imgSrc} alt={s.name} className="w-full h-full" />
                   </div>
-                  <div className="flex flex-col gap-4 p-7 sm:p-8 flex-grow">
+                  <div className="flex flex-col gap-4 p-5 sm:p-7 md:p-8 flex-grow">
                     <div className="flex flex-col gap-2">
                       <h3 className={`${isLarge || i === 6 ? "text-[26px]" : "text-[21px]"} leading-tight`}>{s.name}</h3>
                       <p className={`text-[14.5px] leading-relaxed text-ink-2 ${isLarge ? "max-w-[42ch]" : ""}`}>

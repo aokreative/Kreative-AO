@@ -127,7 +127,7 @@
 }
 
 @layer base {
-  html { -webkit-text-size-adjust: 100%; }
+  html { -webkit-text-size-adjust: 100%; overflow-x: hidden; }
   body {
     background: var(--bg);
     color: var(--ink);
@@ -147,7 +147,17 @@
   ::selection { background: var(--color-parchment); color: var(--color-teal-deep); }
   :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
   
-  html:not([data-splash="skip"]):not([data-splash="done"]) body { overflow: hidden; }
+  /* Lock scroll ONLY while splash is active. The 'splash-unlock' animation
+     is a pure-CSS safety net: if JS never sets data-splash="done", the body
+     unlocks itself after 4s so the page is never permanently frozen. */
+  html:not([data-splash="skip"]):not([data-splash="done"]) body {
+    overflow: hidden;
+    animation: splash-unlock 0s forwards 4s;
+  }
+  html[data-splash="done"] body,
+  html[data-splash="skip"] body {
+    overflow: visible !important;
+  }
 }
 
 @layer utilities {
@@ -364,6 +374,18 @@
 
 html[data-splash="skip"] #splash {
   display: none !important;
+}
+
+/* CSS safety net: if JS never fires, auto-unlock body scroll after 4s */
+@keyframes splash-unlock {
+  to { overflow: visible; }
+}
+
+/* After splash-out finishes (2.1s delay + 0.7s), ensure overlay is fully gone */
+html[data-splash="done"] #splash {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
 }
 
 @media (prefers-reduced-motion: reduce) {

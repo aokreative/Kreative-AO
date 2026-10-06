@@ -36,7 +36,7 @@ export function Process() {
              />
           </div>
           
-          <ol className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 relative z-10">
+          <ol className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 relative z-10">
             {PROCESS.map((p, i) => {
               // Highlight steps dynamically based on scroll progress
               const stepStart = i / PROCESS.length;

@@ -40,7 +40,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
       </head>
-      <body className="flex min-h-screen flex-col overflow-x-hidden bg-surface text-ink">
+      <body className="flex min-h-screen flex-col bg-surface text-ink">
         <Script id="splash-init" strategy="beforeInteractive">
           {`(function(){try{if(sessionStorage.getItem('ao-splash') || window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.dataset.splash='skip'}}catch(e){}})()`}
         </Script>
