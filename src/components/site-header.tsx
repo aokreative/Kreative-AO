@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { NAV } from "@/lib/site";
 import { LogoLink } from "./logo";
 import { Button, Container } from "./ui/primitives";
@@ -11,44 +11,23 @@ export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-  const lastScrollY = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-
       // Apply glass background after 80px
-      setScrolled(currentScrollY > 80);
-
-      // Hide on scroll down, reveal on any scroll up
-      if (currentScrollY < lastScrollY.current) {
-        setIsVisible(true);
-      } else if (currentScrollY > lastScrollY.current && currentScrollY > 80) {
-        setIsVisible(false);
-      }
-
-      lastScrollY.current = currentScrollY;
+      setScrolled(window.scrollY > 80);
     };
 
     // Run once on mount
-    lastScrollY.current = window.scrollY;
     handleScroll();
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile menu when navbar hides
-  useEffect(() => {
-    if (!isVisible) setOpen(false);
-  }, [isVisible]);
-
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ${
-        isVisible ? "translate-y-0" : "-translate-y-full"
-      } ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
           ? "border-b border-white/20 glass text-parchment"
           : "border-b border-transparent bg-transparent"

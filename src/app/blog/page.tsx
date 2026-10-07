@@ -47,7 +47,7 @@ export default function BlogPage() {
             href={`/blog/${featured.slug}`}
             className="card glass group flex flex-col md:col-span-12 overflow-hidden bg-surface md:flex-row"
           >
-            <div className="md:w-[45%] shrink-0 border-b md:border-b-0 md:border-r border-line-soft">
+            <div className="relative aspect-[4/3] md:aspect-auto md:w-[45%] shrink-0 border-b md:border-b-0 md:border-r border-line-soft">
               <Frame src={featured.image || "/brand/blog.jpg"} alt={featured.title} className="w-full h-full" />
             </div>
             <div className="flex flex-col gap-4 p-8 sm:p-10 flex-grow">
@@ -89,7 +89,7 @@ export default function BlogPage() {
               href={`/blog/${a.slug}`}
               className={`card glass group flex flex-col overflow-hidden bg-surface ${spanClass}`}
             >
-              <div className={`md:w-[40%] shrink-0 border-b md:border-b-0 ${borderClass} border-line-soft`}>
+              <div className={`relative aspect-[4/3] md:aspect-auto md:w-[40%] shrink-0 border-b md:border-b-0 ${borderClass} border-line-soft`}>
                 <Frame src={a.image || "/brand/blog.jpg"} alt={a.title} className="w-full h-full" />
               </div>
               <div className="flex flex-col gap-3 p-7 flex-grow">
