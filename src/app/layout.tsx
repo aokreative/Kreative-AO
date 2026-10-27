@@ -15,6 +15,32 @@ import { SvgFilters } from "@/components/ui/svg-filters";
 import { SITE } from "@/lib/site";
 import "./globals.css";
 
+const ORGANIZATION_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "@id": `${SITE.url}/#organization`,
+  name: SITE.name,
+  legalName: "ANDO KREATIVE LTD",
+  url: SITE.url,
+  logo: `${SITE.url}/brand/logo.png`,
+  image: `${SITE.url}/brand/logo.png`,
+  description:
+    "Digital marketing, branding and business automation agency in Nairobi, serving Kenya, the UAE and beyond.",
+  email: SITE.email,
+  telephone: "+254182297245",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "The Piano, Westlands",
+    addressLocality: "Nairobi",
+    addressCountry: "KE",
+  },
+  areaServed: [
+    { "@type": "Country", name: "Kenya" },
+    { "@type": "Country", name: "United Arab Emirates" },
+  ],
+  sameAs: [SITE.socials.instagram, SITE.socials.tiktok, SITE.socials.linkedin],
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
@@ -61,22 +87,13 @@ export default function RootLayout({
         <CursorTracker />
         <CookieConsent />
         <SvgFilters />
-        <Script id="schema-org" type="application/ld+json" strategy="afterInteractive">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            "name": SITE.name,
-            "url": SITE.url,
-            "logo": `${SITE.url}/brand/logo.png`,
-            "telephone": SITE.phone,
-            "email": SITE.email,
-            "sameAs": [
-              SITE.socials.instagram,
-              SITE.socials.tiktok,
-              SITE.socials.linkedin
-            ]
-          })}
-        </Script>
+        <script
+          type="application/ld+json"
+          // Rendered on the server so crawlers see it without running JS.
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(ORGANIZATION_SCHEMA).replace(/</g, "\\u003c"),
+          }}
+        />
       </body>
     </html>
   );

@@ -1,3 +1,4 @@
+import Link from "next/link";
 ﻿import type { Metadata } from "next";
 import { PRODUCTS, dukaTrialLink } from "@/lib/site";
 import { Badge, Button, Container, Eyebrow, Section } from "@/components/ui/primitives";
@@ -92,9 +93,9 @@ export default function ProductsPage() {
               <p className="text-[15px] text-ink-2">
                 We also run our own CRM in production. It isn&apos;t for sale — it
                 exists because we needed it — but it is a fair sample of what our{" "}
-                <a className="text-accent-ink underline underline-offset-4" href="/services/software">
+                <Link className="text-accent-ink underline underline-offset-4" href="/services/ai-automation">
                   software team
-                </a>{" "}
+                </Link>{" "}
                 builds when the client is us.
               </p>
             </div>

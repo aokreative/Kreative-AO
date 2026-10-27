@@ -7,9 +7,9 @@ export const SITE = {
   phone: "0182297245",
   whatsapp: "https://wa.me/254182297245",
   socials: {
-    instagram: "https://instagram.com/a.o_kreative",
-    tiktok: "https://tiktok.com/@aokreative",
-    linkedin: "https://linkedin.com/in/ao-kreative-28b2a0399",
+    instagram: "https://www.instagram.com/a.o_kreative/",
+    tiktok: "https://www.tiktok.com/@aokreative",
+    linkedin: "https://www.linkedin.com/in/ao-kreative-28b2a0399/",
   },
 } as const;
 

@@ -17,10 +17,12 @@ export async function generateMetadata({
   const { slug } = await params;
   const a = articleBySlug(slug);
   if (!a) return {};
+  const description = a.metaDescription ?? a.excerpt;
   return {
-    title: a.title,
-    description: a.excerpt,
-    openGraph: { type: "article", title: a.title, description: a.excerpt },
+    title: a.seoTitle ?? a.title,
+    description,
+    alternates: { canonical: `/blog/${a.slug}` },
+    openGraph: { type: "article", title: a.title, description },
   };
 }
 
@@ -69,9 +71,19 @@ export default async function ArticlePage({
           <h2 className="text-[24px] leading-tight">{a.ctaTitle}</h2>
           <p className="text-[16px] text-ink-2">{a.ctaBody}</p>
           <div className="flex flex-wrap gap-3 pt-1">
-            <Button href="/book" variant="accent">
-              Book a call
-            </Button>
+            {a.primaryCta ? (
+              <Button
+                href={a.primaryCta.href}
+                variant="accent"
+                external={a.primaryCta.external}
+              >
+                {a.primaryCta.label}
+              </Button>
+            ) : (
+              <Button href="/book" variant="accent">
+                Book a call
+              </Button>
+            )}
             <Button href="/contact" variant="ghost">
               Send a message
             </Button>

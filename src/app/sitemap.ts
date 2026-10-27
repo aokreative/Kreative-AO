@@ -32,6 +32,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     page("/products/duka-pos", 0.8, "monthly"),
     page("/products/ams", 0.7, "monthly"),
     page("/blog", 0.8, "weekly"),
+    page("/uae", 0.8, "monthly"),
     page("/about", 0.7, "monthly"),
     page("/contact", 0.7, "yearly"),
     page("/book", 0.7, "yearly"),

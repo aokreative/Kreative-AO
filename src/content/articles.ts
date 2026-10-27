@@ -12,11 +12,65 @@ export type Article = {
   excerpt: string;
   ctaTitle: string;
   ctaBody: string;
+  /** Replaces "Book a call" as the main button, e.g. a product trial. */
+  primaryCta?: { label: string; href: string; external?: boolean };
+  /** Shorter, keyword-led title for search results. Falls back to `title`. */
+  seoTitle?: string;
+  /** Search-result description. Falls back to `excerpt`. */
+  metaDescription?: string;
   image?: string;
   body: string;
 };
 
 export const ARTICLES: Article[] = [
+  {
+    slug: "best-pos-system-for-shops-in-kenya",
+    category: "Retail & POS",
+    title: "How to Choose the Best POS System for Your Shop in Kenya",
+    seoTitle: "Best POS System in Kenya: Shop Owner's Checklist",
+    metaDescription:
+      "A practical checklist for choosing a POS system in Kenya: offline selling, M-PESA, customer credit, stock, reports and fair pricing in shillings.",
+    date: "October 2026",
+    readMinutes: 6,
+    excerpt:
+      "Most shops in Kenya don't need the most powerful POS on the market. They need one that keeps working when the network drops, takes M-PESA properly, and tells the owner who still owes money.",
+    ctaTitle: "Want to test a POS built for Kenyan shops?",
+    ctaBody: "Duka POS has a free trial on every self-serve plan. Try it at your counter with real customers.",
+    primaryCta: { label: "See Duka POS plans", href: "/products/duka-pos" },
+    body: `<p>Most shops in Kenya don't need the most powerful POS on the market. They need one that keeps working when the network drops, takes M-PESA without a second notebook, and tells the owner at the end of the day what sold, what's left and who still owes money. This guide covers what to check before you pay for any POS system, whether it's ours or someone else's.</p><h2>1. It must keep selling offline</h2><p>Network drops at the counter are normal, especially outside the CBD. A POS that freezes when the connection goes means a queue of customers and sales written on paper to "enter later", which usually means never. Ask the vendor directly: if the internet goes off for an hour, can staff keep making sales? If the answer is vague, move on.</p><h2>2. M-PESA should sit inside the sale, not beside it</h2><p>In most dukas, M-PESA is a large share of takings. If your POS only records cash, someone ends up matching M-PESA messages against sales by hand, and the gap between the till and the phone is where money disappears. Look for a system where M-PESA is a payment method on the sale itself, and where a customer can pay part cash, part M-PESA without staff ringing up two transactions. We cover this in more detail in <a href="/blog/mpesa-pos-for-your-shop">M-PESA for your shop's POS</a>.</p><h2>3. It should handle credit the way your customers actually buy</h2><p>Selling on credit is part of retail here. Regular customers take goods today and pay at the end of the week or when salary comes. A notebook works until it doesn't: pages go missing, amounts get disputed, and following up feels awkward. A good POS records each debt against a named customer and helps you collect it. See our guide to <a href="/blog/how-to-track-customer-debts-madeni">tracking customer debts in your duka</a>.</p><h2>4. Stock you can trust</h2><p>Every sale should reduce stock automatically. You should see what's running low before a customer asks for it, and spot items that sell slower than they should. If you run more than one shop, check whether the system shows stock per branch and lets you move stock between them.</p><h2>5. Reports an owner will actually read</h2><p>Daily sales, profit, best sellers, and who sold what. If you're not at the shop every day, these reports are how you know the business is healthy and that the cash matches the till. Ask to see the reports in a demo, not just the selling screen.</p><h2>6. Simple enough for your staff on day one</h2><p>The person at the counter decides whether a POS works. Quick product search, clear buttons and receipts that go out without fuss matter more than a long feature list. If training takes more than an afternoon, the system will quietly be ignored.</p><h2>7. Pricing in shillings, with no surprises</h2><p>Check the monthly cost, what each plan limits (shops, staff, number of products) and whether there's a free trial so you can test it with real customers. Watch for setup fees, per-transaction charges and paid add-ons for basics like reports.</p><h2>A checklist to use in any demo</h2><ul><li>Turn the Wi-Fi off and make a sale.</li><li>Take one payment split between cash and M-PESA.</li><li>Sell to a customer on credit, then see how you'd chase the balance.</li><li>Check the stock count before and after the sale.</li><li>Open yesterday's profit report.</li></ul><h2>Where Duka POS fits</h2><p>We built <a href="/products/duka-pos">Duka POS</a> around this list, so we're not neutral, but the checklist works for any system you're comparing. Duka POS keeps selling offline, sends debt reminders over WhatsApp or SMS, and from the Standard plan up takes M-PESA and split payments. Plans start at KES 2,999 a month for a single kiosk and go up to multi-branch and warehouse setups, with a free trial on every self-serve plan.</p><p>If you'd rather have a team set up a POS or ERP across several branches for you, that's our <a href="/services/pos-erp">POS and ERP setup service</a>.</p>`,
+  },
+  {
+    slug: "mpesa-pos-for-your-shop",
+    category: "Retail & POS",
+    title: "M-PESA for Your Shop's POS: Till, Paybill and Ending Manual Reconciliation",
+    seoTitle: "M-PESA POS for Kenyan Shops: Till vs Paybill",
+    metaDescription:
+      "How to run M-PESA through your shop's POS: Till vs Paybill, split cash and M-PESA payments, and a 10-minute day-end check that stops shortages.",
+    date: "October 2026",
+    readMinutes: 5,
+    excerpt:
+      "In many dukas, M-PESA lives outside the till. The customer pays, the shopkeeper checks a message on a phone, and someone tries to match it all up at day end. Here's how to stop that.",
+    ctaTitle: "Take M-PESA and cash in one sale",
+    ctaBody: "Duka POS records M-PESA and split payments on every sale, so day-end checks take minutes.",
+    primaryCta: { label: "See Duka POS plans", href: "/products/duka-pos" },
+    body: `<p>For most shops in Kenya, a large share of sales comes in on M-PESA. Yet in many dukas, M-PESA lives outside the till. The customer pays to a Till number, the shopkeeper checks the message on a phone, and the sale goes into the POS as cash or not at all. At day end, someone tries to match the two. Here's how to set things up so that doesn't happen.</p><h2>Till number or Paybill?</h2><p>Lipa na M-PESA comes in two main forms for businesses. A <strong>Buy Goods Till</strong> is the usual choice for shops: the customer enters your till number and the amount, and that's it. A <strong>Paybill</strong> adds an account number, which suits businesses billing named customers, such as rent, school fees or utilities. For walk-in retail, a Till is simpler for customers and faster at the counter. Both are applied for through Safaricom.</p><h2>Why the payment method belongs in the POS</h2><p>When a sale goes into the POS without recording how it was paid, your reports can't tell you how much cash should be in the drawer. That gap is where shortages hide. Recording the payment method on every sale gives you two numbers you can check separately: cash in the drawer, and M-PESA on the Till statement.</p><h2>Three ways shops handle it</h2><ul><li><strong>Manual entry.</strong> The cashier confirms the M-PESA message, marks the sale as paid by M-PESA and notes the transaction code. Cheap and works with any till, but depends on staff discipline.</li><li><strong>Matched at day end.</strong> Sales marked as M-PESA in the POS are compared with the Till statement every evening. Mismatches show up the same day.</li><li><strong>Connected directly.</strong> Larger setups connect to Safaricom's M-PESA API (Daraja), so the system can send a payment prompt to the customer's phone and confirm payment automatically. This needs registration with Safaricom and some technical setup, and pays off once volumes are high.</li></ul><h2>Split payments are normal</h2><p>A customer pays KES 500 in cash and the rest on M-PESA. If the POS can't split one sale across two payment methods, staff either ring it up twice or record it all as one, and both throw the numbers off. Split payment should be a basic feature, not an extra.</p><h2>A 10-minute day-end routine</h2><ol><li>Open the day's sales broken down by payment method.</li><li>Count the cash drawer and compare it with cash sales.</li><li>Check the M-PESA total against your Till statement.</li><li>Look into any difference the same day, while staff still remember the sale.</li></ol><p>Doing this every day catches problems while they're small.</p><h2>How Duka POS handles it</h2><p>From the Standard plan up, <a href="/products/duka-pos">Duka POS</a> takes M-PESA as a payment method on each sale, supports split cash and M-PESA payments, and gives you full sales and profit reports, so the day-end check is quick. If you need M-PESA connected directly into a larger system across several branches, our <a href="/services/pos-erp">POS and ERP team</a> can set that up. Still comparing systems? Start with our <a href="/blog/best-pos-system-for-shops-in-kenya">POS buying checklist</a>.</p>`,
+  },
+  {
+    slug: "how-to-track-customer-debts-madeni",
+    category: "Retail & POS",
+    title: "How to Track Customer Debts (Madeni) in Your Duka Without Losing Customers",
+    seoTitle: "How to Track Customer Debts (Madeni) in Your Duka",
+    metaDescription:
+      "Selling on credit without losing money: set credit rules, record every debt, send polite WhatsApp or SMS reminders, and watch your total owed.",
+    date: "October 2026",
+    readMinutes: 5,
+    excerpt:
+      "Selling on credit keeps regular customers coming back. It's also where many shops quietly lose money. Here's how to give credit without letting it eat your profit.",
+    ctaTitle: "Let the reminders do the chasing",
+    ctaBody: "Duka POS sends debt reminders over WhatsApp or SMS, so nobody at the counter has to ask.",
+    primaryCta: { label: "See Duka POS plans", href: "/products/duka-pos" },
+    body: `<p>Selling on credit keeps regular customers coming back. It's also where many shops quietly lose money. The goods leave today, payment is promised for Friday, and by month end nobody is quite sure who owes what. Here's how to give credit without letting it eat your profit.</p><h2>Why the madeni book fails</h2><p>A notebook works when five customers are on credit. At twenty or fifty, it falls apart: pages go missing, handwriting gets disputed, part-payments aren't recorded, and the only person who knows the full picture is whoever was at the counter. Worst of all, following up is uncomfortable, so it gets put off.</p><h2>Set credit rules before you need them</h2><ul><li><strong>Decide who gets credit.</strong> Regular customers you know by name and phone number, not first-time buyers.</li><li><strong>Set a limit per customer.</strong> A maximum balance stops one customer's debt growing quietly.</li><li><strong>Agree a pay date.</strong> "End of the week" or "when salary comes", written down at the time of the sale.</li><li><strong>One person approves.</strong> Staff shouldn't extend credit on their own judgement.</li></ul><h2>Record every debt the moment it happens</h2><p>Each credit sale should be recorded against a named customer with their phone number, the items, the amount and the date. Part-payments should reduce the balance straight away. When a customer disputes an amount, you want to show them exactly what they took and when.</p><h2>Make reminders routine, not personal</h2><p>The hardest part of credit is asking for the money. Reminders feel less awkward when they're polite, regular and the same for everyone. A short WhatsApp or SMS on the agreed date gets most customers to pay without a face-to-face conversation. For example: <em>"Habari, a reminder that your balance of KES 1,250 at Mama Wanjiku's Shop is due today. Asante!"</em></p><h2>Watch the total, not just the names</h2><p>Look at the total amount owed to you every week. If it's growing faster than your sales, you're financing your customers with your stock money. That's the moment to tighten limits or pause credit for the slowest payers.</p><h2>How Duka POS helps</h2><p><a href="/products/duka-pos">Duka POS</a> keeps track of who owes what and sends debt reminders over WhatsApp or SMS. On the Starter plan you send each reminder with one tap; from Standard up, reminders go out automatically, so nobody at the counter has to chase. Every self-serve plan has a free trial. Comparing systems first? Use our <a href="/blog/best-pos-system-for-shops-in-kenya">POS buying checklist</a>.</p>`,
+  },
   {
     slug: "the-algorithm-is-not-your-audience",
     category: "Digital Marketing",

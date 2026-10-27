@@ -57,6 +57,7 @@ export function SiteFooter() {
           <FooterLink href="/work">Case studies</FooterLink>
           <FooterLink href="/blog">Blog</FooterLink>
           <FooterLink href="/about">About</FooterLink>
+          <FooterLink href="/uae">UAE &amp; Dubai</FooterLink>
           <FooterLink href="/contact">Contact</FooterLink>
           <FooterLink href="/book">Book a call</FooterLink>
           <FooterLink href="/legal/privacy">Privacy Policy</FooterLink>
