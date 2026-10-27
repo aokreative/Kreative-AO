@@ -17,7 +17,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const s = serviceBySlug(slug);
   if (!s) return {};
-  return { title: s.name, description: s.summary };
+  return { title: s.seoTitle ?? s.name, description: s.summary };
 }
 
 export default async function ServicePage({

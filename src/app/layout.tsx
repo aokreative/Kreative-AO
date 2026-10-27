@@ -18,17 +18,18 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: `${SITE.name} — martech that builds and sells`,
+    default: `Digital Marketing & Automation Agency in Nairobi | ${SITE.name}`,
     template: `%s · ${SITE.name}`,
   },
   description:
-    "A&O Kreative builds software and brings customers to it. Digital marketing, custom development, and our own products including Duka POS.",
+    "Nairobi agency for digital marketing, branding and business automation. We build websites, AI systems and POS, then bring you customers. Kenya, UAE & beyond.",
   openGraph: {
     type: "website",
     siteName: SITE.name,
     url: SITE.url,
-    title: `${SITE.name} — martech that builds and sells`,
-    description: SITE.promise,
+    title: `Digital Marketing & Automation Agency in Nairobi | ${SITE.name}`,
+    description:
+      "Nairobi agency for digital marketing, branding and business automation. We build websites, AI systems and POS, then bring you customers. Kenya, UAE & beyond.",
   },
   robots: { index: true, follow: true },
 };

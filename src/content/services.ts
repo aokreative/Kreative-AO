@@ -10,6 +10,8 @@ export type Service = {
   slug: string;
   image: string;
   name: string;
+  /** Search-result title (keyword-targeted). Falls back to `name`. */
+  seoTitle?: string;
   kicker: string;
   summary: string;
   pitch: string;
@@ -22,6 +24,7 @@ export const SERVICES: Service[] = [
     slug: "brand-strategy",
     image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&q=80&w=1200",
     name: "Brand Strategy",
+    seoTitle: "Brand Strategy & Identity Agency in Nairobi",
     kicker: "Positioning & identity",
     summary:
       "Figure out what makes you different, then build a name, look and message that makes people choose you over the next option.",
@@ -41,6 +44,7 @@ export const SERVICES: Service[] = [
     slug: "web-design",
     image: "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&q=80&w=1200",
     name: "Website Design & Development",
+    seoTitle: "Website Design & Development in Nairobi",
     kicker: "Sites that sell",
     summary:
       "Fast, beautiful websites built to convert — designed around your brand and wired up to capture and qualify every lead that lands.",
@@ -60,6 +64,7 @@ export const SERVICES: Service[] = [
     slug: "content-social",
     image: "https://images.unsplash.com/photo-1432888622747-4eb9a8efeb07?auto=format&fit=crop&q=80&w=1200",
     name: "Content & Social",
+    seoTitle: "Social Media Management Agency in Nairobi",
     kicker: "The stuff that keeps you visible",
     summary:
       "A steady stream of posts, video and writing that actually sounds like you — and gives people a reason to follow, share and buy.",
@@ -79,6 +84,7 @@ export const SERVICES: Service[] = [
     slug: "campaigns",
     image: "https://images.unsplash.com/photo-1533750349088-cd871a92f312?auto=format&fit=crop&q=80&w=1200",
     name: "Campaigns",
+    seoTitle: "Marketing Campaigns & Product Launches",
     kicker: "Launches & big moments",
     summary:
       "From product launches to seasonal pushes — creative people remember, planned around a clear goal and a number we're chasing.",
@@ -98,6 +104,7 @@ export const SERVICES: Service[] = [
     slug: "ads-growth",
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1200&sat=-50",
     name: "Ads & Growth",
+    seoTitle: "Google, Meta & TikTok Ads Agency in Nairobi",
     kicker: "Paid media that pays back",
     summary:
       "Meta, Google and TikTok ads run by people who watch the spend like it's theirs — plus honest reporting on what's working.",
@@ -117,6 +124,7 @@ export const SERVICES: Service[] = [
     slug: "ai-automation",
     image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1200",
     name: "AI & Automation",
+    seoTitle: "AI Chatbots & Business Process Automation",
     kicker: "AI that does real work",
     summary:
       "Chatbots, agents and automations tuned to your business — answering enquiries, qualifying leads and cutting busywork around the clock.",
@@ -136,6 +144,7 @@ export const SERVICES: Service[] = [
     slug: "pos-erp",
     image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&q=80&w=1200",
     name: "POS & ERP Systems",
+    seoTitle: "POS & ERP System Setup in Kenya",
     kicker: "Run the back office",
     summary:
       "Point-of-sale and ERP systems set up and connected — so sales, stock, finance and operations finally run from one place.",

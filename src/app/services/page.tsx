@@ -6,9 +6,9 @@ import { Frame } from "@/components/frame";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "Services",
+  title: "Marketing, Branding & Automation Services",
   description:
-    "Brand strategy, websites, content, campaigns, ads, AI automation and POS/ERP systems — from one Nairobi team.",
+    "Branding, websites, social media, ads, AI automation and POS systems from one Nairobi team, built to bring in customers for businesses in Kenya and the UAE.",
 };
 
 export default function ServicesPage() {

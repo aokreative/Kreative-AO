@@ -10,9 +10,9 @@ import {
 } from "@/components/ui/primitives";
 
 export const metadata: Metadata = {
-  title: "Duka POS — retail point of sale",
+  title: "POS System for Shops in Kenya — Duka POS",
   description:
-    "Duka POS: offline selling, M-PESA payments and automated debt reminders for kiosks, dukas and retail chains. From KES 2,999/month with a free trial.",
+    "Duka POS is a point of sale system for Kenyan shops: works offline, takes M-PESA and chases debts automatically. From KES 2,999/month with a free trial.",
 };
 
 export default function DukaPosPage() {
