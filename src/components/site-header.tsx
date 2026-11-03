@@ -29,11 +29,14 @@ export function SiteHeader() {
 
   useEffect(() => {
     if (!open) return;
-    document.body.style.overflow = "hidden";
+    // Lock the page root, not <body>: overflow on body turns it into the
+    // scroll container and the sticky header (with Close) scrolls away.
+    const root = document.documentElement;
+    root.style.overflow = "hidden";
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     window.addEventListener("keydown", onKey);
     return () => {
-      document.body.style.overflow = "";
+      root.style.overflow = "";
       window.removeEventListener("keydown", onKey);
     };
   }, [open]);
@@ -117,7 +120,7 @@ export function SiteHeader() {
       <div
         id="mobile-menu"
         hidden={!open}
-        className="fixed inset-x-0 bottom-0 top-16 z-[110] overflow-y-auto bg-white md:hidden"
+        className="fixed inset-x-0 bottom-0 top-16 z-[110] overflow-y-auto overscroll-contain bg-white md:hidden"
       >
         <div className="flex min-h-full flex-col justify-between px-5 pb-10 pt-4">
           <nav aria-label="Mobile">
