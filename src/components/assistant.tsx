@@ -193,7 +193,7 @@ export function Assistant() {
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-controls="aok-assistant"
-        className="flex cursor-grab items-center gap-2.5 rounded-full bg-midnight py-3 pl-4 pr-5 text-[14px] font-semibold text-white shadow-e2 transition-colors hover:bg-harbour active:cursor-grabbing"
+        className="lg flex cursor-grab items-center gap-2.5 rounded-full py-3 pl-4 pr-5 text-[14px] font-semibold text-ink active:cursor-grabbing"
       >
         <span aria-hidden className="h-2 w-2 rounded-full bg-gold" />
         {open ? (

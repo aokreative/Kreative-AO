@@ -393,7 +393,9 @@ export function OrbTimeline() {
         <canvas ref={canvasRef} aria-hidden className="absolute inset-0 h-full w-full" />
       </div>
 
-      <div aria-live="polite" className="mt-1 flex min-h-[64px] flex-col items-center px-4 text-center">
+      {/* The controls sit on frosted glass over the orb's glow. */}
+      <div className="lg relative z-10 -mt-16 flex w-full max-w-[500px] flex-col items-center rounded-[30px] px-5 pb-4 pt-5 sm:-mt-20">
+      <div aria-live="polite" className="flex min-h-[64px] flex-col items-center px-2 text-center">
         <p className="text-[17px] font-semibold text-ink" style={{ fontStretch: "112%" }}>
           {stage.when}
         </p>
@@ -402,7 +404,7 @@ export function OrbTimeline() {
         </p>
       </div>
 
-      <div className="mt-5 w-full max-w-[440px] px-2">
+      <div className="mt-3 w-full max-w-[420px] px-2">
         <div
           ref={trackRef}
           role="slider"
@@ -449,11 +451,11 @@ export function OrbTimeline() {
         </div>
       </div>
 
-      <div className="mt-4 flex items-center gap-4 text-[13.5px] text-ink-3">
+      <div className="mt-3 flex items-center gap-4 text-[13.5px] text-ink-3">
         <button
           type="button"
           onClick={() => (playing ? stopPlay() : play())}
-          className="inline-flex h-8 items-center gap-2 rounded-full bg-cloud px-3.5 font-semibold text-ink transition-colors hover:bg-line-soft"
+          className="inline-flex h-8 items-center gap-2 rounded-full bg-midnight px-3.5 font-semibold text-white transition-colors hover:bg-harbour"
         >
           <svg aria-hidden viewBox="0 0 12 12" className="h-2.5 w-2.5 fill-current">
             {playing ? <path d="M2 1h3v10H2zM7 1h3v10H7z" /> : <path d="M2 1l9 5-9 5z" />}
@@ -461,6 +463,7 @@ export function OrbTimeline() {
           {playing ? "Pause" : Math.round(value) === LAST ? "Play again" : "Play"}
         </button>
         <span className="hidden sm:inline">Drag the timeline to explore</span>
+      </div>
       </div>
     </div>
   );

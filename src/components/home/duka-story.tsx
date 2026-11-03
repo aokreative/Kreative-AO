@@ -47,7 +47,7 @@ export function DukaStory() {
   }, []);
 
   return (
-    <section aria-labelledby="duka-title" className="bg-cloud py-[var(--space-section)]">
+    <section aria-labelledby="duka-title" className="relative py-[var(--space-section)]">
       <div className="mx-auto w-full max-w-[1200px] px-5 sm:px-8">
         <div className="grid gap-12 lg:grid-cols-[1fr_auto_1fr] lg:gap-14">
           {/* Left: the product, sticky on large screens */}
@@ -68,7 +68,7 @@ export function DukaStory() {
               <Button href={dukaTrialLink()} variant="accent" external>
                 Start free trial
               </Button>
-              <Button href="/products/duka-pos" variant="ghost" className="bg-white">
+              <Button href="/products/duka-pos" variant="ghost">
                 See plans
               </Button>
             </div>
@@ -77,7 +77,8 @@ export function DukaStory() {
           {/* Centre: the phone, sticky on large screens */}
           <div className="hidden lg:block">
             <div className="sticky top-[calc(50vh-300px)]">
-              <Phone>
+              <div aria-hidden className="absolute left-1/2 top-1/2 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold/30 blur-[90px]" />
+              <Phone toast={<Toast key={active} {...TOASTS[active]} animate />}>
                 {STEPS.map((s, i) => (
                   <div
                     key={s.title}
@@ -119,7 +120,7 @@ export function DukaStory() {
                   {s.body}
                 </p>
                 <div className="mt-8 flex justify-center lg:hidden">
-                  <Phone small>{s.screen}</Phone>
+                  <Phone small toast={<Toast {...TOASTS[i]} />}>{s.screen}</Phone>
                 </div>
               </div>
             ))}
@@ -132,7 +133,33 @@ export function DukaStory() {
 
 /* ---------- Device and screens (illustrative, not live data) ---------- */
 
-function Phone({ children, small = false }: { children: ReactNode; small?: boolean }) {
+const TOASTS = [
+  { app: "Duka POS", title: "Offline mode", body: "14 sales saved on this phone. They sync when the network is back." },
+  { app: "M-PESA", title: "Payment received", body: "KES 2,400 confirmed. Code QJK7H2M1XP." },
+  { app: "WhatsApp", title: "Reminder delivered", body: "Mama Achieng has read your reminder for KES 650." },
+  { app: "Duka POS", title: "Day closed", body: "KES 38,450 in sales. Cash and M-PESA match the till." },
+];
+
+/* iOS-style notification on frosted glass, dropping onto the screen. */
+function Toast({ app, title, body, animate = false }: { app: string; title: string; body: string; animate?: boolean }) {
+  return (
+    <div
+      className={`lg absolute left-1/2 top-[54px] z-20 w-[calc(100%+20px)] -translate-x-1/2 rounded-[22px] px-4 py-3 text-left ${
+        animate ? "toast-in" : ""
+      }`}
+    >
+      <p className="flex items-center gap-2 text-[11px] font-semibold text-ink-3">
+        <span className="h-3.5 w-3.5 rounded-[4px] bg-duka" aria-hidden />
+        {app}
+        <span className="ml-auto font-normal">now</span>
+      </p>
+      <p className="mt-1 text-[13px] font-semibold text-ink">{title}</p>
+      <p className="text-[12.5px] leading-snug text-ink-2">{body}</p>
+    </div>
+  );
+}
+
+function Phone({ children, small = false, toast }: { children: ReactNode; small?: boolean; toast?: ReactNode }) {
   return (
     <div
       className={`relative rounded-[48px] bg-midnight p-[9px] shadow-[0_40px_80px_-40px_rgba(19,35,58,0.55)] ${
@@ -149,6 +176,7 @@ function Phone({ children, small = false }: { children: ReactNode; small?: boole
         </div>
         <div className="relative h-[calc(100%-44px)]">{children}</div>
       </div>
+      {toast}
     </div>
   );
 }

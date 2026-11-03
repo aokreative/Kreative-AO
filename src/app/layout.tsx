@@ -72,6 +72,7 @@ export default function RootLayout({
           Skip to content
         </a>
         <Intro />
+        <div aria-hidden className="ambient" />
         <SiteHeader />
         <main id="main" className="flex-1">
           {children}

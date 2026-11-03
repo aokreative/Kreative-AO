@@ -46,16 +46,12 @@ export function SiteHeader() {
 
   return (
     <>
-      <header className="sticky top-0 z-50">
-        {/* The blur lives on its own layer. A backdrop-filter on the header
-            itself would trap the fixed mobile menu inside the 64px bar. */}
+      {/* Floating glass capsule. The mobile menu renders outside the header,
+          so the capsule's backdrop-filter can't trap it. */}
+      <header className="sticky top-3 z-[120] mx-3 mt-3 sm:mx-6">
         <div
-          aria-hidden
-          className={`absolute inset-0 bg-white/90 backdrop-blur-md transition-[box-shadow] duration-200 ${
-            scrolled || open ? "shadow-[0_1px_0_var(--line-soft)]" : ""
-          }`}
-        />
-        <div className="relative mx-auto grid h-16 w-full max-w-[1200px] grid-cols-[1fr_auto] items-center px-5 sm:px-8 md:grid-cols-[1fr_auto_1fr]">
+          className={`lg mx-auto grid h-14 w-full max-w-[1160px] grid-cols-[1fr_auto] items-center rounded-full pl-5 pr-2 sm:pl-6 md:grid-cols-[1fr_auto_1fr] md:pr-2.5`}
+        >
           <nav aria-label="Main" className="hidden items-center gap-7 md:flex">
             {LEFT.map((item) => (
               <Link
@@ -95,7 +91,7 @@ export function SiteHeader() {
 
           <button
             type="button"
-            className="-mr-2 inline-flex h-10 items-center gap-2 justify-self-end rounded-full px-3 text-[15px] font-medium text-ink md:hidden"
+            className="inline-flex h-10 items-center gap-2 justify-self-end rounded-full px-3 text-[15px] font-medium text-ink md:hidden"
             aria-expanded={open}
             aria-controls="mobile-menu"
             onClick={() => setOpen((v) => !v)}
@@ -120,9 +116,9 @@ export function SiteHeader() {
       <div
         id="mobile-menu"
         hidden={!open}
-        className="fixed inset-x-0 bottom-0 top-16 z-[110] overflow-y-auto overscroll-contain bg-white md:hidden"
+        className="fixed inset-0 z-[110] overflow-y-auto overscroll-contain bg-white/60 backdrop-blur-2xl backdrop-saturate-150 md:hidden"
       >
-        <div className="flex min-h-full flex-col justify-between px-5 pb-10 pt-4">
+        <div className="flex min-h-full flex-col justify-between px-6 pb-10 pt-24">
           <nav aria-label="Mobile">
             <ul className="flex flex-col">
               {MOBILE.map((item) => (
@@ -131,7 +127,7 @@ export function SiteHeader() {
                     href={item.href}
                     aria-current={isActive(item.href) ? "page" : undefined}
                     onClick={close}
-                    className="block border-b border-line-soft py-4 text-[28px] font-semibold tracking-[-0.02em] text-ink"
+                    className="block border-b border-ink/10 py-4 text-[28px] font-semibold tracking-[-0.02em] text-ink"
                     style={{ fontStretch: "112%" }}
                   >
                     {item.label}
@@ -152,7 +148,7 @@ export function SiteHeader() {
               href={SITE.whatsapp}
               target="_blank"
               rel="noopener"
-              className="inline-flex h-12 items-center justify-center rounded-full text-[16px] font-semibold text-ink ring-1 ring-inset ring-line"
+              className="lg inline-flex h-12 items-center justify-center rounded-full text-[16px] font-semibold text-ink"
             >
               WhatsApp us
             </a>

@@ -37,9 +37,9 @@ const VARIANTS: Record<NonNullable<ButtonProps["variant"]>, string> = {
   // Gold pill: the single most important action in a view.
   accent: "bg-gold text-midnight hover:bg-gilt",
   // Quiet outline for secondary actions on white.
-  ghost: "bg-transparent text-ink ring-1 ring-inset ring-line hover:ring-ink-3",
+  ghost: "lg text-ink hover:bg-white/70",
   // Outline for secondary actions on navy.
-  light: "bg-transparent text-white ring-1 ring-inset ring-white/30 hover:ring-white/70",
+  light: "lg-dark text-white hover:bg-white/15",
 };
 
 export function Button({

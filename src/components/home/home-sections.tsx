@@ -7,7 +7,7 @@ import { OrbTimeline } from "./orb-timeline";
 
 export function Hero() {
   return (
-    <section className="relative bg-white">
+    <section className="relative">
       <Container className="flex flex-col items-center pb-14 pt-10 text-center sm:pt-14">
         <h1 className="text-[clamp(38px,4.7vw,62px)] text-ink">
           <span className="sm:block">We build the system. </span>
@@ -32,7 +32,7 @@ export function Hero() {
 
 export function WorkList() {
   return (
-    <section className="bg-white py-[var(--space-section)]">
+    <section className="py-[var(--space-section)]">
       <Container>
         <div className="flex flex-wrap items-end justify-between gap-6">
           <h2 className="text-[clamp(30px,3.6vw,44px)] text-ink">Recent work</h2>
@@ -75,7 +75,7 @@ export function WorkList() {
 
 export function AmsNote() {
   return (
-    <section className="bg-cloud pb-[var(--space-section)]">
+    <section className="pb-[var(--space-section)]">
       <Container>
         <div className="flex flex-col gap-6 border-t border-line pt-10 md:flex-row md:items-center md:justify-between">
           <div>
@@ -86,7 +86,7 @@ export function AmsNote() {
               {AMS_LAUNCH_LABEL}.
             </p>
           </div>
-          <Button href="/products/ams" variant="ghost" className="w-fit bg-white">
+          <Button href="/products/ams" variant="ghost" className="w-fit">
             Join the waitlist
           </Button>
         </div>
@@ -98,7 +98,7 @@ export function AmsNote() {
 export function JournalList() {
   const posts = ARTICLES.slice(0, 3);
   return (
-    <section className="bg-white pb-[var(--space-section)]">
+    <section className="pb-[var(--space-section)]">
       <Container>
         <div className="flex flex-wrap items-end justify-between gap-6">
           <h2 className="text-[clamp(30px,3.6vw,44px)] text-ink">From the blog</h2>
@@ -137,7 +137,7 @@ export function Closing() {
       }}
     >
       <Container className="py-[var(--space-section)]">
-        <div className="max-w-[760px]">
+        <div className="lg-dark max-w-[820px] rounded-[32px] px-7 py-10 sm:px-12 sm:py-14">
           <h2 className="text-[clamp(34px,5vw,64px)] text-white">
             Tell us what&apos;s slowing the business down.
           </h2>
