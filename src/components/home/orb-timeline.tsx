@@ -330,7 +330,9 @@ export function OrbTimeline() {
     current.current = 0;
     target.current = 0;
     setValue(0);
-    const kick = window.setTimeout(() => play(0), 700);
+    // Wait for the opening animation when it is playing on this visit.
+    const introOn = document.documentElement.dataset.intro !== "off";
+    const kick = window.setTimeout(() => play(0), introOn ? 2500 : 700);
 
     return () => {
       window.clearTimeout(kick);

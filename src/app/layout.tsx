@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 // which is faster for LCP and keeps visitor data off a third party.
 import "@fontsource-variable/archivo/wdth.css";
 import { SiteHeader } from "@/components/site-header";
+import { Intro, INTRO_GATE } from "@/components/intro";
 import { Assistant } from "@/components/assistant";
 import { SiteFooter } from "@/components/site-footer";
 import { CookieConsent } from "@/components/ui/cookie-consent";
@@ -61,6 +62,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: INTRO_GATE }} />
       </head>
       <body className="flex min-h-screen flex-col bg-bg text-ink">
         <a
@@ -69,6 +71,7 @@ export default function RootLayout({
         >
           Skip to content
         </a>
+        <Intro />
         <SiteHeader />
         <main id="main" className="flex-1">
           {children}
