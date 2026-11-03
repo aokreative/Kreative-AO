@@ -2,10 +2,18 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
-import { NAV } from "@/lib/site";
+import { useEffect, useState } from "react";
 import { LogoLink } from "./logo";
-import { Button, Container } from "./ui/primitives";
+import { SITE } from "@/lib/site";
+
+const LEFT = [
+  { label: "Work", href: "/work" },
+  { label: "Services", href: "/services" },
+  { label: "Products", href: "/products" },
+  { label: "Blog", href: "/blog" },
+];
+
+const MOBILE = [...LEFT, { label: "About", href: "/about" }, { label: "Contact", href: "/contact" }];
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -13,95 +21,112 @@ export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      // Apply glass background after 80px
-      setScrolled(window.scrollY > 80);
-    };
-
-    // Run once on mount
-    handleScroll();
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
+  const isActive = (href: string) => pathname === href || pathname.startsWith(href + "/");
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "border-b border-white/20 glass text-parchment"
-          : "border-b border-transparent bg-transparent"
+      className={`sticky top-0 z-50 bg-white/90 backdrop-blur-md transition-[box-shadow] duration-200 ${
+        scrolled ? "shadow-[0_1px_0_var(--line-soft)]" : ""
       }`}
     >
-      <Container className="flex h-[68px] items-center justify-between gap-6">
-        <LogoLink />
+      <div className="mx-auto grid h-16 w-full max-w-[1200px] grid-cols-[1fr_auto] items-center px-5 sm:px-8 md:grid-cols-[1fr_auto_1fr]">
+        <nav aria-label="Main" className="hidden items-center gap-7 md:flex">
+          {LEFT.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              aria-current={isActive(item.href) ? "page" : undefined}
+              className={`text-[14.5px] transition-colors ${
+                isActive(item.href) ? "text-ink" : "text-ink-3 hover:text-ink"
+              }`}
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
 
-        <div className="hidden items-center md:flex">
-          <nav aria-label="Main" className="flex items-center gap-8">
-            {NAV.map((item) => {
-              const active =
-                pathname === item.href || pathname.startsWith(item.href + "/");
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  aria-current={active ? "page" : undefined}
-                  className={`font-mono text-xs uppercase tracking-[0.18em] transition-colors ${
-                    active ? "text-current" : "text-current opacity-70 hover:opacity-100"
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
-          </nav>
+        <div className="md:justify-self-center">
+          <LogoLink />
+        </div>
 
-          <div className="ml-8 h-4 w-px bg-current opacity-30" />
-
-          <div className="ml-8">
-            <Button href="/book" variant="accent" className="!py-2.5 !px-4">
-              Book a call
-            </Button>
-          </div>
+        <div className="hidden items-center justify-end gap-6 md:flex">
+          <Link
+            href="/contact"
+            aria-current={isActive("/contact") ? "page" : undefined}
+            className={`text-[14.5px] transition-colors ${
+              isActive("/contact") ? "text-ink" : "text-ink-3 hover:text-ink"
+            }`}
+          >
+            Contact
+          </Link>
+          <Link
+            href="/book"
+            className="inline-flex h-9 items-center rounded-full bg-midnight px-4 text-[14px] font-semibold text-white transition-colors hover:bg-harbour"
+          >
+            Book a call
+          </Link>
         </div>
 
         <button
           type="button"
-          onClick={() => setOpen((v) => !v)}
+          className="justify-self-end rounded-full px-3 py-2 text-[15px] font-medium text-ink md:hidden"
           aria-expanded={open}
-          aria-controls="mobile-nav"
-          className={`rounded-md border px-3 py-2 text-[13px] font-semibold md:hidden transition-colors ${
-            scrolled ? "border-white/20 text-parchment" : "border-line text-ink"
-          }`}
+          aria-controls="mobile-menu"
+          onClick={() => setOpen((v) => !v)}
         >
           {open ? "Close" : "Menu"}
         </button>
-      </Container>
+      </div>
 
       {open && (
-        <div id="mobile-nav" className="border-t border-line-soft bg-bg/95 backdrop-blur-xl md:hidden">
-          <Container className="flex flex-col gap-1 py-4">
-            {NAV.map((item) => (
+        <div
+          id="mobile-menu"
+          className="fixed inset-x-0 bottom-0 top-16 z-50 flex flex-col justify-between overflow-y-auto bg-white px-5 pb-10 pt-6 md:hidden"
+        >
+          <nav aria-label="Mobile" className="flex flex-col">
+            {MOBILE.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
+                aria-current={isActive(item.href) ? "page" : undefined}
                 onClick={() => setOpen(false)}
-                className="font-mono text-xs uppercase tracking-[0.18em] rounded-md px-2 py-3 text-ink-2 hover:bg-surface-2 hover:text-ink"
+                className="border-b border-line-soft py-4 text-[28px] font-semibold tracking-[-0.02em] text-ink"
+                style={{ fontStretch: "112%" }}
               >
                 {item.label}
               </Link>
             ))}
-              <Link
-                href="#contact-section"
-                onClick={() => setOpen(false)}
-                className="font-mono text-xs uppercase tracking-[0.18em] rounded-md px-2 py-3 text-accent-ink hover:bg-surface-2 hover:text-ink font-semibold"
-              >
-                Start a project
-              </Link>
-            <Button href="/book" variant="accent" className="mt-4 w-full justify-center">
+          </nav>
+          <div className="mt-10 flex flex-col gap-3">
+            <Link
+              href="/book"
+              onClick={() => setOpen(false)}
+              className="inline-flex h-12 items-center justify-center rounded-full bg-midnight text-[16px] font-semibold text-white"
+            >
               Book a call
-            </Button>
-          </Container>
+            </Link>
+            <a
+              href={SITE.whatsapp}
+              target="_blank"
+              rel="noopener"
+              className="inline-flex h-12 items-center justify-center rounded-full text-[16px] font-semibold text-ink ring-1 ring-inset ring-line"
+            >
+              WhatsApp us
+            </a>
+          </div>
         </div>
       )}
     </header>

@@ -1,75 +1,41 @@
 import Link from "next/link";
 
 /**
- * The mark is an SVG traced from the original artwork: sharp at any size,
- * ~12KB gzipped, and no longer a raster with the paper texture baked in.
- *
- * Two files rather than one inlined component: inlining 40KB of path data
- * into every page's HTML costs far more than serving a cached image. The
- * teal mark measures 1.43:1 against the dark ground, so dark surfaces get
- * the reversed file instead.
+ * Typeset wordmark, matching the A&O proposal and poster lockup:
+ * a bold "A&O" with a gold ampersand, and a wide, light "KREATIVE".
+ * Swap for the official SVG once it is supplied.
  */
-const RATIO = 1251 / 1869;
-
-export function Logo({
-  width = 116,
+export function Wordmark({
   onDark = false,
-  priority = false,
+  size = "md",
 }: {
-  width?: number;
   onDark?: boolean;
-  priority?: boolean;
+  size?: "md" | "lg";
 }) {
-  const height = Math.round(width * RATIO);
-  const common = {
-    width,
-    height,
-    decoding: "async" as const,
-    fetchPriority: priority ? ("high" as const) : undefined,
-    loading: priority ? ("eager" as const) : ("lazy" as const),
-  };
-
-  if (onDark) {
-    return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img
-        {...common}
-        src="/brand/aok-mark-reverse.svg"
-        alt="A&O Kreative"
-        className="h-auto"
-      />
-    );
-  }
-
+  const big = size === "lg";
   return (
-    <>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        {...common}
-        src="/brand/aok-mark.svg"
-        alt="A&O Kreative"
-        className="h-auto dark:hidden"
-      />
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        {...common}
-        src="/brand/aok-mark-reverse.svg"
-        alt=""
-        aria-hidden
-        className="hidden h-auto dark:block"
-      />
-    </>
+    <span
+      className={`inline-flex items-baseline gap-[0.55em] whitespace-nowrap leading-none ${
+        onDark ? "text-white" : "text-midnight"
+      } ${big ? "text-[26px]" : "text-[17px]"}`}
+    >
+      <span className="font-[750] tracking-[0.02em]" style={{ fontStretch: "125%" }}>
+        A<span className="text-gold">&amp;</span>O
+      </span>
+      <span
+        className="font-[350] uppercase tracking-[0.24em]"
+        style={{ fontStretch: "125%" }}
+      >
+        Kreative
+      </span>
+    </span>
   );
 }
 
 export function LogoLink({ onDark = false }: { onDark?: boolean }) {
   return (
-    <Link
-      href="/"
-      className="inline-flex items-center"
-      aria-label="A&O Kreative — home"
-    >
-      <Logo width={104} onDark={onDark} priority />
+    <Link href="/" aria-label="A&O Kreative, home" className="inline-flex items-center py-2">
+      <Wordmark onDark={onDark} />
     </Link>
   );
 }

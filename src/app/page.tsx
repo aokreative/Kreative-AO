@@ -1,27 +1,24 @@
-import { Hero } from "@/components/sections/hero";
-import { Services } from "@/components/sections/services";
-import { Work } from "@/components/sections/work";
-import { Products } from "@/components/sections/products";
-import { Process } from "@/components/sections/process";
-import { Testimonials } from "@/components/sections/testimonials";
-import { FAQ } from "@/components/sections/faq";
-import { Journal } from "@/components/sections/journal";
-import { Contact } from "@/components/sections/contact";
-import { FloatingWhatsApp } from "@/components/floating-whatsapp";
+import { Hero, WorkList, AmsNote, JournalList, Closing } from "@/components/home/home-sections";
+import { Statement } from "@/components/home/statement";
+import { ServiceIndex } from "@/components/home/service-index";
+import { DukaStory } from "@/components/home/duka-story";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <Services />
-      <Work />
-      <Products />
-      <Process />
-      <Testimonials />
-      <FAQ />
-      <Journal />
-      <Contact />
-      <FloatingWhatsApp />
+      <Statement />
+      <ServiceIndex />
+      <DukaStory />
+      <AmsNote />
+      <WorkList />
+      <JournalList />
+      <Closing />
     </>
   );
 }

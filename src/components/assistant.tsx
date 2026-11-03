@@ -35,6 +35,19 @@ function visitorId() {
 
 export function Assistant() {
   const [open, setOpen] = useState(false);
+  // On phones the launcher waits until the visitor scrolls, so it never
+  // covers the first screen.
+  const [revealed, setRevealed] = useState(false);
+  useEffect(() => {
+    const onScroll = () => {
+      if (window.scrollY > 480) {
+        setRevealed(true);
+        window.removeEventListener("scroll", onScroll);
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
   const logRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
 
@@ -61,7 +74,7 @@ export function Assistant() {
 
   return (
     <motion.div 
-      className="fixed bottom-6 right-6 z-[100] flex flex-col items-end"
+      className={`fixed bottom-4 right-4 z-[100] flex flex-col items-end transition-opacity duration-300 sm:bottom-6 sm:right-6 sm:opacity-100 ${revealed || open ? "opacity-100" : "pointer-events-none opacity-0 sm:pointer-events-auto"}`}
       drag
       dragMomentum={false}
       style={{ touchAction: "none" }}
@@ -180,10 +193,17 @@ export function Assistant() {
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-controls="aok-assistant"
-        className="glass flex items-center gap-2.5 rounded-full bg-teal py-3.5 pl-4 pr-5 text-[14px] font-semibold text-parchment shadow-e1 transition-transform hover:-translate-y-0.5 dark:bg-parchment dark:text-teal-deep cursor-grab active:cursor-grabbing"
+        className="flex cursor-grab items-center gap-2.5 rounded-full bg-midnight py-3 pl-4 pr-5 text-[14px] font-semibold text-white shadow-e2 transition-colors hover:bg-harbour active:cursor-grabbing"
       >
-        <span aria-hidden className="signal h-2.5 w-2.5 rounded-full" />
-        {open ? "Close" : "Chat with AI Assistant"}
+        <span aria-hidden className="h-2 w-2 rounded-full bg-gold" />
+        {open ? (
+          "Close"
+        ) : (
+          <>
+            <span className="sm:hidden">Ask us</span>
+            <span className="hidden sm:inline">Ask our AI assistant</span>
+          </>
+        )}
       </button>
     </motion.div>
   );
