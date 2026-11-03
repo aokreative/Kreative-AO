@@ -13,7 +13,7 @@ const STEPS = [
     screen: <SaleScreen />,
   },
   {
-    title: "Cash and M-PESA in one sale",
+    title: "Cash and M‑PESA in one sale",
     body: "Split a payment however the customer pays. One sale, one receipt, and totals that match the till and the Till statement.",
     screen: <SplitScreen />,
   },
