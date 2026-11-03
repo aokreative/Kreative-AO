@@ -28,6 +28,5 @@ export const IMAGERY_MANIFEST: Record<string, ImageryMeta> = {
   "/brand/work/adofresh-kenya.jpg": { aspect: "aspect-[3/2]" },
   "/brand/work/hego-ventures.jpg": { aspect: "aspect-[3/2]" },
   "/brand/work/africaptions.jpg": { aspect: "aspect-[3/2]" },
-  "/brand/work/techwizard-solutions.jpg": { aspect: "aspect-[3/2]" },
   "/brand/work/baple-gadgets.jpg": { aspect: "aspect-[3/2]" },
 };

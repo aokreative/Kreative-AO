@@ -70,7 +70,7 @@ export default function ServicesPage() {
                     {s.summary}
                   </p>
                   <span className="mt-auto pt-3 text-[14px] font-semibold text-accent-ink group-hover:underline">
-                    What&apos;s included â†’
+                    What&apos;s included →
                   </span>
                 </div>
               </Link>

@@ -64,7 +64,7 @@ export default function BlogPage() {
               {featured.date} · {featured.readMinutes} min read
             </p>
             <span className="pt-1 text-[14px] font-semibold text-accent-ink group-hover:underline">
-              Read the article â†’
+              Read the article →
             </span>
           </div>
         </Link>

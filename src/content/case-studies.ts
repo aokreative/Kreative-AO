@@ -71,23 +71,6 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
   },
   {
-    slug: "techwizard-solutions",
-    client: "TechWizard Solutions",
-    headline: "One clear idea, instead of sounding like everyone else",
-    category: "Market Entry",
-    tags: "Strategy · Digital · B2B",
-    year: "2024",
-    problem:
-      "A capable tech firm that sounded exactly like every competitor — all “innovative solutions,” nothing memorable.",
-    work:
-      "Sharp positioning built on one clear idea, a refreshed website, and a lead-gen system that turned that clarity into real pipeline.",
-    metrics: [
-      { value: "2.6×", label: "More qualified leads" },
-      { value: "+180%", label: "More demo requests" },
-      { value: "#1", label: "Ranking for core terms" },
-    ],
-  },
-  {
     slug: "baple-gadgets",
     client: "Baple Gadgets",
     headline: "A storefront that sells, and an audience to send to it",

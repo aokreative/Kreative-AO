@@ -7,7 +7,7 @@ import { OrbTimeline } from "./orb-timeline";
 
 export function Hero() {
   return (
-    <section className="relative">
+    <section data-tone="white" className="relative">
       <Container className="flex flex-col items-center pb-14 pt-10 text-center sm:pt-14">
         <h1 className="text-[clamp(38px,4.7vw,62px)] text-ink">
           <span className="sm:block">We build the system. </span>
@@ -32,7 +32,7 @@ export function Hero() {
 
 export function WorkList() {
   return (
-    <section className="py-[var(--space-section)]">
+    <section data-tone="white" className="py-[var(--space-section)]">
       <Container>
         <div className="flex flex-wrap items-end justify-between gap-6">
           <h2 className="text-[clamp(30px,3.6vw,44px)] text-ink">Recent work</h2>
@@ -75,7 +75,7 @@ export function WorkList() {
 
 export function AmsNote() {
   return (
-    <section className="pb-[var(--space-section)]">
+    <section data-tone="cream" className="pb-[var(--space-section)]">
       <Container>
         <div className="flex flex-col gap-6 border-t border-line pt-10 md:flex-row md:items-center md:justify-between">
           <div>
@@ -98,7 +98,7 @@ export function AmsNote() {
 export function JournalList() {
   const posts = ARTICLES.slice(0, 3);
   return (
-    <section className="pb-[var(--space-section)]">
+    <section data-tone="sand" className="pb-[var(--space-section)]">
       <Container>
         <div className="flex flex-wrap items-end justify-between gap-6">
           <h2 className="text-[clamp(30px,3.6vw,44px)] text-ink">From the blog</h2>

@@ -5,6 +5,7 @@ import "@fontsource-variable/archivo/wdth.css";
 import { SiteHeader } from "@/components/site-header";
 import { Intro, INTRO_GATE } from "@/components/intro";
 import { Assistant } from "@/components/assistant";
+import { BackdropTone } from "@/components/backdrop-tone";
 import { SiteFooter } from "@/components/site-footer";
 import { CookieConsent } from "@/components/ui/cookie-consent";
 import { SvgFilters } from "@/components/ui/svg-filters";
@@ -73,6 +74,7 @@ export default function RootLayout({
         </a>
         <Intro />
         <div aria-hidden className="ambient" />
+        <BackdropTone />
         <SiteHeader />
         <main id="main" className="flex-1">
           {children}

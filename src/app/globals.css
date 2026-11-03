@@ -148,12 +148,25 @@
   .link-draw:hover::after { transform: scaleX(1); }
 }
 
-/* Dark panels on inner pages. Flat navy, no hover glow. */
+/* Inner-page panels. Plain .glass is a dark frosted overlay (used on
+   photos); .card.glass is a light frosted card with dark text. */
 .glass {
   position: relative;
   overflow: hidden;
-  background: var(--color-midnight);
-  border: 1px solid rgb(255 255 255 / .08);
+  background: rgb(19 35 58 / .62);
+  border: 1px solid rgb(255 255 255 / .16);
+  -webkit-backdrop-filter: blur(20px) saturate(170%);
+  backdrop-filter: blur(20px) saturate(170%);
+}
+.card.glass {
+  border-radius: 28px;
+  color: var(--ink);
+  background: linear-gradient(180deg, rgb(255 255 255 / .82), rgb(255 255 255 / .62));
+  border: 1px solid rgb(255 255 255 / .85);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / .95),
+    0 1px 2px rgb(19 35 58 / .05),
+    0 24px 48px -28px rgb(19 35 58 / .3);
 }
 
 /* Images on inner pages */
@@ -251,62 +264,115 @@ html[data-intro="off"] .intro { display: none; }
 @keyframes intro-out { to { opacity: 0; visibility: hidden; transform: scale(1.02); } }
 
 /* ------------------------------------------------------------------
-   Glass (iOS-style). Frosted, saturated, with a bright top edge and a
-   soft specular rim. Needs colour behind it: see .ambient.
+   Liquid glass (iOS-style). Frosted and saturated, with a bright top
+   edge, a specular rim, a soft gloss and a faint inner glow at the
+   bottom where light pools. Needs colour behind it: see .ambient.
 ------------------------------------------------------------------ */
 @layer components {
-.lg, .lg-dark { isolation: isolate; }
-.lg:not(.absolute):not(.fixed), .lg-dark:not(.absolute):not(.fixed) { position: relative; }
+.lg, .lg-dark, .lg-navy { isolation: isolate; }
+.lg:not(.absolute):not(.fixed),
+.lg-dark:not(.absolute):not(.fixed),
+.lg-navy:not(.absolute):not(.fixed) { position: relative; }
 .lg {
-  background: linear-gradient(180deg, rgb(255 255 255 / .72), rgb(255 255 255 / .5));
-  border: 1px solid rgb(255 255 255 / .7);
+  background: linear-gradient(180deg, rgb(255 255 255 / .74), rgb(255 255 255 / .52));
+  border: 1px solid rgb(255 255 255 / .75);
   box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / .95),
-    inset 0 -1px 0 rgb(255 255 255 / .3),
+    inset 0 1px 0 rgb(255 255 255 / 1),
+    inset 0 -10px 18px -14px rgb(255 255 255 / .8),
+    inset 0 0 0 .5px rgb(255 255 255 / .45),
     0 1px 2px rgb(19 35 58 / .06),
-    0 12px 32px -14px rgb(19 35 58 / .28);
+    0 16px 36px -16px rgb(19 35 58 / .32);
 }
 .lg-dark {
-  background: linear-gradient(180deg, rgb(255 255 255 / .12), rgb(255 255 255 / .05));
-  border: 1px solid rgb(255 255 255 / .16);
+  background: linear-gradient(180deg, rgb(255 255 255 / .14), rgb(255 255 255 / .05));
+  border: 1px solid rgb(255 255 255 / .18);
   box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / .28),
-    inset 0 -1px 0 rgb(255 255 255 / .06),
+    inset 0 1px 0 rgb(255 255 255 / .32),
+    inset 0 -10px 20px -16px rgb(255 255 255 / .22),
     0 18px 40px -20px rgb(0 0 0 / .55);
 }
+.lg-navy {
+  background: linear-gradient(180deg, rgb(34 56 90 / .96), rgb(19 35 58 / 1));
+  border: 1px solid rgb(255 255 255 / .2);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / .34),
+    inset 0 -8px 16px -12px rgb(217 186 110 / .35),
+    0 1px 2px rgb(19 35 58 / .12),
+    0 16px 32px -14px rgb(19 35 58 / .5);
+  transition: background-color .2s, transform .2s var(--ease-spring);
+}
+.lg-navy:hover { transform: translateY(-1px); }
 @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .lg { background: linear-gradient(180deg, rgb(255 255 255 / .55), rgb(255 255 255 / .28)); }
-  .lg, .lg-dark {
-    -webkit-backdrop-filter: blur(22px) saturate(185%);
-    backdrop-filter: blur(22px) saturate(185%);
+  .lg { background: linear-gradient(180deg, rgb(255 255 255 / .5), rgb(255 255 255 / .22)); }
+  .lg-navy { background: linear-gradient(180deg, rgb(34 56 90 / .9), rgb(19 35 58 / .96)); }
+  .lg, .lg-dark, .lg-navy {
+    -webkit-backdrop-filter: blur(30px) saturate(210%) brightness(1.04);
+    backdrop-filter: blur(30px) saturate(210%) brightness(1.04);
   }
 }
 /* Specular rim: light catches the top-left and bottom-right edges. */
-.lg::before, .lg-dark::before {
+.lg::before, .lg-dark::before, .lg-navy::before {
   content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 1px;
-  background: linear-gradient(135deg, rgb(255 255 255 / .9), rgb(255 255 255 / 0) 35%, rgb(255 255 255 / 0) 65%, rgb(255 255 255 / .55));
+  background: linear-gradient(135deg, rgb(255 255 255 / 1), rgb(255 255 255 / 0) 32%, rgb(255 255 255 / 0) 62%, rgb(255 255 255 / .75));
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor; mask-composite: exclude;
   pointer-events: none; z-index: -1;
 }
-.lg-dark::before { opacity: .45; }
+.lg-dark::before { opacity: .5; }
+.lg-navy::before { opacity: .55; }
+/* Gloss: a soft sheen across the upper part of the surface. */
+.lg::after, .lg-dark::after, .lg-navy::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit;
+  background: radial-gradient(120% 70% at 28% -12%, rgb(255 255 255 / .5), rgb(255 255 255 / 0) 58%);
+  pointer-events: none; z-index: -1;
+}
+.lg-dark::after { opacity: .35; }
+.lg-navy::after { opacity: .18; }
 }
 
-/* Soft gold and navy light fixed behind the page, so glass has
-   something to frost. */
+/* Page light. A fixed layer behind everything: soft gold and navy
+   light that drifts, and a base tint that shifts between white, cream
+   and a cool mist as each section takes the middle of the screen
+   (set by <BackdropTone />). */
+:root { --tone: #FFFFFF; }
+html[data-tone="cream"] { --tone: #FBF7EE; }
+html[data-tone="sand"]  { --tone: #F9F3E4; }
+html[data-tone="mist"]  { --tone: #F4F6FA; }
 .ambient {
-  position: fixed; inset: 0; z-index: -1; pointer-events: none;
-  background:
-    radial-gradient(38% 34% at 88% 8%, rgb(217 186 110 / .30), transparent 70%),
-    radial-gradient(34% 30% at 6% 38%, rgb(46 68 102 / .13), transparent 70%),
-    radial-gradient(30% 28% at 72% 86%, rgb(184 144 47 / .14), transparent 70%);
+  position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden;
+  background-color: var(--tone);
+  background-image:
+    radial-gradient(38% 34% at 88% 8%, rgb(217 186 110 / .26), transparent 70%),
+    radial-gradient(30% 28% at 72% 86%, rgb(184 144 47 / .12), transparent 70%);
+  transition: background-color 1.2s cubic-bezier(.4,0,.2,1);
 }
+.ambient::before, .ambient::after {
+  content: ""; position: absolute; border-radius: 50%;
+  width: 70vmax; height: 70vmax;
+  transition: transform 1.8s cubic-bezier(.22,1,.36,1), opacity 1.2s;
+}
+.ambient::before {
+  top: -32vmax; left: -30vmax;
+  background: radial-gradient(closest-side, rgb(46 68 102 / .13), transparent);
+}
+.ambient::after {
+  bottom: -38vmax; right: -30vmax;
+  background: radial-gradient(closest-side, rgb(217 186 110 / .22), transparent);
+  opacity: .6;
+}
+html[data-tone="cream"] .ambient::before { transform: translate(8vw, 22vh); opacity: .7; }
+html[data-tone="cream"] .ambient::after  { transform: translate(-10vw, -18vh); opacity: 1; }
+html[data-tone="sand"]  .ambient::after  { transform: translate(-30vw, -30vh) scale(1.1); opacity: 1; }
+html[data-tone="mist"]  .ambient::before { transform: translate(20vw, 30vh) scale(1.15); opacity: 1; }
+html[data-tone="mist"]  .ambient::after  { transform: translate(-4vw, -8vh); opacity: .5; }
 
-/* Notification drop-in for the Duka POS phone. */
-.toast-in { animation: toast-in .55s cubic-bezier(.22,1,.36,1) both; }
+/* Notification for the Duka POS phone: drops in, waits, slides away. */
+.toast-life { animation: toast-life 3s cubic-bezier(.22,1,.36,1) both; }
 /* Uses transform only: Tailwind's -translate-x-1/2 sits on the separate
    'translate' property, so the two don't stack. */
-@keyframes toast-in {
-  from { opacity: 0; transform: translateY(-14px) scale(.96); }
-  to   { opacity: 1; transform: none; }
+@keyframes toast-life {
+  0%   { opacity: 0; transform: translateY(-14px) scale(.96); }
+  12%  { opacity: 1; transform: none; }
+  80%  { opacity: 1; transform: none; }
+  100% { opacity: 0; transform: translateY(-10px) scale(.98); visibility: hidden; }
 }

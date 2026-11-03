@@ -17,7 +17,7 @@ const FACTS = [
 
 export function Statement() {
   return (
-    <section className="py-[var(--space-section)]">
+    <section data-tone="cream" className="py-[var(--space-section)]">
       <Container>
         <div className="mx-auto max-w-[900px] text-center">
           <h2 className="text-[clamp(32px,4.6vw,58px)] text-ink">

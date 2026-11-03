@@ -22,7 +22,7 @@ const GROUPS = [
 
 export function ServiceIndex() {
   return (
-    <section className="relative pb-[var(--space-section)]">
+    <section data-tone="mist" className="relative pb-[var(--space-section)]">
       {/* Colour behind the glass panel */}
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-x-clip">
         <div className="absolute left-[8%] top-[18%] h-[340px] w-[340px] rounded-full bg-gold/45 blur-[90px]" />

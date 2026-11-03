@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { useChat } from "ai/react";
+import Link from "next/link";
 
 type Msg = { id?: string; role: "user" | "assistant" | "system" | "data"; content: string };
 
@@ -188,23 +189,38 @@ export function Assistant() {
           </p>
         </div>
       )}
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        aria-expanded={open}
-        aria-controls="aok-assistant"
-        className="lg flex cursor-grab items-center gap-2.5 rounded-full py-3 pl-4 pr-5 text-[14px] font-semibold text-ink active:cursor-grabbing"
-      >
-        <span aria-hidden className="h-2 w-2 rounded-full bg-gold" />
-        {open ? (
-          "Close"
-        ) : (
-          <>
-            <span className="sm:hidden">Ask us</span>
-            <span className="hidden sm:inline">Ask our AI assistant</span>
-          </>
+      <div className="flex items-center gap-2">
+        {!open && (
+          <Link
+            href="/book"
+            onPointerDown={(e) => e.stopPropagation()}
+            className="lg-navy flex h-11 items-center gap-1.5 rounded-full px-3.5 text-[13.5px] font-semibold text-white"
+          >
+            <svg aria-hidden viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="1.6">
+              <rect x="2" y="3" width="12" height="11" rx="2.5" />
+              <path d="M2 6.5h12M5.5 1.8v2.4M10.5 1.8v2.4" strokeLinecap="round" />
+            </svg>
+            Book a call
+          </Link>
         )}
-      </button>
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          aria-expanded={open}
+          aria-controls="aok-assistant"
+          className="lg flex h-11 cursor-grab items-center gap-2 rounded-full pl-3.5 pr-4 text-[13.5px] font-semibold text-ink active:cursor-grabbing"
+        >
+          <span aria-hidden className="h-2 w-2 rounded-full bg-gold" />
+          {open ? (
+            "Close"
+          ) : (
+            <>
+              <span className="sm:hidden">Ask us</span>
+              <span className="hidden sm:inline">Ask our AI assistant</span>
+            </>
+          )}
+        </button>
+      </div>
     </motion.div>
   );
 }
