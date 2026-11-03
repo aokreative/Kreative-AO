@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CASE_STUDIES, caseStudyBySlug } from "@/content/case-studies";
-import { Button, Container, Eyebrow, Section } from "@/components/ui/primitives";
+import { Button, Eyebrow, Section } from "@/components/ui/primitives";
+import { PageHero } from "@/components/page-hero";
 
 export function generateStaticParams() {
   return CASE_STUDIES.map((c) => ({ slug: c.slug }));
@@ -35,54 +36,42 @@ export default async function CaseStudyPage({
 
   return (
     <>
-      <section className="border-b border-line-soft bg-surface-2 py-16 sm:py-24">
-        <Container>
-          <Eyebrow>
-            {c.category} · {c.tags} · {c.year}
-          </Eyebrow>
-          <h1 className="mt-4 max-w-[16ch] text-[clamp(34px,5vw,58px)] leading-[1.04]">
-            {c.client}
-          </h1>
-          <p className="mt-5 max-w-[52ch] text-[19px] leading-relaxed text-ink-2">
-            {c.headline}
-          </p>
+      <PageHero
+        eyebrow={<>{c.category} · {c.tags} · {c.year}</>}
+        title={c.client}
+        intro={<p className="text-[19px]">{c.headline}</p>}
+      >
+        <dl className="mt-12 grid grid-cols-1 gap-x-10 gap-y-7 border-t border-ink/10 pt-8 sm:grid-cols-3">
+          {c.metrics.map((m) => (
+            <div key={m.label}>
+              <dt className="tnum font-display text-[clamp(34px,4vw,46px)] leading-none text-ink">{m.value}</dt>
+              <dd className="mt-2 text-[14px] leading-snug text-ink-3">{m.label}</dd>
+            </div>
+          ))}
+        </dl>
+      </PageHero>
 
-          <dl className="mt-12 grid grid-cols-1 gap-x-10 gap-y-7 border-t border-line pt-8 sm:grid-cols-3">
-            {c.metrics.map((m) => (
-              <div key={m.label}>
-                <dt className="tnum font-display text-[clamp(34px,4vw,46px)] leading-none">
-                  {m.value}
-                </dt>
-                <dd className="mt-2 text-[14px] leading-snug text-ink-2">
-                  {m.label}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </Container>
-      </section>
-
-      <Section>
-        <div className="grid gap-12 md:grid-cols-2">
-          <div className="flex flex-col gap-3">
+      <Section tone="white">
+        <div className="grid gap-5 md:grid-cols-2">
+          <div className="lg flex flex-col gap-3 rounded-[28px] p-8">
             <Eyebrow>The problem</Eyebrow>
             <p className="text-[17px] leading-relaxed text-ink-2">{c.problem}</p>
           </div>
-          <div className="flex flex-col gap-3">
+          <div className="lg flex flex-col gap-3 rounded-[28px] p-8">
             <Eyebrow>What we did</Eyebrow>
             <p className="text-[17px] leading-relaxed text-ink-2">{c.work}</p>
           </div>
         </div>
       </Section>
 
-      <Section className="border-t border-line-soft bg-surface-2">
+      <Section tone="mist" className="pt-0">
         <Eyebrow>More work</Eyebrow>
         <div className="mt-8 grid gap-5 sm:grid-cols-3">
           {others.map((o) => (
             <Link
               key={o.slug}
               href={`/work/${o.slug}`}
-              className="group flex flex-col gap-2 rounded-lg border border-line bg-surface p-6 transition-colors hover:border-ink-3"
+              className="lg lg-lift group flex flex-col gap-2 rounded-[24px] p-6"
             >
               <span className="label text-ink-3">{o.category}</span>
               <h2 className="text-[19px] leading-tight">{o.client}</h2>

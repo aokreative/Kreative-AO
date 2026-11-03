@@ -3,7 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SERVICES, serviceBySlug } from "@/content/services";
 import { CASE_STUDIES } from "@/content/case-studies";
-import { Button, Check, Container, Eyebrow, Section } from "@/components/ui/primitives";
+import { Button, Check, Eyebrow, Section } from "@/components/ui/primitives";
+import { PageHero } from "@/components/page-hero";
 
 export function generateStaticParams() {
   return SERVICES.map((s) => ({ slug: s.slug }));
@@ -34,33 +35,26 @@ export default async function ServicePage({
 
   return (
     <>
-      <section className="border-b border-line-soft bg-surface-2 py-16 sm:py-24">
-        <Container>
-          <Eyebrow>
-            Services · {service.kicker}
-          </Eyebrow>
-          <h1 className="mt-4 max-w-[18ch] text-[clamp(34px,5vw,58px)] leading-[1.04]">
-            {service.name}
-          </h1>
-          <p className="mt-6 max-w-[58ch] text-[17.5px] leading-relaxed text-ink-2">
-            {service.pitch}
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Button href={`/contact?interest=${service.slug}`} variant="accent">
-              {service.cta}
-            </Button>
-            <Button href="/book" variant="ghost">
-              Book a call
-            </Button>
-          </div>
-        </Container>
-      </section>
+      <PageHero
+        eyebrow={<>Services · {service.kicker}</>}
+        title={service.name}
+        intro={<p>{service.pitch}</p>}
+      >
+        <div className="mt-8 flex flex-wrap gap-3">
+          <Button href={`/contact?interest=${service.slug}`} variant="accent">
+            {service.cta}
+          </Button>
+          <Button href="/book" variant="ghost">
+            Book a call
+          </Button>
+        </div>
+      </PageHero>
 
-      <Section>
+      <Section tone="white">
         <Eyebrow>What&apos;s included</Eyebrow>
-        <div className="mt-8 grid gap-x-10 gap-y-7 sm:grid-cols-2">
+        <div className="mt-8 grid gap-4 sm:grid-cols-2">
           {service.items.map((item) => (
-            <div key={item.name} className="flex gap-3">
+            <div key={item.name} className="lg flex gap-3 rounded-[24px] p-6">
               <Check />
               <div className="flex flex-col gap-1">
                 <h2 className="text-[17px] font-semibold">{item.name}</h2>
@@ -74,7 +68,7 @@ export default async function ServicePage({
       </Section>
 
       {related.length > 0 && (
-        <Section className="border-t border-line-soft bg-surface-2">
+        <Section tone="mist" className="pt-0">
           <Eyebrow>Proof</Eyebrow>
           <h2 className="mt-3 text-[28px] leading-tight">
             {service.name} work we&apos;ve shipped
@@ -84,7 +78,7 @@ export default async function ServicePage({
               <Link
                 key={c.slug}
                 href={`/work/${c.slug}`}
-                className="group flex flex-col gap-3 rounded-lg border border-line bg-surface p-7 shadow-e1 transition-colors hover:border-ink-3"
+                className="lg lg-lift group flex flex-col gap-3 rounded-[28px] p-7"
               >
                 <h3 className="text-[21px] leading-tight">{c.client}</h3>
                 <p className="text-[15px] text-ink-2">{c.headline}</p>
@@ -105,14 +99,14 @@ export default async function ServicePage({
         </Section>
       )}
 
-      <Section className="border-t border-line-soft">
+      <Section tone="cream" className="pt-0">
         <Eyebrow>Also from us</Eyebrow>
         <div className="mt-6 flex flex-wrap gap-2.5">
           {others.map((s) => (
             <Link
               key={s.slug}
               href={`/services/${s.slug}`}
-              className="rounded-full border border-line px-4 py-2 text-[14px] text-ink-2 transition-colors hover:border-ink-3 hover:text-ink"
+              className="lg lg-lift rounded-full px-4 py-2 text-[14px] text-ink-2 hover:text-ink"
             >
               {s.name}
             </Link>

@@ -1,9 +1,9 @@
 ﻿import type { Metadata } from "next";
 import Link from "next/link";
 import { SERVICES } from "@/content/services";
-import { Button, Container, Eyebrow, Section } from "@/components/ui/primitives";
+import { Button, Section } from "@/components/ui/primitives";
 import { Frame } from "@/components/frame";
-import Image from "next/image";
+import { PageHero } from "@/components/page-hero";
 
 export const metadata: Metadata = {
   title: "Marketing, Branding & Automation Services",
@@ -14,58 +14,46 @@ export const metadata: Metadata = {
 export default function ServicesPage() {
   return (
     <>
-      <section className="relative w-full min-h-[70vh] flex items-center overflow-hidden">
-        {/* 1. BACKGROUND IMAGE LAYER */}
-        <div className="absolute inset-0 z-0">
-          <Image src="/brand/services/web-design.jpg" fill priority className="object-cover object-center" alt="Services" />
-        </div>
-        
-        {/* 2. THE DARK VEIL LAYER (HARDCODED) */}
-        <div className="header-veil-dark"></div>
+      <PageHero
+        eyebrow="What we do"
+        title="Pick what you need most"
+        intro={
+          <p>
+            No rigid packages. We scope each project around your goal and budget,
+            whether that&apos;s one quick win or a long-term partnership. Here&apos;s
+            the full range.
+          </p>
+        }
+      />
 
-        {/* 3. THE TEXT CONTENT LAYER */}
-        <div className="relative z-20 w-full container mx-auto px-6 grid lg:grid-cols-12 gap-8">
-          <div className="col-span-12 lg:col-span-7 text-[#F3F0E6]">
-            <Eyebrow>What we do</Eyebrow>
-            <h1 className="mt-4 max-w-[16ch] text-[clamp(34px,4.8vw,56px)] leading-[1.05]">
-              Pick what you need most
-            </h1>
-            <p className="mt-6 max-w-[60ch] text-[17px] text-[#F3F0E6]/90">
-              No rigid packages. We scope each project around your goal and
-              budget — whether that&apos;s one quick win or a long-term
-              partnership. Here&apos;s the full range.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <Section>
+      <Section tone="white">
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {SERVICES.map((s, i) => {
             const isLarge = i === 0 || i === 3;
-            const hasImage = isLarge;
-            const imgSrc = `/brand/services/${s.slug}.jpg`;
             return (
               <Link
                 key={s.slug}
                 href={`/services/${s.slug}`}
-                className={`group flex flex-col overflow-hidden rounded-xl border border-line bg-surface shadow-e1 transition-all hover:border-ink-3 hover:shadow-lg ${
-                  i === 0 ? "sm:col-span-2 lg:col-span-2 sm:flex-row items-stretch" :
-                  i === 3 ? "sm:col-span-2 lg:col-span-2 sm:flex-row items-stretch" :
-                  i === 6 ? "sm:col-span-2 lg:col-span-3 md:flex-row items-stretch" : ""
-                } h-full`}
+                className={`lg lg-lift group flex h-full flex-col overflow-hidden rounded-[28px] ${
+                  isLarge
+                    ? "items-stretch sm:col-span-2 sm:flex-row lg:col-span-2"
+                    : i === 6
+                      ? "items-stretch sm:col-span-2 md:flex-row lg:col-span-3"
+                      : ""
+                }`}
               >
-                <div className={`shrink-0 border-b border-line ${
-                  i === 0 || i === 3 ? "sm:w-[45%] sm:border-r sm:border-b-0" :
-                  i === 6 ? "md:w-[45%] md:border-r md:border-b-0" : ""
-                }`}>
-                  <Frame src={`/brand/services/${s.slug}.jpg`} alt={s.name} className="w-full h-full" />
+                <div
+                  className={`m-2 shrink-0 overflow-hidden rounded-[22px] ${
+                    isLarge ? "sm:w-[45%]" : i === 6 ? "md:w-[45%]" : ""
+                  }`}
+                >
+                  <Frame src={`/brand/services/${s.slug}.jpg`} alt={s.name} className="h-full w-full" />
                 </div>
-                <div className="flex flex-col gap-3 p-8 flex-grow">
-                  <h2 className={`${isLarge || i === 6 ? "text-[26px]" : "text-[22px]"} leading-tight`}>{s.name}</h2>
-                  <p className="text-[13.5px] font-semibold text-accent-ink">
-                    {s.kicker}
-                  </p>
+                <div className="flex flex-grow flex-col gap-3 px-7 pb-8 pt-5 sm:pt-7">
+                  <h2 className={`${isLarge || i === 6 ? "text-[26px]" : "text-[22px]"} leading-tight`}>
+                    {s.name}
+                  </h2>
+                  <p className="text-[13.5px] font-semibold text-accent-ink">{s.kicker}</p>
                   <p className={`text-[15px] leading-relaxed text-ink-2 ${isLarge ? "max-w-[42ch]" : ""}`}>
                     {s.summary}
                   </p>
@@ -79,14 +67,12 @@ export default function ServicesPage() {
         </div>
       </Section>
 
-      <Section className="border-t border-line-soft bg-surface-2">
-        <div className="mx-auto flex max-w-[54ch] flex-col items-center gap-6 text-center">
-          <h2 className="text-[clamp(26px,3.2vw,38px)] leading-[1.1]">
-            Not sure where to start?
-          </h2>
-          <p className="text-[16.5px] text-ink-2">
-            Tell us what&apos;s going on. We&apos;ll say honestly which one or
-            two things would move the needle fastest — and which can wait.
+      <Section tone="mist" className="pt-0">
+        <div className="lg mx-auto flex max-w-[760px] flex-col items-center gap-6 rounded-[32px] px-6 py-12 text-center sm:px-12">
+          <h2 className="text-[clamp(26px,3.2vw,38px)] leading-[1.1]">Not sure where to start?</h2>
+          <p className="max-w-[50ch] text-[16.5px] text-ink-2">
+            Tell us what&apos;s going on. We&apos;ll say honestly which one or two
+            things would move the needle fastest, and which can wait.
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             <Button href="/book" variant="accent">

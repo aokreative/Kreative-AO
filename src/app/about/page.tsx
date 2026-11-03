@@ -1,5 +1,6 @@
-﻿import type { Metadata } from "next";
-import { Container, Eyebrow, Section, SignalRule } from "@/components/ui/primitives";
+import type { Metadata } from "next";
+import { Section } from "@/components/ui/primitives";
+import { PageHero } from "@/components/page-hero";
 import { Frame } from "@/components/frame";
 
 export const metadata: Metadata = {
@@ -11,26 +12,18 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <section className="relative w-full min-h-[60vh] flex flex-col justify-end overflow-hidden border-b border-line-soft bg-[#06150F] py-16 sm:py-24">
-        {/* 1. BACKGROUND IMAGE LAYER */}
-        <div className="absolute inset-0 z-0">
-          <Frame src="/brand/about.jpg" alt="About" className="object-cover object-center w-full h-full" priority />
-        </div>
-        
-        {/* 2. THE DARK VEIL LAYER (HARDCODED) */}
-        <div className="header-veil-dark"></div>
+      <PageHero
+        eyebrow="About"
+        title="A martech company, in the literal sense"
+        intro={
+          <p>
+            We do the marketing and we write the technology, and the two sides sit
+            in the same room.
+          </p>
+        }
+      />
 
-        {/* 3. THE TEXT CONTENT LAYER */}
-        <Container className="relative z-20 text-[#F3F0E6]">
-          <Eyebrow>About</Eyebrow>
-          <h1 className="mt-4 max-w-[20ch] text-[clamp(34px,4.8vw,56px)] leading-[1.05]">
-            A martech company, in the literal sense
-          </h1>
-          <SignalRule className="mt-8 max-w-[200px]" />
-        </Container>
-      </section>
-
-      <Section>
+      <Section tone="white" className="pt-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 text-[17px] leading-relaxed text-ink-2">
           <div className="card glass md:col-span-12 flex flex-col md:flex-row overflow-hidden bg-surface">
             <div className="md:w-[45%] shrink-0 border-b md:border-b-0 md:border-r border-line-soft">

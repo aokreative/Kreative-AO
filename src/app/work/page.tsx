@@ -1,9 +1,7 @@
-﻿import type { Metadata } from "next";
-import Link from "next/link";
-import { CASE_STUDIES, HEADLINE_STATS } from "@/content/case-studies";
-import { Button, Container, Eyebrow, Section } from "@/components/ui/primitives";
-import { Frame } from "@/components/frame";
-import Image from "next/image";
+import type { Metadata } from "next";
+import { HEADLINE_STATS } from "@/content/case-studies";
+import { Button, Section } from "@/components/ui/primitives";
+import { PageHero } from "@/components/page-hero";
 import { HorizontalScroll } from "./horizontal-scroll";
 import { ResultsStats } from "./results-stats";
 
@@ -16,46 +14,30 @@ export const metadata: Metadata = {
 export default function WorkPage() {
   return (
     <>
-      <section className="relative w-full min-h-[70vh] flex items-center overflow-hidden">
-        {/* 1. BACKGROUND IMAGE LAYER */}
-        <div className="absolute inset-0 z-0">
-          <Image src="/brand/hero.jpg" fill priority className="object-cover object-center" alt="Work" />
-        </div>
-        
-        {/* 2. THE DARK VEIL LAYER (HARDCODED) */}
-        <div className="header-veil-dark"></div>
-
-        {/* 3. THE TEXT CONTENT LAYER */}
-        <div className="relative z-20 w-full container mx-auto px-6 grid lg:grid-cols-12 gap-8">
-          <div className="col-span-12 lg:col-span-7 text-[#F3F0E6]">
-            <Eyebrow>Case studies</Eyebrow>
-            <h1 className="mt-4 max-w-[16ch] text-[clamp(34px,4.8vw,56px)] leading-[1.05]">
-              The full stories
-            </h1>
-            <p className="mt-6 max-w-[58ch] text-[17px] text-[#F3F0E6]/90">
-              The problem, what we did about it, and the numbers that came out the
-              other side. Real clients, real figures.
-            </p>
-            <dl className="mt-12 grid max-w-3xl grid-cols-1 gap-x-8 gap-y-6 border-t border-white/20 pt-8 sm:grid-cols-3">
-              {HEADLINE_STATS.map((s) => (
-                <div key={s.label}>
-                  <dt className="tnum font-display text-[34px] leading-none">
-                    {s.value}
-                  </dt>
-                  <dd className="mt-2 text-[13.5px] leading-snug text-[#F3F0E6]/80">
-                    {s.label}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Case studies"
+        title="The full stories"
+        intro={
+          <p>
+            The problem, what we did about it, and the numbers that came out the
+            other side. Real clients, real figures.
+          </p>
+        }
+      >
+        <dl className="mt-12 grid max-w-3xl grid-cols-1 gap-x-8 gap-y-6 border-t border-ink/10 pt-8 sm:grid-cols-3">
+          {HEADLINE_STATS.map((s) => (
+            <div key={s.label}>
+              <dt className="tnum font-display text-[34px] leading-none text-ink">{s.value}</dt>
+              <dd className="mt-2 text-[13.5px] leading-snug text-ink-3">{s.label}</dd>
+            </div>
+          ))}
+        </dl>
+      </PageHero>
 
       <HorizontalScroll />
 
-      <Section className="border-t border-line-soft bg-surface-2">
-        <div className="mx-auto flex max-w-[52ch] flex-col items-center gap-6 text-center">
+      <Section tone="mist">
+        <div className="lg mx-auto flex max-w-[860px] flex-col items-center gap-6 rounded-[32px] px-6 py-12 text-center sm:px-12">
           <h2 className="text-[clamp(26px,3.2vw,38px)] leading-[1.1]">
             Get results like these
           </h2>

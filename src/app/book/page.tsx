@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Check, Container, Eyebrow, Section } from "@/components/ui/primitives";
+import { Check, Section } from "@/components/ui/primitives";
+import { PageHero } from "@/components/page-hero";
 import { BookingOptions } from "@/components/booking";
 
 export const metadata: Metadata = {
@@ -11,25 +12,23 @@ export const metadata: Metadata = {
 export default function BookPage() {
   return (
     <>
-      <section className="border-b border-line-soft bg-surface-2 py-14 sm:py-20">
-        <Container>
-          <Eyebrow>Book a call</Eyebrow>
-          <h1 className="mt-4 max-w-[20ch] text-[clamp(32px,4.4vw,52px)] leading-[1.05]">
-            Pick the conversation you actually need
-          </h1>
-          <p className="mt-5 max-w-[56ch] text-[17px] text-ink-2">
-            Three ways in, depending on how far along you are. If you&apos;re
-            not sure, start with the discovery call — it&apos;s the shortest and
+      <PageHero
+        eyebrow="Book a call"
+        title="Pick the conversation you actually need"
+        intro={
+          <p>
+            Three ways in, depending on how far along you are. If you&apos;re not
+            sure, start with the discovery call. It&apos;s the shortest, and
             we&apos;ll point you at the right one from there.
           </p>
-        </Container>
-      </section>
+        }
+      />
 
-      <Section>
+      <Section tone="white" className="pt-10">
         <div className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr]">
           <BookingOptions />
 
-          <aside className="flex flex-col gap-7">
+          <aside className="lg flex h-fit flex-col gap-7 rounded-[28px] p-7 sm:p-8">
             <div className="flex flex-col gap-3">
               <h2 className="label text-ink-3">What to expect</h2>
               <ul className="flex flex-col gap-2.5">
@@ -47,7 +46,7 @@ export default function BookPage() {
               </ul>
             </div>
 
-            <div className="flex flex-col gap-2 border-t border-line-soft pt-6">
+            <div className="flex flex-col gap-2 border-t border-ink/10 pt-6">
               <h2 className="label text-ink-3">Already a client?</h2>
               <p className="text-[14.5px] text-ink-2">
                 Onboarding and follow-up sessions are booked through the link
@@ -55,7 +54,7 @@ export default function BookPage() {
               </p>
             </div>
 
-            <div className="flex flex-col gap-2 border-t border-line-soft pt-6">
+            <div className="flex flex-col gap-2 border-t border-ink/10 pt-6">
               <h2 className="label text-ink-3">Rather write first?</h2>
               <a
                 href="/contact"

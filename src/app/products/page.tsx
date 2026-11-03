@@ -1,9 +1,9 @@
 import Link from "next/link";
 ﻿import type { Metadata } from "next";
 import { PRODUCTS, dukaTrialLink } from "@/lib/site";
-import { Badge, Button, Container, Eyebrow, Section } from "@/components/ui/primitives";
+import { Badge, Button, Section } from "@/components/ui/primitives";
 import { Frame } from "@/components/frame";
-import Image from "next/image";
+import { PageHero } from "@/components/page-hero";
 
 export const metadata: Metadata = {
   title: "Products",
@@ -14,31 +14,18 @@ export const metadata: Metadata = {
 export default function ProductsPage() {
   return (
     <>
-      <section className="relative w-full min-h-[70vh] flex items-center overflow-hidden">
-        {/* 1. BACKGROUND IMAGE LAYER */}
-        <div className="absolute inset-0 z-0">
-          <Image src="/brand/products-duka.jpg" fill priority className="object-cover object-center" alt="Products" />
-        </div>
-        
-        {/* 2. THE DARK VEIL LAYER (HARDCODED) */}
-        <div className="header-veil-dark"></div>
+      <PageHero
+        eyebrow="Products"
+        title="Software we own, not just software we ship"
+        intro={
+          <p>
+            Two products in market. One you can buy today, one being built now, and
+            we&apos;d rather say which is which than let you find out later.
+          </p>
+        }
+      />
 
-        {/* 3. THE TEXT CONTENT LAYER */}
-        <div className="relative z-20 w-full container mx-auto px-6 grid lg:grid-cols-12 gap-8">
-          <div className="col-span-12 lg:col-span-7 text-[#F3F0E6]">
-            <Eyebrow>Products</Eyebrow>
-            <h1 className="mt-4 max-w-[20ch] text-[clamp(34px,4.8vw,56px)] leading-[1.05]">
-              Software we own, not just software we ship
-            </h1>
-            <p className="mt-6 max-w-[58ch] text-[17px] text-[#F3F0E6]/90">
-              Two products in market. One you can buy today, one being built now —
-              and we&apos;d rather say which is which than let you find out later.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <Section>
+      <Section tone="white" className="pt-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
           {PRODUCTS.map((p, i) => {
             const imgSrc = p.slug === "duka-pos" ? "/brand/products-duka.jpg" : "/brand/products-ams.jpg";

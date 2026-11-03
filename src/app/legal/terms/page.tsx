@@ -10,8 +10,9 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   return (
-    <Section>
+    <Section tone="cream" className="pt-10">
       <Container>
+        <div className="lg rounded-[32px] px-6 py-10 sm:px-12 sm:py-14">
         <Eyebrow>Legal</Eyebrow>
         <h1 className="mt-3 text-[clamp(30px,4vw,44px)] leading-tight">Terms and Conditions</h1>
         <div className="mt-8 flex max-w-[68ch] flex-col gap-5 text-[16.5px] leading-relaxed text-ink-2 prose-aok">
@@ -51,6 +52,7 @@ export default function TermsPage() {
               {SITE.email}
             </a>
           </p>
+        </div>
         </div>
       </Container>
     </Section>

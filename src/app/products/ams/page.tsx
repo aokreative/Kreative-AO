@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { AMS_LAUNCH, AMS_LAUNCH_LABEL } from "@/lib/site";
 import { Countdown } from "@/components/countdown";
-import { Badge, Button, Check, Container, Eyebrow, Section } from "@/components/ui/primitives";
+import { Badge, Button, Check, Eyebrow, Section } from "@/components/ui/primitives";
+import { PageHero } from "@/components/page-hero";
 
 export const metadata: Metadata = {
   title: "Agency Management System",
@@ -28,44 +29,41 @@ const PLANNED = [
 export default function AmsPage() {
   return (
     <>
-      <section className="border-b border-line-soft bg-surface-2 py-16 sm:py-24">
-        <Container>
-          <Badge tone="building">In development</Badge>
-          <h1 className="mt-5 max-w-[20ch] text-[clamp(34px,5vw,58px)] leading-[1.04]">
-            One system for the agency, instead of five spreadsheets
-          </h1>
-          <p className="mt-6 max-w-[56ch] text-[17.5px] leading-relaxed text-ink-2">
-            An Agency Management System for insurance agencies and brokerages —
+      <PageHero
+        eyebrow={<Badge tone="building">In development</Badge>}
+        title="One system for the agency, instead of five spreadsheets"
+        intro={
+          <p>
+            An Agency Management System for insurance agencies and brokerages:
             policies, renewals, claims and commissions in one place. It is being
             built now, and we are taking early access sign-ups from agencies who
             want to shape it.
           </p>
-
-          <div className="mt-10 flex flex-col gap-4">
-            <p className="label text-ink-3">
-              Launching{" "}
-              <time dateTime="2026-11-12" className="text-ink">
-                {AMS_LAUNCH_LABEL}
-              </time>
-            </p>
-            <Countdown target={AMS_LAUNCH} label={AMS_LAUNCH_LABEL} />
-          </div>
-
-          <div className="mt-8">
-            <Button href="/contact?interest=ams" variant="accent">
-              Join the waitlist
-            </Button>
-          </div>
-          <p className="mt-4 text-[13.5px] text-ink-3">
-            Not available to buy yet. No card, no commitment — waitlist members
-            get access first on {AMS_LAUNCH_LABEL}.
+        }
+      >
+        <div className="mt-10 flex flex-col gap-4">
+          <p className="label text-ink-3">
+            Launching{" "}
+            <time dateTime="2026-11-12" className="text-ink">
+              {AMS_LAUNCH_LABEL}
+            </time>
           </p>
-        </Container>
-      </section>
+          <Countdown target={AMS_LAUNCH} label={AMS_LAUNCH_LABEL} />
+        </div>
+        <div className="mt-8">
+          <Button href="/contact?interest=ams" variant="accent">
+            Join the waitlist
+          </Button>
+        </div>
+        <p className="mt-4 text-[13.5px] text-ink-3">
+          Not available to buy yet. No card, no commitment. Waitlist members get
+          access first on {AMS_LAUNCH_LABEL}.
+        </p>
+      </PageHero>
 
-      <Section>
-        <div className="grid gap-12 md:grid-cols-2">
-          <div>
+      <Section tone="white">
+        <div className="grid gap-5 md:grid-cols-2">
+          <div className="lg rounded-[28px] p-8">
             <Eyebrow>The problem</Eyebrow>
             <h2 className="mt-3 text-[28px] leading-tight">
               What we keep hearing from agencies
@@ -79,7 +77,7 @@ export default function AmsPage() {
               ))}
             </ul>
           </div>
-          <div>
+          <div className="lg rounded-[28px] p-8">
             <Eyebrow>Planned for v1</Eyebrow>
             <h2 className="mt-3 text-[28px] leading-tight">
               What the first release covers

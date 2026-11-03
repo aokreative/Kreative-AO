@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SITE } from "@/lib/site";
-import { Button, Check, Container, Eyebrow, Section } from "@/components/ui/primitives";
+import { Button, Check, Eyebrow, Section } from "@/components/ui/primitives";
+import { PageHero } from "@/components/page-hero";
 
 export const metadata: Metadata = {
   title: "Marketing & AI Automation Agency for Dubai, UAE",
@@ -71,37 +72,37 @@ const FAQS = [
 export default function UaePage() {
   return (
     <>
-      <section className="border-b border-line-soft bg-surface-2 py-16 sm:py-24">
-        <Container>
-          <Eyebrow>Dubai · Abu Dhabi · across the UAE</Eyebrow>
-          <h1 className="mt-5 max-w-[20ch] text-[clamp(34px,5vw,58px)] leading-[1.04]">
-            Sales automation and marketing for UAE businesses
-          </h1>
-          <p className="mt-6 max-w-[58ch] text-[17.5px] leading-relaxed text-ink-2">
+      <PageHero
+        eyebrow="Dubai · Abu Dhabi · across the UAE"
+        title="Sales automation and marketing for UAE businesses"
+        intro={
+          <p>
             We build the systems that answer, qualify and route your leads
-            automatically, then run the marketing that fills them. A&amp;O
-            Kreative is a Nairobi team working with businesses in Dubai and
-            across the UAE, one hour behind you.
+            automatically, then run the marketing that fills them. A&amp;O Kreative
+            is a Nairobi team working with businesses in Dubai and across the UAE,
+            one hour behind you.
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Button href="/book" variant="accent">
-              Book a call
-            </Button>
-            <Button href={SITE.whatsapp} variant="ghost" external>
-              Message us on WhatsApp
-            </Button>
-          </div>
-        </Container>
-      </section>
+        }
+        tone="sand"
+      >
+        <div className="mt-8 flex flex-wrap gap-3">
+          <Button href="/book" variant="accent">
+            Book a call
+          </Button>
+          <Button href={SITE.whatsapp} variant="ghost" external>
+            Message us on WhatsApp
+          </Button>
+        </div>
+      </PageHero>
 
-      <Section>
+      <Section tone="white">
         <Eyebrow>What we build</Eyebrow>
         <h2 className="mt-3 max-w-[24ch] text-[clamp(26px,3.4vw,36px)] leading-tight">
           From first enquiry to signed deal, without the gaps
         </h2>
-        <div className="mt-10 grid gap-x-12 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {BUILDS.map((b) => (
-            <div key={b.name} className="flex flex-col gap-2">
+            <div key={b.name} className="lg flex flex-col gap-2 rounded-[24px] p-6">
               <h3 className="text-[18px] leading-snug">{b.name}</h3>
               <p className="text-[15px] leading-relaxed text-ink-2">{b.detail}</p>
             </div>
@@ -109,8 +110,8 @@ export default function UaePage() {
         </div>
       </Section>
 
-      <Section className="border-t border-line-soft bg-surface-2">
-        <div className="grid gap-12 md:grid-cols-2">
+      <Section tone="mist" className="pt-0">
+        <div className="lg grid gap-12 rounded-[32px] p-8 sm:p-12 md:grid-cols-2">
           <div>
             <Eyebrow>Real estate</Eyebrow>
             <h2 className="mt-3 text-[28px] leading-tight">
@@ -138,12 +139,12 @@ export default function UaePage() {
         </div>
       </Section>
 
-      <Section>
+      <Section tone="cream" className="pt-0">
         <Eyebrow>Questions</Eyebrow>
         <h2 className="mt-3 text-[28px] leading-tight">Working with us from the UAE</h2>
-        <dl className="mt-8 grid max-w-[72ch] gap-8">
+        <dl className="mt-8 grid max-w-[80ch] gap-4">
           {FAQS.map((f) => (
-            <div key={f.q}>
+            <div key={f.q} className="lg rounded-[24px] p-6">
               <dt className="text-[17px] font-medium">{f.q}</dt>
               <dd className="mt-2 text-[15.5px] leading-relaxed text-ink-2">{f.a}</dd>
             </div>

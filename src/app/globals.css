@@ -376,3 +376,63 @@ html[data-tone="mist"]  .ambient::after  { transform: translate(-4vw, -8vh); opa
   80%  { opacity: 1; transform: none; }
   100% { opacity: 0; transform: translateY(-10px) scale(.98); visibility: hidden; }
 }
+
+/* ------------------------------------------------------------------
+   Phone hardware for the Duka POS story. Navy titanium band, black
+   bezel, side buttons and a soft floor shadow.
+------------------------------------------------------------------ */
+.device {
+  position: relative; isolation: isolate;
+  border-radius: 56px; padding: 3px;
+  background:
+    linear-gradient(160deg, #4A5B78 0%, #1D2A40 18%, #2C3C57 42%, #121C2D 64%, #3B4C69 86%, #1A2538 100%);
+  box-shadow:
+    inset 0 0 0 1px rgb(255 255 255 / .22),
+    inset 0 1px 1px rgb(255 255 255 / .35),
+    inset 0 -1px 1px rgb(0 0 0 / .5),
+    0 2px 4px rgb(11 21 36 / .18),
+    0 30px 50px -24px rgb(11 21 36 / .45),
+    0 60px 100px -50px rgb(19 35 58 / .55);
+}
+.device-bezel {
+  height: 100%; width: 100%;
+  border-radius: 53px; padding: 7px;
+  background: #050608;
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / .05), inset 0 0 6px rgb(0 0 0 / .9);
+}
+.device-btn {
+  position: absolute; z-index: -1; width: 5px; border-radius: 3px;
+  background: linear-gradient(90deg, #121C2D, #4A5B78 45%, #22304A 70%, #121C2D);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / .25), 0 1px 2px rgb(0 0 0 / .35);
+}
+.device-floor {
+  position: absolute; z-index: -2; left: 12%; right: 12%; bottom: -28px; height: 40px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(11 21 36 / .32), transparent);
+  filter: blur(6px);
+}
+.device-glare {
+  position: absolute; inset: 0; z-index: 40; pointer-events: none; border-radius: inherit;
+  background:
+    linear-gradient(118deg, rgb(255 255 255 / .22) 0%, rgb(255 255 255 / .06) 22%, rgb(255 255 255 / 0) 34%),
+    linear-gradient(118deg, rgb(255 255 255 / 0) 72%, rgb(255 255 255 / .07) 100%);
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / .25);
+}
+
+/* Glass cards that lift a little under the pointer. */
+.lg-lift, a.card.glass {
+  transition: transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s;
+}
+.lg-lift:hover, a.card.glass:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 1),
+    0 2px 4px rgb(19 35 58 / .06),
+    0 26px 48px -22px rgb(19 35 58 / .36);
+}
+@media (prefers-reduced-motion: reduce) {
+  .lg-lift:hover, a.card.glass:hover { transform: none; }
+}
+
+/* The section straight after an inner-page header sits close to it. */
+.page-hero + section { padding-top: clamp(2.5rem, 5vw, 3.5rem); }

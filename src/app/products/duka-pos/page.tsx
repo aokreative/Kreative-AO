@@ -4,10 +4,10 @@ import {
   Badge,
   Button,
   Check,
-  Container,
   Eyebrow,
   Section,
 } from "@/components/ui/primitives";
+import { PageHero } from "@/components/page-hero";
 
 export const metadata: Metadata = {
   title: "POS System for Shops in Kenya — Duka POS",
@@ -18,32 +18,29 @@ export const metadata: Metadata = {
 export default function DukaPosPage() {
   return (
     <>
-      <section className="border-b border-line-soft bg-surface-2 py-16 sm:py-24">
-        <Container>
-          <Badge tone="live">Live now</Badge>
-          <h1 className="mt-5 max-w-[18ch] text-[clamp(36px,5.2vw,60px)] leading-[1.04]">
-            The shop keeps selling when the network doesn&apos;t
-          </h1>
-          <p className="mt-6 max-w-[56ch] text-[17.5px] leading-relaxed text-ink-2">
-            Duka POS is retail point of sale built for how shops here actually
-            run. Offline when the connection drops, M-PESA when it doesn&apos;t,
-            and debt reminders that chase customers so you don&apos;t have to.
+      <PageHero
+        eyebrow={<Badge tone="live">Live now</Badge>}
+        title="The shop keeps selling when the network doesn&apos;t"
+        intro={
+          <p>
+            Duka POS is retail point of sale built for how shops here actually run.
+            Offline when the connection drops, M-PESA when it doesn&apos;t, and debt
+            reminders that chase customers so you don&apos;t have to.
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Button href={dukaTrialLink()} variant="accent" external>
-              Start free trial
-            </Button>
-            <Button href="/contact?interest=duka-pos" variant="ghost">
-              Talk to us first
-            </Button>
-          </div>
-          <p className="mt-4 text-[13.5px] text-ink-3">
-            Free trial. Signup happens in the Duka POS app.
-          </p>
-        </Container>
-      </section>
+        }
+      >
+        <div className="mt-8 flex flex-wrap gap-3">
+          <Button href={dukaTrialLink()} variant="accent" external>
+            Start free trial
+          </Button>
+          <Button href="/contact?interest=duka-pos" variant="ghost">
+            Talk to us first
+          </Button>
+        </div>
+        <p className="mt-4 text-[13.5px] text-ink-3">Free trial. Signup happens in the Duka POS app.</p>
+      </PageHero>
 
-      <Section>
+      <Section tone="white">
         <div className="max-w-[62ch]">
           <Eyebrow>Pricing</Eyebrow>
           <h2 className="mt-3 text-[clamp(28px,3.4vw,40px)] leading-[1.1]">
@@ -59,17 +56,15 @@ export default function DukaPosPage() {
           {DUKA_TIERS.map((t) => (
             <div
               key={t.name}
-              className={`flex flex-col gap-4 rounded-lg border bg-surface p-6 ${
-                t.featured
-                  ? "border-duka shadow-e1 ring-1 ring-duka/25"
-                  : "border-line"
+              className={`lg flex flex-col gap-4 rounded-[28px] p-6 ${
+                t.featured ? "ring-2 ring-duka/60" : ""
               }`}
             >
               <div>
                 <div className="flex items-baseline justify-between gap-2">
                   <h3 className="text-[21px] font-semibold">{t.name}</h3>
                   {t.featured && (
-                    <span className="label rounded-full bg-duka-tint px-2 py-0.5 text-duka-deep dark:bg-duka/20 dark:text-teal-soft">
+                    <span className="label rounded-full bg-duka-tint px-2 py-0.5 text-duka-deep">
                       Popular
                     </span>
                   )}
@@ -129,8 +124,8 @@ export default function DukaPosPage() {
         </p>
       </Section>
 
-      <Section className="border-t border-line-soft bg-surface-2">
-        <div className="mx-auto flex max-w-[52ch] flex-col items-center gap-6 text-center">
+      <Section tone="mist" className="pt-0">
+        <div className="lg mx-auto flex max-w-[760px] flex-col items-center gap-6 rounded-[32px] px-6 py-12 text-center sm:px-12">
           <h2 className="text-[clamp(26px,3.2vw,38px)] leading-[1.1]">
             Not sure which tier fits?
           </h2>

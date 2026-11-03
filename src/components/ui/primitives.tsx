@@ -92,13 +92,20 @@ export function Section({
   children,
   className = "",
   bleed = false,
+  tone,
 }: {
   children: ReactNode;
   className?: string;
   bleed?: boolean;
+  /** Page tint while this section holds the middle of the screen. */
+  tone?: "white" | "cream" | "sand" | "mist";
 }) {
   const inner = bleed ? children : <Container>{children}</Container>;
-  return <section className={`py-[var(--space-section)] ${className}`}>{inner}</section>;
+  return (
+    <section data-tone={tone} className={`py-[var(--space-section)] ${className}`}>
+      {inner}
+    </section>
+  );
 }
 
 export function Check() {

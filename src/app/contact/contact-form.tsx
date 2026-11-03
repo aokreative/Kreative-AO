@@ -30,7 +30,7 @@ export function ContactForm() {
     return (
       <div
         role="status"
-        className="flex flex-col gap-3 rounded-lg border border-line bg-surface p-8 shadow-e1"
+        className="lg flex flex-col gap-3 rounded-[28px] p-8"
       >
         <div aria-hidden className="signal h-1 w-12 rounded-full" />
         <h2 className="text-[24px] leading-tight">Message received</h2>
@@ -42,7 +42,7 @@ export function ContactForm() {
   return (
     <form
       action={action}
-      className="flex flex-col gap-5 rounded-lg border border-line bg-surface p-7 shadow-e1 sm:p-8"
+      className="lg flex flex-col gap-5 rounded-[28px] p-7 sm:p-8"
       noValidate
     >
       <input type="hidden" name="source_page" value={pathname} />
@@ -70,7 +70,7 @@ export function ContactForm() {
             name="interest"
             value={interest}
             onChange={(e) => setInterest(e.target.value)}
-            className="rounded-[7px] border border-line bg-bg px-3.5 py-2.5 text-[15px] text-ink"
+            className="rounded-[14px] border border-line bg-white/85 px-3.5 py-2.5 text-[15px] text-ink shadow-[inset_0_1px_2px_rgba(19,35,58,0.06)] focus:bg-white"
           >
             <option value="">Choose one</option>
             {INTERESTS.map((i) => (
@@ -88,7 +88,7 @@ export function ContactForm() {
           <select
             id="budget_range"
             name="budget_range"
-            className="rounded-[7px] border border-line bg-bg px-3.5 py-2.5 text-[15px] text-ink"
+            className="rounded-[14px] border border-line bg-white/85 px-3.5 py-2.5 text-[15px] text-ink shadow-[inset_0_1px_2px_rgba(19,35,58,0.06)] focus:bg-white"
           >
             <option value="">Prefer not to say</option>
             {BUDGETS.map((b) => (
@@ -110,7 +110,7 @@ export function ContactForm() {
           rows={5}
           required
           aria-invalid={!!state.errors?.message}
-          className="rounded-[7px] border border-line bg-bg px-3.5 py-2.5 text-[15px] text-ink"
+          className="rounded-[14px] border border-line bg-white/85 px-3.5 py-2.5 text-[15px] text-ink shadow-[inset_0_1px_2px_rgba(19,35,58,0.06)] focus:bg-white"
           placeholder="A sentence or two is plenty."
         />
         {state.errors?.message && <ErrorText>{state.errors.message}</ErrorText>}
@@ -126,7 +126,7 @@ export function ContactForm() {
         <button
           type="submit"
           disabled={pending}
-          className="inline-flex items-center justify-center rounded-[7px] bg-accent px-6 py-3 text-[14.5px] font-semibold text-on-accent transition-[filter] hover:brightness-95 disabled:opacity-60"
+          className="inline-flex items-center justify-center rounded-full bg-accent px-6 py-3 text-[14.5px] font-semibold text-on-accent transition-[filter] hover:brightness-95 disabled:opacity-60"
         >
           {pending ? "Sending…" : "Send message"}
         </button>
@@ -166,7 +166,7 @@ function Field({
         required={required}
         autoComplete={autoComplete}
         aria-invalid={!!error}
-        className="rounded-[7px] border border-line bg-bg px-3.5 py-2.5 text-[15px] text-ink"
+        className="rounded-[14px] border border-line bg-white/85 px-3.5 py-2.5 text-[15px] text-ink shadow-[inset_0_1px_2px_rgba(19,35,58,0.06)] focus:bg-white"
       />
       {error && <ErrorText>{error}</ErrorText>}
     </div>

@@ -43,8 +43,8 @@ export function BookingOptions() {
       {CAL_EVENTS_PUBLIC.map((e) => (
         <div
           key={e.slug}
-          className={`flex flex-col gap-3 rounded-lg border bg-surface p-6 ${
-            e.featured ? "border-accent/40 shadow-e1" : "border-line"
+          className={`lg flex flex-col gap-3 rounded-[28px] p-6 sm:p-7 ${
+            e.featured ? "ring-2 ring-gold/50" : ""
           }`}
         >
           <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
@@ -58,10 +58,10 @@ export function BookingOptions() {
               type="button"
               data-cal-link={calLink(e.slug)}
               data-cal-config='{"layout":"month_view"}'
-              className={`inline-flex items-center justify-center rounded-[7px] px-5 py-2.5 text-[14.5px] font-semibold transition-[filter,background-color] ${
+              className={`inline-flex items-center justify-center rounded-full px-5 py-2.5 text-[14.5px] font-semibold transition-[filter,background-color] ${
                 e.featured
                   ? "bg-accent text-on-accent hover:brightness-95"
-                  : "border border-line bg-transparent text-ink hover:bg-surface-2"
+                  : "lg text-ink hover:bg-white/70"
               }`}
             >
               Choose a time

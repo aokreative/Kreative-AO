@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ARTICLES, articleBySlug } from "@/content/articles";
-import { Button, Container, Eyebrow, Section } from "@/components/ui/primitives";
+import { Button, Eyebrow, Section } from "@/components/ui/primitives";
+import { PageHero } from "@/components/page-hero";
 import { Frame } from "@/components/frame";
 
 export function generateStaticParams() {
@@ -39,26 +40,20 @@ export default async function ArticlePage({
 
   return (
     <>
-      <section className="border-b border-line-soft bg-surface-2 py-14 sm:py-20">
-        <Container>
-          <Eyebrow>
-            {a.category} · {a.date} · {a.readMinutes} min read
-          </Eyebrow>
-          <h1 className="mt-4 max-w-[24ch] text-[clamp(30px,4.2vw,50px)] leading-[1.08]">
-            {a.title}
-          </h1>
-          <p className="mt-5 max-w-[58ch] text-[18px] leading-relaxed text-ink-2">
-            {a.excerpt}
-          </p>
-          {a.image && (
-            <div className="mt-12 aspect-[16/7] w-full overflow-hidden">
-              <Frame src={a.image} alt={a.title} className="w-full h-full object-cover" />
-            </div>
-          )}
-        </Container>
-      </section>
+      <PageHero
+        eyebrow={<>{a.category} · {a.date} · {a.readMinutes} min read</>}
+        title={a.title}
+        intro={<p>{a.excerpt}</p>}
+        wide
+      >
+        {a.image && (
+          <div className="mt-10 aspect-[16/7] w-full overflow-hidden rounded-[24px]">
+            <Frame src={a.image} alt={a.title} className="h-full w-full object-cover" />
+          </div>
+        )}
+      </PageHero>
 
-      <Section>
+      <Section tone="white" className="pt-12">
         <article
           className="prose-aok max-w-[68ch]"
           /* Body copy is authored by A&O in this repository — never user
@@ -66,7 +61,7 @@ export default async function ArticlePage({
           dangerouslySetInnerHTML={{ __html: a.body }}
         />
 
-        <div className="mt-14 flex max-w-[68ch] flex-col gap-4 rounded-lg border border-line bg-surface-2 p-8">
+        <div className="lg mt-14 flex max-w-[68ch] flex-col gap-4 rounded-[28px] p-8">
           <div aria-hidden className="signal h-1 w-12 rounded-full" />
           <h2 className="text-[24px] leading-tight">{a.ctaTitle}</h2>
           <p className="text-[16px] text-ink-2">{a.ctaBody}</p>
@@ -91,14 +86,14 @@ export default async function ArticlePage({
         </div>
       </Section>
 
-      <Section className="border-t border-line-soft bg-surface-2">
+      <Section tone="mist" className="pt-0">
         <Eyebrow>Keep reading</Eyebrow>
         <div className="mt-8 grid gap-5 sm:grid-cols-3">
           {more.map((m) => (
             <Link
               key={m.slug}
               href={`/blog/${m.slug}`}
-              className="group flex flex-col gap-2 rounded-lg border border-line bg-surface p-6 transition-colors hover:border-ink-3"
+              className="lg lg-lift group flex flex-col gap-2 rounded-[24px] p-6"
             >
               <span className="label text-ink-3">{m.category}</span>
               <h3 className="text-[17px] leading-snug">{m.title}</h3>

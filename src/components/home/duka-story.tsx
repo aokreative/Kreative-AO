@@ -177,11 +177,9 @@ export function DukaStory() {
             <div className="sticky top-[76px] flex h-[calc(100svh-88px)] flex-col items-center justify-center gap-4">
               <div className="relative">
                 <div aria-hidden className="absolute left-1/2 top-1/2 h-[360px] w-[360px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold/25 blur-[70px]" />
-                <ScrollPhone
-                  progress={smooth}
-                  active={active}
-                  className="aspect-[292/600] h-[clamp(380px,calc(100svh-330px),500px)]"
-                />
+                <ScaledPhone className="aspect-[292/600] h-[clamp(380px,calc(100svh-330px),500px)]">
+                  <ScrollPhone progress={smooth} active={active} className="h-[600px] w-[292px]" />
+                </ScaledPhone>
               </div>
               <div className="flex gap-1.5" aria-hidden>
                 {STEPS.map((s, i) => (
@@ -215,9 +213,33 @@ export function DukaStory() {
 
 /* ---------- Device (illustrative screens, not live data) ---------- */
 
-const NAV_H = 96; // status bar + glass title bar
-const TAB_H = 64; // glass tab bar
+/* Draws the phone at its full design size and scales it to fit, so the
+   hardware and status bar keep their proportions on small screens. */
+function ScaledPhone({ className, children }: { className: string; children: ReactNode }) {
+  const boxRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(0.8);
+  useEffect(() => {
+    const box = boxRef.current;
+    if (!box) return;
+    const ro = new ResizeObserver(() => box.clientHeight && setScale(box.clientHeight / 600));
+    ro.observe(box);
+    return () => ro.disconnect();
+  }, []);
+  return (
+    <div ref={boxRef} className={`relative ${className}`}>
+      <div className="absolute left-0 top-0 origin-top-left" style={{ transform: `scale(${scale})` }}>
+        {children}
+      </div>
+    </div>
+  );
+}
 
+const NAV_H = 98; // status bar + glass title bar
+const TAB_H = 80; // glass tab bar + home indicator
+
+/* A phone drawn in CSS: navy titanium band, side buttons, black bezel,
+   camera island, real status icons, screen glare, home indicator and a
+   scroll indicator that shows while the app is moving. */
 function ScrollPhone({
   progress,
   active,
@@ -229,13 +251,17 @@ function ScrollPhone({
 }) {
   const screenRef = useRef<HTMLDivElement>(null);
   const feedRef = useRef<HTMLDivElement>(null);
+  const thumbRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const screen = screenRef.current;
     const feed = feedRef.current;
-    if (!screen || !feed) return;
+    const thumb = thumbRef.current;
+    if (!screen || !feed || !thumb) return;
     let tops: number[] = [];
     let max = 0;
+    let lastY = -1;
+    let hide = 0;
 
     const apply = (v: number) => {
       if (!tops.length) return;
@@ -245,6 +271,18 @@ function ScrollPhone({
       const b = tops[Math.min(i + 1, tops.length - 1)];
       const y = clamp(a + (b - a) * t, 0, max);
       feed.style.transform = `translate3d(0, ${-y}px, 0)`;
+
+      // Scroll indicator, sized and placed like iOS draws it.
+      const track = screen.clientHeight - NAV_H - TAB_H - 8;
+      const size = Math.max(28, track * (screen.clientHeight / feed.offsetHeight));
+      thumb.style.height = `${size}px`;
+      thumb.style.transform = `translate3d(0, ${NAV_H + 4 + (max ? y / max : 0) * (track - size)}px, 0)`;
+      if (lastY >= 0 && Math.abs(y - lastY) > 0.5) {
+        thumb.style.opacity = "1";
+        window.clearTimeout(hide);
+        hide = window.setTimeout(() => (thumb.style.opacity = "0"), 650);
+      }
+      lastY = y;
     };
     const measure = () => {
       if (!screen.clientHeight) return;
@@ -261,81 +299,136 @@ function ScrollPhone({
     return () => {
       ro.disconnect();
       off();
+      window.clearTimeout(hide);
     };
   }, [progress]);
 
   return (
-    <div className={`relative rounded-[48px] bg-midnight p-[9px] shadow-[0_40px_80px_-40px_rgba(19,35,58,0.55)] ${className}`}>
-      <div
-        ref={screenRef}
-        className="relative h-full w-full overflow-hidden rounded-[40px] bg-[#F2F3F6] [container-type:size]"
-      >
-        {/* The app, one long screen */}
-        <div ref={feedRef} className="absolute inset-x-0 top-0 will-change-transform" style={{ paddingTop: NAV_H, paddingBottom: TAB_H }}>
-          <Segment label="Sale 1043 · saved on this phone">
-            <SaleFeed />
-          </Segment>
-          <Segment label="Checkout">
-            <PayFeed />
-          </Segment>
-          <Segment label="Customers who owe">
-            <OwedFeed />
-          </Segment>
-          <Segment label="Today, Tuesday">
-            <TodayFeed />
-          </Segment>
-        </div>
+    <div className={`device ${className}`}>
+      {/* Side buttons: action and volume on the left, power on the right */}
+      <span aria-hidden className="device-btn left-[-2.5px] top-[17%] h-[5.5%]" />
+      <span aria-hidden className="device-btn left-[-2.5px] top-[26%] h-[9.5%]" />
+      <span aria-hidden className="device-btn left-[-2.5px] top-[37.5%] h-[9.5%]" />
+      <span aria-hidden className="device-btn right-[-2.5px] top-[29%] h-[15%]" />
+      <span aria-hidden className="device-floor" />
 
-        {/* Glass title bar with the status bar inside it */}
-        <div className="absolute inset-x-0 top-0 z-10 border-b border-white/70 bg-white/55 backdrop-blur-xl backdrop-saturate-[1.8]" style={{ height: NAV_H }}>
-          <div className="absolute left-1/2 top-2.5 h-[22px] w-[84px] -translate-x-1/2 rounded-full bg-midnight" />
-          <div className="flex h-11 items-end justify-between px-7 pb-1 text-[12px] font-semibold text-ink">
-            <span className="tnum">9:41</span>
-            <span className="h-2 w-3.5 rounded-[2px] border border-ink" aria-hidden />
+      <div className="device-bezel">
+        <div
+          ref={screenRef}
+          className="relative h-full w-full overflow-hidden rounded-[44px] bg-[#F2F3F6] [container-type:size]"
+        >
+          {/* The app, one long screen */}
+          <div ref={feedRef} className="absolute inset-x-0 top-0 will-change-transform" style={{ paddingTop: NAV_H, paddingBottom: TAB_H }}>
+            <Segment label="Sale 1043 · saved on this phone">
+              <SaleFeed />
+            </Segment>
+            <Segment label="Checkout">
+              <PayFeed />
+            </Segment>
+            <Segment label="Customers who owe">
+              <OwedFeed />
+            </Segment>
+            <Segment label="Today, Tuesday">
+              <TodayFeed />
+            </Segment>
           </div>
-          <div className="relative px-5 pt-1">
-            <p className="text-[10.5px] text-ink-3">Baraka Mini Mart</p>
-            <div className="relative h-6">
-              {STEPS.map((s, i) => (
-                <p
-                  key={s.screen}
-                  className={`absolute inset-0 text-[18px] font-semibold leading-6 text-ink transition-all duration-300 ${
-                    i === active ? "translate-y-0 opacity-100" : i < active ? "-translate-y-2 opacity-0" : "translate-y-2 opacity-0"
-                  }`}
-                >
-                  {s.screen}
-                </p>
-              ))}
+
+          {/* Glass title bar with the status bar inside it */}
+          <div className="absolute inset-x-0 top-0 z-10 border-b border-black/[0.06] bg-[#F7F8FA]/78 backdrop-blur-xl backdrop-saturate-[1.8]" style={{ height: NAV_H }}>
+            <div className="flex h-[46px] items-center justify-between pl-[26px] pr-[20px] pt-[6px] text-ink">
+              <span className="tnum text-[13px] font-semibold tracking-[-0.01em]">9:41</span>
+              <StatusIcons />
+            </div>
+            <div className="relative px-5">
+              <p className="text-[10.5px] text-ink-3">Baraka Mini Mart</p>
+              <div className="relative h-7">
+                {STEPS.map((s, i) => (
+                  <p
+                    key={s.screen}
+                    className={`absolute inset-0 text-[20px] font-bold leading-7 tracking-[-0.02em] text-ink transition-all duration-300 ${
+                      i === active ? "translate-y-0 opacity-100" : i < active ? "-translate-y-2 opacity-0" : "translate-y-2 opacity-0"
+                    }`}
+                  >
+                    {s.screen}
+                  </p>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Glass tab bar */}
-        <div className="absolute inset-x-0 bottom-0 z-10 flex items-start justify-around border-t border-white/70 bg-white/55 px-3 pt-2 backdrop-blur-xl backdrop-saturate-[1.8]" style={{ height: TAB_H }}>
-          {STEPS.map((s, i) => (
-            <span key={s.tab} className={`flex flex-col items-center gap-0.5 text-[10px] font-semibold transition-colors duration-300 ${i === active ? "text-duka" : "text-ink-3"}`}>
-              <TabIcon i={i} />
-              {s.tab}
-            </span>
-          ))}
+          {/* Glass tab bar */}
+          <div className="absolute inset-x-0 bottom-0 z-10 border-t border-black/[0.06] bg-[#F7F8FA]/78 backdrop-blur-xl backdrop-saturate-[1.8]" style={{ height: TAB_H }}>
+            <div className="flex items-start justify-around px-3 pt-2">
+              {STEPS.map((s, i) => (
+                <span key={s.tab} className={`flex w-12 flex-col items-center gap-0.5 text-[10px] font-semibold transition-colors duration-300 ${i === active ? "text-duka" : "text-[#8A93A3]"}`}>
+                  <TabIcon i={i} />
+                  {s.tab}
+                </span>
+              ))}
+            </div>
+            <span aria-hidden className="absolute bottom-[8px] left-1/2 h-[5px] w-[36%] -translate-x-1/2 rounded-full bg-[#0B1524]" />
+          </div>
+
+          {/* Scroll indicator */}
+          <div ref={thumbRef} aria-hidden className="absolute right-[3px] top-0 z-20 w-[3px] rounded-full bg-black/35 opacity-0 transition-opacity duration-300" />
+
+          {/* Camera island */}
+          <div aria-hidden className="absolute left-1/2 top-[11px] z-30 flex h-[26px] w-[90px] -translate-x-1/2 items-center justify-end rounded-full bg-black pr-[9px]">
+            <span className="h-[10px] w-[10px] rounded-full bg-[radial-gradient(circle_at_35%_35%,#3A4A6E_0%,#141C2E_45%,#05070C_75%)] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06)]" />
+          </div>
+
+          <Toast key={active} {...TOASTS[active]} />
+
+          {/* Light on the glass */}
+          <div aria-hidden className="device-glare" />
         </div>
       </div>
-      <Toast key={active} {...TOASTS[active]} />
     </div>
   );
 }
 
-/* iOS-style notification on frosted glass. Drops in, then slides away. */
+function StatusIcons() {
+  return (
+    <span className="flex items-center gap-[5px]" aria-hidden>
+      {/* Signal */}
+      <svg viewBox="0 0 18 12" className="h-[11px] w-[17px]" fill="currentColor">
+        <rect x="0" y="8" width="3" height="4" rx="0.8" />
+        <rect x="5" y="5.5" width="3" height="6.5" rx="0.8" />
+        <rect x="10" y="3" width="3" height="9" rx="0.8" />
+        <rect x="15" y="0" width="3" height="12" rx="0.8" />
+      </svg>
+      {/* Wi-Fi */}
+      <svg viewBox="0 0 16 12" className="h-[11px] w-[15px]" fill="currentColor">
+        <path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.2-1.3A10.3 10.3 0 0 0 8 .4C5.2.4 2.7 1.5.8 3.3L2 4.6a8.5 8.5 0 0 1 6-2.4Z" />
+        <path d="M8 5.6c1.4 0 2.6.5 3.6 1.4l1.2-1.3A7 7 0 0 0 8 3.8a7 7 0 0 0-4.8 1.9L4.4 7A5.2 5.2 0 0 1 8 5.6Z" />
+        <path d="M8 9c.5 0 1 .2 1.3.5L8 11l-1.3-1.5C7 9.2 7.5 9 8 9Z" />
+      </svg>
+      {/* Battery */}
+      <span className="relative flex h-[12px] w-[25px] items-center rounded-[4px] border border-current/40 p-[1.5px]">
+        <span className="h-full w-[78%] rounded-[2px] bg-current" />
+        <span className="absolute -right-[3px] top-1/2 h-[4px] w-[1.5px] -translate-y-1/2 rounded-r-full bg-current/40" />
+      </span>
+    </span>
+  );
+}
+
+/* Notification on frosted glass, under the camera island. Drops in,
+   then slides away. */
 function Toast({ app, title, body }: { app: string; title: string; body: string }) {
   return (
-    <div className="lg toast-life absolute left-1/2 top-[50px] z-20 w-[calc(100%+16px)] -translate-x-1/2 rounded-[22px] px-4 py-3 text-left">
-      <p className="flex items-center gap-2 text-[11px] font-semibold text-ink-3">
-        <span className="h-3.5 w-3.5 rounded-[4px] bg-duka" aria-hidden />
-        {app}
-        <span className="ml-auto font-normal">now</span>
-      </p>
-      <p className="mt-1 text-[13px] font-semibold text-ink">{title}</p>
-      <p className="text-[12.5px] leading-snug text-ink-2">{body}</p>
+    <div className="lg toast-life absolute left-[7px] right-[7px] top-[46px] z-20 rounded-[22px] px-3.5 py-3 text-left">
+      <div className="flex gap-2.5">
+        <span className="mt-0.5 grid h-[30px] w-[30px] shrink-0 place-items-center rounded-[8px] bg-duka text-[11px] font-bold text-white" aria-hidden>
+          {app === "WhatsApp" ? "W" : app === "M-PESA" ? "M" : "D"}
+        </span>
+        <div className="min-w-0 flex-1">
+          <p className="flex items-baseline text-[12.5px] font-semibold text-ink">
+            {title}
+            <span className="ml-auto pl-2 text-[11px] font-normal text-ink-3">now</span>
+          </p>
+          <p className="text-[12px] leading-snug text-ink-2">{body}</p>
+        </div>
+      </div>
     </div>
   );
 }

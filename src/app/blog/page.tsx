@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ARTICLES } from "@/content/articles";
-import { Container, Eyebrow, Section } from "@/components/ui/primitives";
+import { Section } from "@/components/ui/primitives";
 import { Frame } from "@/components/frame";
-import Image from "next/image";
+import { PageHero } from "@/components/page-hero";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -16,32 +16,18 @@ export default function BlogPage() {
 
   return (
     <>
-      <section className="relative w-full min-h-[70vh] flex items-center overflow-hidden">
-        {/* 1. BACKGROUND IMAGE LAYER */}
-        <div className="absolute inset-0 z-0">
-          <Image src="/brand/blog.jpg" fill priority className="object-cover object-center" alt="Journal" />
-        </div>
-        
-        {/* 2. THE DARK VEIL LAYER (HARDCODED) */}
-        <div className="header-veil-dark"></div>
+      <PageHero
+        eyebrow="The blog"
+        title="Ideas worth stealing"
+        intro={
+          <p>
+            Practical thinking on marketing, tech and growing a business in Kenya,
+            written for people who&apos;d rather do the work than read theory.
+          </p>
+        }
+      />
 
-        {/* 3. THE TEXT CONTENT LAYER */}
-        <div className="relative z-20 w-full container mx-auto px-6 grid lg:grid-cols-12 gap-8">
-          <div className="col-span-12 lg:col-span-7 text-[#F3F0E6]">
-            <Eyebrow>The blog</Eyebrow>
-            <h1 className="mt-4 max-w-[16ch] text-[clamp(34px,4.8vw,56px)] leading-[1.05]">
-              Ideas worth stealing
-            </h1>
-            <p className="mt-6 max-w-[60ch] text-[17px] text-[#F3F0E6]/90">
-              Practical thinking on marketing, tech and growing a business in
-              Kenya — written for people who&apos;d rather do the work than read
-              theory.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <Section>
+      <Section tone="white" className="pt-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
           <Link
             href={`/blog/${featured.slug}`}
