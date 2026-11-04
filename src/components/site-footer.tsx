@@ -53,6 +53,8 @@ export function SiteFooter() {
           <FooterLink href="/about">About</FooterLink>
           <FooterLink href="/blog">Blog</FooterLink>
           <FooterLink href="/uae">UAE &amp; Dubai</FooterLink>
+          <FooterLink href="/website-design-nairobi">Website design Nairobi</FooterLink>
+          <FooterLink href="/pos-system-nairobi">POS system Nairobi</FooterLink>
           <FooterLink href="/contact">Contact</FooterLink>
           <FooterLink href="/book">Book a call</FooterLink>
         </Column>

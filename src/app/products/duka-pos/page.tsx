@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Metadata } from "next";
 import { DUKA_TIERS, dukaTrialLink } from "@/lib/site";
 import {
@@ -38,6 +39,12 @@ export default function DukaPosPage() {
           </Button>
         </div>
         <p className="mt-4 text-[13.5px] text-ink-3">Free trial. Signup happens in the Duka POS app.</p>
+        <p className="mt-6 text-[15px] text-ink-2">
+          Running a shop in Nairobi?{" "}
+          <Link href="/pos-system-nairobi" className="font-semibold text-accent-ink underline underline-offset-4">
+            See how Duka POS works for Nairobi shops
+          </Link>
+        </p>
       </PageHero>
 
       <Section tone="white">

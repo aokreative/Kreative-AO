@@ -44,7 +44,7 @@ export const SERVICES: Service[] = [
     slug: "web-design",
     image: "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&q=80&w=1200",
     name: "Website Design & Development",
-    seoTitle: "Website Design & Development in Nairobi",
+    seoTitle: "Website Design & Development for Kenya & the UAE",
     kicker: "Sites that sell",
     summary:
       "Fast, beautiful websites built to convert — designed around your brand and wired up to capture and qualify every lead that lands.",

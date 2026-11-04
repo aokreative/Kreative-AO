@@ -6,6 +6,12 @@ import { CASE_STUDIES } from "@/content/case-studies";
 import { Button, Check, Eyebrow, Section } from "@/components/ui/primitives";
 import { PageHero } from "@/components/page-hero";
 
+/* Nairobi landing pages for services people search for locally. */
+const LOCAL_PAGES: Record<string, { href: string; label: string }> = {
+  "web-design": { href: "/website-design-nairobi", label: "Website design in Nairobi: process, pricing and FAQs" },
+  "pos-erp": { href: "/pos-system-nairobi", label: "A POS system for Nairobi shops" },
+};
+
 export function generateStaticParams() {
   return SERVICES.map((s) => ({ slug: s.slug }));
 }
@@ -30,6 +36,7 @@ export default async function ServicePage({
   const service = serviceBySlug(slug);
   if (!service) notFound();
 
+  const local = LOCAL_PAGES[service.slug];
   const related = CASE_STUDIES.filter((c) => c.category === service.name).slice(0, 2);
   const others = SERVICES.filter((s) => s.slug !== service.slug);
 
@@ -48,6 +55,14 @@ export default async function ServicePage({
             Book a call
           </Button>
         </div>
+        {local && (
+          <p className="mt-6 text-[15px] text-ink-2">
+            In Nairobi?{" "}
+            <Link href={local.href} className="font-semibold text-accent-ink underline underline-offset-4">
+              {local.label}
+            </Link>
+          </p>
+        )}
       </PageHero>
 
       <Section tone="white">

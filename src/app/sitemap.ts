@@ -36,6 +36,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     page("/about", 0.7, "monthly"),
     page("/contact", 0.7, "yearly"),
     page("/book", 0.7, "yearly"),
+    page("/website-design-nairobi", 0.9, "monthly"),
+    page("/pos-system-nairobi", 0.9, "monthly"),
     ...SERVICES.map((s) => page(`/services/${s.slug}`, 0.8, "monthly")),
     ...CASE_STUDIES.map((c) => page(`/work/${c.slug}`, 0.7, "monthly")),
     ...ARTICLES.map((a) =>
