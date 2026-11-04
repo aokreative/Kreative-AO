@@ -35,7 +35,11 @@ export type ContactState = {
   ok: boolean;
   message?: string;
   errors?: Record<string, string>;
+  /** What the visitor typed, sent back on failure so the form keeps it. */
+  values?: Record<string, string>;
 };
+
+const KEEP = ["name", "email", "phone", "company", "interest", "budget_range", "message"] as const;
 
 export async function submitContact(
   _prev: ContactState,
@@ -43,6 +47,9 @@ export async function submitContact(
 ): Promise<ContactState> {
   const raw = Object.fromEntries(formData) as Record<string, string>;
   const parsed = schema.safeParse(raw);
+  const values = Object.fromEntries(
+    KEEP.map((k) => [k, typeof raw[k] === "string" ? raw[k].slice(0, 4000) : ""]),
+  );
 
   if (!parsed.success) {
     const errors: Record<string, string> = {};
@@ -50,7 +57,7 @@ export async function submitContact(
       const key = String(issue.path[0]);
       if (!errors[key]) errors[key] = issue.message;
     }
-    return { ok: false, errors };
+    return { ok: false, errors, values };
   }
 
   const d = parsed.data;
@@ -126,6 +133,7 @@ export async function submitContact(
       ok: false,
       message:
         "Something went wrong on our side. Message us on WhatsApp (0182 297 245) or email info@aokreative.com.",
+      values,
     };
   }
   return {

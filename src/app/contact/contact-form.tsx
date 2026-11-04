@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect, useState } from "react";
+import { useActionState, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { INTERESTS } from "@/lib/site";
 import { submitContact, type ContactState } from "./actions";
@@ -19,12 +19,14 @@ export function ContactForm() {
   const [state, action, pending] = useActionState(submitContact, initial);
   const params = useSearchParams();
   const pathname = usePathname();
-  const [interest, setInterest] = useState("");
-
-  useEffect(() => {
+  // ?interest=duka-pos (from a service page link) preselects the topic.
+  const [interest, setInterest] = useState(() => {
     const q = params.get("interest");
-    if (q && INTERESTS.some((i) => i.value === q)) setInterest(q);
-  }, [params]);
+    return q && INTERESTS.some((i) => i.value === q) ? q : "";
+  });
+  // On a failed send the action returns what was typed; defaultValue puts it
+  // back after React resets the form.
+  const v = state.values;
 
   if (state.ok) {
     return (
@@ -54,10 +56,10 @@ export function ContactForm() {
       </div>
 
       <div className="grid gap-5 sm:grid-cols-2">
-        <Field label="Your name" name="name" error={state.errors?.name} required autoComplete="name" />
-        <Field label="Email" name="email" type="email" error={state.errors?.email} required autoComplete="email" />
-        <Field label="Phone" name="phone" type="tel" hint="Optional" autoComplete="tel" />
-        <Field label="Company" name="company" hint="Optional" autoComplete="organization" />
+        <Field label="Your name" name="name" value={v?.name} error={state.errors?.name} required autoComplete="name" />
+        <Field label="Email" name="email" type="email" value={v?.email} error={state.errors?.email} required autoComplete="email" />
+        <Field label="Phone" name="phone" type="tel" value={v?.phone} hint="Optional" autoComplete="tel" />
+        <Field label="Company" name="company" value={v?.company} hint="Optional" autoComplete="organization" />
       </div>
 
       <div className="grid gap-5 sm:grid-cols-2">
@@ -88,6 +90,7 @@ export function ContactForm() {
           <select
             id="budget_range"
             name="budget_range"
+            defaultValue={v?.budget_range ?? ""}
             className="rounded-[14px] border border-line bg-white/85 px-3.5 py-2.5 text-[15px] text-ink shadow-[inset_0_1px_2px_rgba(19,35,58,0.06)] focus:bg-white"
           >
             <option value="">Prefer not to say</option>
@@ -109,6 +112,7 @@ export function ContactForm() {
           name="message"
           rows={5}
           required
+          defaultValue={v?.message}
           aria-invalid={!!state.errors?.message}
           className="rounded-[14px] border border-line bg-white/85 px-3.5 py-2.5 text-[15px] text-ink shadow-[inset_0_1px_2px_rgba(19,35,58,0.06)] focus:bg-white"
           placeholder="A sentence or two is plenty."
@@ -140,6 +144,7 @@ function Field({
   label,
   name,
   type = "text",
+  value,
   error,
   hint,
   required,
@@ -148,6 +153,7 @@ function Field({
   label: string;
   name: string;
   type?: string;
+  value?: string;
   error?: string;
   hint?: string;
   required?: boolean;
@@ -163,6 +169,7 @@ function Field({
         id={name}
         name={name}
         type={type}
+        defaultValue={value}
         required={required}
         autoComplete={autoComplete}
         aria-invalid={!!error}
