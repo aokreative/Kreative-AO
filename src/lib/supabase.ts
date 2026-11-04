@@ -8,6 +8,10 @@ import { createClient } from "@supabase/supabase-js";
  * Actions and route handlers — it must never be imported into a Client
  * Component.
  */
+/** True when the database is set up for this deployment. */
+export const hasSupabase = () =>
+  Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY);
+
 export function supabaseAdmin() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;

@@ -9,10 +9,12 @@
 
 const API = "https://generativelanguage.googleapis.com/v1beta/models";
 
+// gemini-3.6-flash first: on this API key 3.8 Flash didn't answer within
+// 12 seconds (checked 4 Nov 2026), while 3.6 replies straight away.
 export const GEMINI_MODELS = [
   process.env.GEMINI_MODEL,
-  "gemini-3.8-flash",
   "gemini-3.6-flash",
+  "gemini-3.8-flash",
   "gemini-2.5-flash",
 ].filter((m, i, all): m is string => Boolean(m) && all.indexOf(m) === i);
 
@@ -56,6 +58,10 @@ async function call(method: string, payload: string, query = "") {
   let last: GeminiError | null = null;
   for (const model of GEMINI_MODELS) {
     const started = Date.now();
+    // Give up on a model that hasn't started answering within 12 seconds.
+    // The timer stops once it answers, so a long streamed reply isn't cut.
+    const abort = new AbortController();
+    const timer = setTimeout(() => abort.abort(), 12_000);
     let res: Response;
     try {
       res = await fetch(`${API}/${model}:${method}${query}`, {
@@ -63,10 +69,11 @@ async function call(method: string, payload: string, query = "") {
         headers: { "Content-Type": "application/json", "x-goog-api-key": key },
         body: payload,
         cache: "no-store",
-        // Never hang the function: give up on a model after 12 seconds.
-        signal: AbortSignal.timeout(12_000),
+        signal: abort.signal,
       });
+      clearTimeout(timer);
     } catch (e) {
+      clearTimeout(timer);
       console.error(`[gemini] ${model} ${method} failed after ${Date.now() - started}ms`, e);
       last = new GeminiError(`Gemini ${model} did not answer`, 504, String(e));
       continue;

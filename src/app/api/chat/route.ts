@@ -1,7 +1,7 @@
 import { after } from "next/server";
 import { z } from "zod";
 import { buildSystemPrompt } from "@/lib/knowledge";
-import { supabaseAdmin } from "@/lib/supabase";
+import { hasSupabase, supabaseAdmin } from "@/lib/supabase";
 import { scoreLead } from "@/lib/score";
 import { sendInternalAlert, sendVisitorAutoReply } from "@/lib/email";
 import { GeminiError, generate, streamChat } from "@/lib/gemini";
@@ -148,6 +148,7 @@ async function persist(
   parsed: z.infer<typeof bodySchema>,
   reply: string,
 ): Promise<void> {
+  if (!hasSupabase()) return alertWithoutDatabase(parsed);
   const supabase = supabaseAdmin();
   const { visitorId, messages } = parsed;
 
@@ -229,6 +230,36 @@ async function persist(
     sendInternalAlert(payload),
     sendVisitorAutoReply(payload),
   ]);
+}
+
+/**
+ * No database: email the team once, on the turn where the visitor first
+ * gives an email address, so a chat lead still reaches someone.
+ */
+async function alertWithoutDatabase(parsed: z.infer<typeof bodySchema>) {
+  const users = parsed.messages.filter((m) => m.role === "user").map((m) => m.content);
+  const email = users.at(-1)?.match(EMAIL_RE)?.[0];
+  if (!email || users.slice(0, -1).some((t) => t.includes(email))) return;
+  const details = await extractLead(users.join("\n"), email);
+  if (!details) return;
+  const score = scoreLead({
+    email,
+    company: details.company,
+    interest: details.interest,
+    sourcePage: "/chat",
+    fromChat: true,
+  });
+  const payload = {
+    id: crypto.randomUUID(),
+    name: details.name ?? "Website visitor",
+    email,
+    company: details.company,
+    interest: details.interest,
+    message: details.summary,
+    sourcePage: "the assistant",
+    score,
+  };
+  await Promise.allSettled([sendInternalAlert(payload), sendVisitorAutoReply(payload)]);
 }
 
 const INTERESTS = [

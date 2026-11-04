@@ -1,7 +1,7 @@
 "use server";
 
 import { z } from "zod";
-import { supabaseAdmin } from "@/lib/supabase";
+import { hasSupabase, supabaseAdmin } from "@/lib/supabase";
 import { scoreLead } from "@/lib/score";
 import { sendInternalAlert, sendVisitorAutoReply } from "@/lib/email";
 
@@ -67,56 +67,69 @@ export async function submitContact(
     sourcePage: d.source_page,
   });
 
-  try {
-    const supabase = supabaseAdmin();
-    const { data, error } = await supabase
-      .from("leads")
-      .insert({
-        name: d.name,
-        email: d.email,
-        phone: d.phone || null,
-        company: d.company || null,
-        interest: d.interest ?? "other",
-        budget_range: d.budget_range || null,
-        message: d.message,
-        source_page: d.source_page || null,
-        source: "form",
-        score,
-      })
-      .select("id")
-      .single();
+  // Save the lead to the database when it's set up. If it isn't, or the
+  // save fails, the email alert still goes out, so no enquiry is lost.
+  let id: string = crypto.randomUUID();
+  let saved = false;
+  if (hasSupabase()) {
+    try {
+      const { data, error } = await supabaseAdmin()
+        .from("leads")
+        .insert({
+          name: d.name,
+          email: d.email,
+          phone: d.phone || null,
+          company: d.company || null,
+          interest: d.interest ?? "other",
+          budget_range: d.budget_range || null,
+          message: d.message,
+          source_page: d.source_page || null,
+          source: "form",
+          score,
+        })
+        .select("id")
+        .single();
+      if (error) throw error;
+      id = data.id as string;
+      saved = true;
+    } catch (err) {
+      console.error("[contact] database save failed", err);
+    }
+  }
 
-    if (error) throw error;
+  const lead = {
+    id,
+    name: d.name,
+    email: d.email,
+    phone: d.phone,
+    company: d.company,
+    interest: d.interest,
+    budgetRange: d.budget_range,
+    message: d.message,
+    sourcePage: d.source_page,
+    score,
+  };
 
-    const lead = {
-      id: data.id as string,
-      name: d.name,
-      email: d.email,
-      phone: d.phone,
-      company: d.company,
-      interest: d.interest,
-      budgetRange: d.budget_range,
-      message: d.message,
-      sourcePage: d.source_page,
-      score,
-    };
+  const [alert] = await Promise.allSettled([
+    sendInternalAlert(lead),
+    sendVisitorAutoReply(lead),
+  ]);
+  const emailed =
+    alert.status === "fulfilled" &&
+    !("skipped" in alert.value) &&
+    !("error" in alert.value && alert.value.error);
+  if (alert.status === "rejected") console.error("[contact] alert email failed", alert.reason);
+  else if (!emailed) console.error("[contact] alert email not sent", alert.value);
 
-    // Fire both, but never let an email failure lose a captured lead.
-    await Promise.allSettled([
-      sendInternalAlert(lead),
-      sendVisitorAutoReply(lead),
-    ]);
-
-    return {
-      ok: true,
-      message: "Thanks — we've got it. We'll reply within one business day.",
-    };
-  } catch (err) {
-    console.error("[contact] submission failed", err);
+  if (!saved && !emailed) {
     return {
       ok: false,
       message:
-        "Something went wrong on our side. Email info@aokreative.com and we'll pick it up there.",
+        "Something went wrong on our side. Message us on WhatsApp (0182 297 245) or email info@aokreative.com.",
     };
   }
+  return {
+    ok: true,
+    message: "Thanks — we've got it. We'll reply within one business day.",
+  };
 }
