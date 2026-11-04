@@ -50,6 +50,15 @@ export default function ContactPage() {
               <a href="/book" className="w-fit text-[16px] text-accent-ink underline underline-offset-4 mb-2">
                 Book a 15-minute call
               </a>
+              <h2 className="label text-ink-3 mt-4">Find us</h2>
+              <a
+                href={SITE.maps}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-fit text-[16px] text-accent-ink underline underline-offset-4"
+              >
+                A&amp;O Kreative on Google Maps
+              </a>
               <h2 className="label text-ink-3 mt-4">Follow us</h2>
               <div className="flex items-center gap-4">
                 <a href={SITE.socials.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-ink-2 hover:text-accent-ink transition-colors">

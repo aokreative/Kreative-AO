@@ -45,6 +45,7 @@ export function SiteFooter() {
           <FooterLink href={SITE.socials.instagram} external>Instagram</FooterLink>
           <FooterLink href={SITE.socials.tiktok} external>TikTok</FooterLink>
           <FooterLink href={SITE.socials.linkedin} external>LinkedIn</FooterLink>
+          <FooterLink href={SITE.maps} external>Google Maps</FooterLink>
         </Column>
 
         <Column title="Company">

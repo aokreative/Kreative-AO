@@ -35,7 +35,8 @@ const ORGANIZATION_SCHEMA = {
     { "@type": "Country", name: "Kenya" },
     { "@type": "Country", name: "United Arab Emirates" },
   ],
-  sameAs: [SITE.socials.instagram, SITE.socials.tiktok, SITE.socials.linkedin],
+  hasMap: SITE.maps,
+  sameAs: [SITE.socials.instagram, SITE.socials.tiktok, SITE.socials.linkedin, SITE.maps],
 };
 
 export const metadata: Metadata = {
