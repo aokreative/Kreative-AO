@@ -2,10 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
-import { useChat } from "ai/react";
 import Link from "next/link";
+import { SITE } from "@/lib/site";
 
-type Msg = { id?: string; role: "user" | "assistant" | "system" | "data"; content: string };
+type Msg = { id?: string; role: "user" | "assistant"; content: string };
 
 const OPENER: Msg = {
   id: "opener",
@@ -52,10 +52,10 @@ export function Assistant() {
   const logRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
 
-  const { messages, input, handleInputChange, handleSubmit, isLoading, error, append } = useChat({
-    initialMessages: [OPENER as any],
-    body: { visitorId: visitorId() },
-  });
+  const [messages, setMessages] = useState<Msg[]>([OPENER]);
+  const [input, setInput] = useState("");
+  const [isLoading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     logRef.current?.scrollTo({ top: logRef.current.scrollHeight });
@@ -68,9 +68,54 @@ export function Assistant() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
+  // Sends the conversation to /api/chat and streams the reply into the
+  // last message as it arrives (the route returns plain text).
   async function send(text: string) {
-    if (!text.trim() || isLoading) return;
-    await append({ role: "user", content: text });
+    const content = text.trim();
+    if (!content || isLoading) return;
+    const history: Msg[] = [...messages, { role: "user", content }];
+    setMessages([...history, { role: "assistant", content: "" }]);
+    setInput("");
+    setError(null);
+    setLoading(true);
+    const setReply = (reply: string) =>
+      setMessages((m) => [...m.slice(0, -1), { role: "assistant", content: reply }]);
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          visitorId: visitorId(),
+          messages: history
+            .filter((m) => m.id !== "opener" && m.content.trim())
+            .slice(-24)
+            .map(({ role, content: c }) => ({ role, content: c })),
+        }),
+      });
+      if (!res.ok || !res.body) {
+        let msg = "The assistant can't answer right now.";
+        try {
+          msg = (await res.json()).error ?? msg;
+        } catch {}
+        throw new Error(msg);
+      }
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let reply = "";
+      for (;;) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        reply += decoder.decode(value, { stream: true });
+        setReply(reply);
+      }
+      if (!reply.trim()) throw new Error("The assistant can't answer right now.");
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Something went wrong.");
+      // Drop the empty reply bubble so the conversation can carry on.
+      setMessages((m) => (m.at(-1)?.role === "assistant" && !m.at(-1)?.content ? m.slice(0, -1) : m));
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -104,7 +149,7 @@ export function Assistant() {
             className="flex flex-1 flex-col gap-3.5 overflow-y-auto px-5 py-5"
             aria-live="polite"
           >
-            {messages.map((m, i) => (
+            {messages.map((m, i) => !m.content ? null : (
               <div
                 key={i}
                 className={
@@ -120,13 +165,16 @@ export function Assistant() {
               </div>
             ))}
 
-            {isLoading && messages[messages.length - 1]?.role === "user" && (
+            {isLoading && !messages.at(-1)?.content && (
               <p className="text-[13px] text-ink-3">Thinking…</p>
             )}
 
             {error && (
               <p role="alert" className="text-[13.5px] text-accent-ink">
-                {error.message}
+                {error}{" "}
+                <a href={SITE.whatsapp} target="_blank" rel="noopener noreferrer" className="font-semibold underline underline-offset-2">
+                  WhatsApp us
+                </a>
               </p>
             )}
 
@@ -147,7 +195,10 @@ export function Assistant() {
           </div>
 
           <form
-            onSubmit={handleSubmit}
+            onSubmit={(e) => {
+              e.preventDefault();
+              send(input);
+            }}
             className="flex items-end gap-2 border-t border-line-soft p-3"
           >
             <label htmlFor="aok-msg" className="sr-only">
@@ -157,15 +208,11 @@ export function Assistant() {
               id="aok-msg"
               rows={1}
               value={input}
-              onChange={handleInputChange}
+              onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter" && !e.shiftKey) {
                   e.preventDefault();
-                  // We must construct a synthetic event for handleSubmit
-                  const form = e.currentTarget.form;
-                  if (form) {
-                    form.requestSubmit();
-                  }
+                  send(input);
                 }
               }}
               placeholder="Ask about services, pricing or our work…"

@@ -1,15 +1,14 @@
-import { streamText } from "ai";
-import { createGoogleGenerativeAI } from "@ai-sdk/google";
+import { after } from "next/server";
 import { z } from "zod";
 import { buildSystemPrompt } from "@/lib/knowledge";
 import { supabaseAdmin } from "@/lib/supabase";
 import { scoreLead } from "@/lib/score";
 import { sendInternalAlert, sendVisitorAutoReply } from "@/lib/email";
+import { GeminiError, generate, streamChat } from "@/lib/gemini";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
 
-const MODEL = process.env.GEMINI_MODEL ?? "gemini-1.5-flash";
 const MAX_TURNS = 24;
 
 const bodySchema = z.object({
@@ -45,9 +44,11 @@ function rateLimited(id: string) {
   return recent.length > MAX_PER_WINDOW;
 }
 
+const UNAVAILABLE =
+  "The assistant can't answer right now. Please message us on WhatsApp or use the contact form.";
+
 export async function POST(req: Request) {
-  const key = process.env.GEMINI_API_KEY;
-  if (!key) {
+  if (!process.env.GEMINI_API_KEY) {
     return Response.json(
       { error: "The assistant isn't configured yet. Please use the contact form." },
       { status: 503 },
@@ -67,32 +68,78 @@ export async function POST(req: Request) {
       { status: 429 },
     );
   }
+  if (!messages.some((m) => m.role === "user")) {
+    return Response.json({ error: "Bad request." }, { status: 400 });
+  }
 
-  const google = createGoogleGenerativeAI({ apiKey: key });
+  let reply;
+  try {
+    reply = await streamChat(buildSystemPrompt(), messages);
+  } catch (e) {
+    const err = e as GeminiError;
+    console.error("[chat] Gemini request failed", err.status, err.message, err.detail);
+    return Response.json({ error: UNAVAILABLE }, { status: 502 });
+  }
 
-  const result = await streamText({
-    model: google(MODEL),
-    system: buildSystemPrompt(),
-    messages: messages.map((m) => ({ role: m.role as any, content: m.content })),
+  // The full reply is collected while it streams, then saved after the
+  // response has finished, so saving never slows the visitor down.
+  let full = "";
+  let finish: () => void = () => {};
+  const finished = new Promise<void>((resolve) => (finish = resolve));
+  const encoder = new TextEncoder();
+
+  const stream = new ReadableStream<Uint8Array>({
+    async start(controller) {
+      try {
+        for await (const text of reply.chunks) {
+          full += text;
+          controller.enqueue(encoder.encode(text));
+        }
+        if (!full.trim()) controller.enqueue(encoder.encode(UNAVAILABLE));
+      } catch (e) {
+        console.error("[chat] stream failed", e);
+        if (!full) controller.enqueue(encoder.encode(UNAVAILABLE));
+      } finally {
+        controller.close();
+        finish();
+      }
+    },
   });
 
-  // Capture the full reply in a detached promise for persistence/lead capture.
-  // This must not block or break the streaming response.
-  void (async () => {
-    let full = "";
-    try {
-      for await (const chunk of result.textStream) {
-        full += chunk;
-      }
-    } catch (e) {
-      console.error("[chat] persist read failed", e);
-    }
-    void persist(parsed, full).catch((e) =>
-      console.error("[chat] persist failed", e),
-    );
-  })();
+  after(async () => {
+    await finished;
+    if (!full.trim()) return;
+    await persist(parsed, full).catch((e) => console.error("[chat] persist failed", e));
+  });
 
-  return result.toDataStreamResponse();
+  return new Response(stream, {
+    headers: {
+      "Content-Type": "text/plain; charset=utf-8",
+      "Cache-Control": "no-store",
+      "X-Model": reply.model,
+    },
+  });
+}
+
+/**
+ * Health check: GET /api/chat makes one tiny request and reports whether the
+ * assistant can answer, and which model it is using. Cached for 10 minutes so
+ * it can't be used to run up the bill.
+ */
+let health: { at: number; body: Record<string, unknown> } | null = null;
+
+export async function GET() {
+  if (health && Date.now() - health.at < 600_000) return Response.json(health.body);
+  let body: Record<string, unknown>;
+  try {
+    const { model, text } = await generate("Reply with the single word OK.", "Are you working?");
+    body = { ok: Boolean(text.trim()), model };
+  } catch (e) {
+    const err = e as GeminiError;
+    body = { ok: false, status: err.status ?? 500, error: err.message };
+  }
+  health = { at: Date.now(), body };
+  return Response.json(body, { headers: { "Cache-Control": "no-store" } });
 }
 
 const EMAIL_RE = /[\w.+-]+@[\w-]+\.[\w.-]{2,}/;
@@ -211,19 +258,13 @@ async function extractLead(
 ): Promise<LeadDetails | null> {
   if (!process.env.GEMINI_API_KEY) return null;
 
-  const { generateText } = await import("ai");
-  const { createGoogleGenerativeAI } = await import("@ai-sdk/google");
-  const google = createGoogleGenerativeAI({ apiKey: process.env.GEMINI_API_KEY });
-
-  const { text } = await generateText({
-    model: google(MODEL),
-    system:
-      "Extract lead details from a website chat. Reply with JSON only, no prose. " +
+  const { text } = await generate(
+    "Extract lead details from a website chat. Reply with JSON only, no prose. " +
       `Schema: {"name": string|null, "company": string|null, "interest": one of ${INTERESTS.join("|")}, "summary": string}. ` +
       "summary is one or two sentences describing what the visitor needs, written for the sales team. " +
       "Use null when a field was not actually stated — never guess a name from an email address.",
-    prompt: `Visitor email: ${email}\n\nConversation:\n${conversation}`,
-  });
+    `Visitor email: ${email}\n\nConversation:\n${conversation}`,
+  );
 
   try {
     const json = JSON.parse(text.replace(/^```(?:json)?|```$/g, "").trim());
