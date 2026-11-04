@@ -55,11 +55,23 @@ async function call(method: string, payload: string, query = "") {
   if (!key) throw new GeminiError("GEMINI_API_KEY is not set", 503, "");
   let last: GeminiError | null = null;
   for (const model of GEMINI_MODELS) {
-    const res = await fetch(`${API}/${model}:${method}${query}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "x-goog-api-key": key },
-      body: payload,
-    });
+    const started = Date.now();
+    let res: Response;
+    try {
+      res = await fetch(`${API}/${model}:${method}${query}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "x-goog-api-key": key },
+        body: payload,
+        cache: "no-store",
+        // Never hang the function: give up on a model after 12 seconds.
+        signal: AbortSignal.timeout(12_000),
+      });
+    } catch (e) {
+      console.error(`[gemini] ${model} ${method} failed after ${Date.now() - started}ms`, e);
+      last = new GeminiError(`Gemini ${model} did not answer`, 504, String(e));
+      continue;
+    }
+    console.log(`[gemini] ${model} ${method} -> ${res.status} in ${Date.now() - started}ms`);
     if (res.ok) return { res, model };
     const detail = (await res.text()).slice(0, 400);
     last = new GeminiError(`Gemini ${model} returned ${res.status}`, res.status, detail);
