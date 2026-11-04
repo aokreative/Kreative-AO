@@ -4,6 +4,7 @@ import { buildSystemPrompt } from "@/lib/knowledge";
 import { hasSupabase, supabaseAdmin } from "@/lib/supabase";
 import { scoreLead } from "@/lib/score";
 import { sendInternalAlert, sendVisitorAutoReply } from "@/lib/email";
+import { sendToCrm } from "@/lib/crm";
 import { GeminiError, generate, streamChat } from "@/lib/gemini";
 
 export const runtime = "nodejs";
@@ -229,6 +230,7 @@ async function persist(
   await Promise.allSettled([
     sendInternalAlert(payload),
     sendVisitorAutoReply(payload),
+    sendToCrm(chatEnquiry(visitorId, email, details, transcript)),
   ]);
 }
 
@@ -259,7 +261,27 @@ async function alertWithoutDatabase(parsed: z.infer<typeof bodySchema>) {
     sourcePage: "the assistant",
     score,
   };
-  await Promise.allSettled([sendInternalAlert(payload), sendVisitorAutoReply(payload)]);
+  await Promise.allSettled([
+    sendInternalAlert(payload),
+    sendVisitorAutoReply(payload),
+    sendToCrm(chatEnquiry(parsed.visitorId, email, details, users)),
+  ]);
+}
+
+/** A chat lead for the CRM: the AI's summary plus the visitor's own words. */
+function chatEnquiry(visitorId: string, email: string, details: LeadDetails, said: string[]) {
+  const words = said.join("\n").slice(-1500);
+  return {
+    // One lead per visitor and email, however many times this fires.
+    id: `chat:${visitorId}:${email.toLowerCase()}`,
+    kind: "chat" as const,
+    name: details.name ?? null,
+    email,
+    company: details.company ?? null,
+    interest: details.interest ?? null,
+    message: `${details.summary}\n\nWhat they wrote:\n${words}`,
+    page: "AI assistant",
+  };
 }
 
 const INTERESTS = [

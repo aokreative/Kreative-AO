@@ -4,6 +4,7 @@ import { z } from "zod";
 import { hasSupabase, supabaseAdmin } from "@/lib/supabase";
 import { scoreLead } from "@/lib/score";
 import { sendInternalAlert, sendVisitorAutoReply } from "@/lib/email";
+import { sendToCrm } from "@/lib/crm";
 
 const schema = z.object({
   name: z.string().trim().min(2, "Please enter your name.").max(120),
@@ -117,10 +118,25 @@ export async function submitContact(
     score,
   };
 
-  const [alert] = await Promise.allSettled([
+  // The CRM is the record of every enquiry (lead + bell + phone push); the
+  // email to the team is the backup if the CRM can't be reached.
+  const [alert, , crm] = await Promise.allSettled([
     sendInternalAlert(lead),
     sendVisitorAutoReply(lead),
+    sendToCrm({
+      id,
+      kind: d.source_page === "Ask us panel" ? "message" : "contact",
+      name: d.name,
+      email: d.email,
+      phone: d.phone,
+      company: d.company,
+      interest: d.interest,
+      budget: d.budget_range,
+      message: d.message,
+      page: d.source_page,
+    }),
   ]);
+  if (crm.status === "fulfilled" && crm.value) saved = true;
   const emailed =
     alert.status === "fulfilled" &&
     !("skipped" in alert.value) &&
