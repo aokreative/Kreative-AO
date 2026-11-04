@@ -3,9 +3,10 @@ import path from "node:path";
 
 /**
  * Opening animation: a fingerprint scan of the original A&O mark.
- * Pure CSS, so it plays and dismisses itself even before JavaScript loads,
- * and never blocks the page. Shown once per visit; skipped for visitors who
- * prefer reduced motion (see the inline script in layout.tsx).
+ * Pure CSS, so it plays and dismisses itself even before JavaScript loads.
+ * Kept short (about 1.4s) because it sits over the first paint: shown on a
+ * visitor's first visit only (then once a month), skipped on any tap, scroll
+ * or key, and never shown to visitors who prefer reduced motion.
  */
 function markSvg() {
   const raw = fs.readFileSync(path.join(process.cwd(), "public/brand/aok-mark-reverse.svg"), "utf8");
@@ -36,5 +37,6 @@ export function Intro() {
   );
 }
 
-/** Runs before first paint: decides whether the intro plays on this visit. */
-export const INTRO_GATE = `try{var d=document.documentElement;if(sessionStorage.getItem('ao-intro')||matchMedia('(prefers-reduced-motion: reduce)').matches){d.dataset.intro='off'}else{sessionStorage.setItem('ao-intro','1')}}catch(e){document.documentElement.dataset.intro='off'}`;
+/** Runs before first paint: decides whether the intro plays on this visit,
+    and lets any tap, scroll or key press skip it. */
+export const INTRO_GATE = `try{var d=document.documentElement,k='ao-intro-seen',t=+localStorage.getItem(k)||0;if(Date.now()-t<2592e6||matchMedia('(prefers-reduced-motion: reduce)').matches){d.dataset.intro='off'}else{localStorage.setItem(k,Date.now());var x=function(){d.dataset.intro='off'};['pointerdown','wheel','keydown','touchstart'].forEach(function(e){addEventListener(e,x,{once:true,passive:true})})}}catch(e){document.documentElement.dataset.intro='off'}`;
