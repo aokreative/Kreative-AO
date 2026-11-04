@@ -377,12 +377,13 @@ function ScrollPhone({
             <span className="h-[10px] w-[10px] rounded-full bg-[radial-gradient(circle_at_35%_35%,#3A4A6E_0%,#141C2E_45%,#05070C_75%)] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06)]" />
           </div>
 
-          <Toast key={active} {...TOASTS[active]} />
-
           {/* Light on the glass */}
           <div aria-hidden className="device-glare" />
         </div>
       </div>
+
+      {/* Notifications float out over the phone, larger than its screen */}
+      <Toast key={active} {...TOASTS[active]} />
     </div>
   );
 }
@@ -412,21 +413,25 @@ function StatusIcons() {
   );
 }
 
-/* Notification on frosted glass, under the camera island. Drops in,
-   then slides away. */
+/* Notification in liquid glass. Bigger than the phone's screen, so it
+   breaks out past the frame on both sides. Drops in, then slides away. */
 function Toast({ app, title, body }: { app: string; title: string; body: string }) {
   return (
-    <div className="lg toast-life absolute left-[7px] right-[7px] top-[46px] z-20 rounded-[22px] px-3.5 py-3 text-left">
-      <div className="flex gap-2.5">
-        <span className="mt-0.5 grid h-[30px] w-[30px] shrink-0 place-items-center rounded-[8px] bg-duka text-[11px] font-bold text-white" aria-hidden>
+    <div className="lg lg-toast toast-life absolute left-1/2 top-[54px] z-50 w-[calc(100%+72px)] -translate-x-1/2 rounded-[30px] px-5 py-4 text-left">
+      <div className="flex gap-3.5">
+        <span
+          className="mt-0.5 grid h-[44px] w-[44px] shrink-0 place-items-center rounded-[12px] bg-duka text-[17px] font-bold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]"
+          aria-hidden
+        >
           {app === "WhatsApp" ? "W" : app === "M-PESA" ? "M" : "D"}
         </span>
         <div className="min-w-0 flex-1">
-          <p className="flex items-baseline text-[12.5px] font-semibold text-ink">
-            {title}
-            <span className="ml-auto pl-2 text-[11px] font-normal text-ink-3">now</span>
+          <p className="flex items-baseline text-[12px] font-medium text-ink-3">
+            {app}
+            <span className="ml-auto pl-2">now</span>
           </p>
-          <p className="text-[12px] leading-snug text-ink-2">{body}</p>
+          <p className="mt-0.5 text-[16px] font-semibold leading-snug text-ink">{title}</p>
+          <p className="mt-0.5 text-[14.5px] leading-snug text-ink-2">{body}</p>
         </div>
       </div>
     </div>
