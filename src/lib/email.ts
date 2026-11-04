@@ -55,8 +55,8 @@ export async function sendInternalAlert(lead: LeadEmail) {
   ];
 
   const html = `
-    <div style="font-family:ui-sans-serif,system-ui,sans-serif;color:#132F32;line-height:1.6">
-      <p style="margin:0 0 4px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#6C8487">
+    <div style="font-family:ui-sans-serif,system-ui,sans-serif;color:#13233A;line-height:1.6">
+      <p style="margin:0 0 4px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#5E697B">
         ${hot ? "High-value lead" : "New lead"}
       </p>
       <h2 style="margin:0 0 16px;font-size:20px">${escapeHtml(lead.name)}</h2>
@@ -65,7 +65,7 @@ export async function sendInternalAlert(lead: LeadEmail) {
           .filter(([, v]) => v)
           .map(
             ([k, v]) =>
-              `<tr><td style="padding:4px 16px 4px 0;color:#6C8487">${k}</td><td style="padding:4px 0"><b>${escapeHtml(
+              `<tr><td style="padding:4px 16px 4px 0;color:#5E697B">${k}</td><td style="padding:4px 0"><b>${escapeHtml(
                 String(v),
               )}</b></td></tr>`,
           )
@@ -73,15 +73,15 @@ export async function sendInternalAlert(lead: LeadEmail) {
       </table>
       ${
         lead.message
-          ? `<p style="margin:18px 0 6px;color:#6C8487;font-size:13px">Message</p>
-             <p style="margin:0;padding:12px 14px;background:#F3EEE3;border-radius:8px;font-size:14px;white-space:pre-wrap">${escapeHtml(
+          ? `<p style="margin:18px 0 6px;color:#5E697B;font-size:13px">Message</p>
+             <p style="margin:0;padding:12px 14px;background:#F4F5F7;border-radius:8px;font-size:14px;white-space:pre-wrap">${escapeHtml(
                lead.message,
              )}</p>`
           : ""
       }
       <p style="margin:20px 0 0">
         <a href="mailto:${escapeHtml(lead.email)}?subject=Re:%20your%20enquiry"
-           style="display:inline-block;background:#194044;color:#EFE4CF;padding:10px 18px;border-radius:7px;text-decoration:none;font-size:14px">
+           style="display:inline-block;background:#13233A;color:#FFFFFF;padding:10px 18px;border-radius:999px;text-decoration:none;font-size:14px">
           Reply to ${escapeHtml(lead.name.split(" ")[0])}
         </a>
       </p>
@@ -103,11 +103,12 @@ export async function sendVisitorAutoReply(lead: LeadEmail) {
   if (!resend) return { skipped: true as const, reason: "no-key" };
 
   const first = escapeHtml(lead.name.split(" ")[0]);
-  const site = process.env.NEXT_PUBLIC_SITE_URL ?? "";
+  // Emails need full links: a bare "/book" goes nowhere in an inbox.
+  const site = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.aokreative.com";
 
   const html = `
-    <div style="font-family:ui-sans-serif,system-ui,sans-serif;color:#132F32;line-height:1.65;max-width:520px">
-      <h2 style="font-family:Georgia,serif;font-weight:500;font-size:24px;margin:0 0 14px">
+    <div style="font-family:ui-sans-serif,system-ui,sans-serif;color:#13233A;line-height:1.65;max-width:520px">
+      <h2 style="font-weight:700;font-size:24px;margin:0 0 14px;color:#13233A">
         Thanks, ${first} — we've got it.
       </h2>
       <p style="margin:0 0 14px;font-size:15px">
@@ -120,11 +121,11 @@ export async function sendVisitorAutoReply(lead: LeadEmail) {
       </p>
       <p style="margin:0 0 26px">
         <a href="${site}/book"
-           style="display:inline-block;background:#B6571A;color:#FFF6EC;padding:12px 22px;border-radius:7px;text-decoration:none;font-size:14px;font-weight:600">
+           style="display:inline-block;background:#B8902F;color:#13233A;padding:12px 22px;border-radius:999px;text-decoration:none;font-size:14px;font-weight:600">
           Book a 15-minute call
         </a>
       </p>
-      <p style="margin:0;font-size:13px;color:#6C8487">
+      <p style="margin:0;font-size:13px;color:#5E697B">
         A&amp;O Kreative — crafting brands that command
       </p>
     </div>`;
