@@ -41,7 +41,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...ARTICLES.map((a) =>
       page(`/blog/${a.slug}`, 0.6, "yearly", articleDate(a.date)),
     ),
-    page("/legal/privacy", 0.2, "yearly"),
-    page("/legal/terms", 0.2, "yearly"),
+    // Legal pages are noindex, so they stay out of the sitemap.
   ];
 }
