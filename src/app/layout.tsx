@@ -5,6 +5,7 @@ import "@fontsource-variable/archivo/wdth.css";
 import { SiteHeader } from "@/components/site-header";
 import { Intro, INTRO_GATE } from "@/components/intro";
 import { Assistant } from "@/components/assistant";
+import { Cursor } from "@/components/cursor";
 import { BackdropTone } from "@/components/backdrop-tone";
 import { SiteFooter } from "@/components/site-footer";
 import { CookieConsent } from "@/components/ui/cookie-consent";
@@ -83,6 +84,7 @@ export default function RootLayout({
         <SiteFooter />
         <Assistant />
         <CookieConsent />
+        <Cursor />
         <SvgFilters />
         <script
           type="application/ld+json"

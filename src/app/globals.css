@@ -230,7 +230,9 @@ html[data-intro="off"] .intro { display: none; }
   display: grid; place-items: center;
   background:
     radial-gradient(60% 55% at 70% 20%, rgb(184 144 47 / .22), transparent 70%),
-    linear-gradient(180deg, #13233A 0%, #0B1524 100%);
+    linear-gradient(160deg, rgb(19 35 58 / .86), rgb(11 21 36 / .72) 48%, rgb(11 21 36 / .94)),
+    url("/brand/intro-city.jpg") center / cover no-repeat,
+    #0B1524;
   animation: intro-out .3s cubic-bezier(.4,0,.2,1) .9s forwards;
 }
 .intro-stage { display: flex; flex-direction: column; align-items: center; gap: 28px; }
@@ -457,4 +459,58 @@ html[data-tone="mist"]  .ambient::after  { transform: translate(-4vw, -8vh); opa
 /* Reduced motion: notifications stay put instead of flashing past. */
 @media (prefers-reduced-motion: reduce) {
   .toast-life { animation: none !important; }
+}
+
+/* ============ ROUND FOLLOWER CURSOR ============ */
+/* A dot tracks the pointer; a ring trails it and swells over links/buttons.
+   Desktop + fine pointer only (see cursor.tsx), and the native arrow is
+   hidden only once the component mounts the .has-cursor class. */
+.cursor-dot,
+.cursor-ring {
+  position: fixed; top: 0; left: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9000;
+  mix-blend-mode: difference;
+  opacity: 0;
+  will-change: transform;
+}
+.cursor-dot {
+  width: 6px; height: 6px;
+  background: #fff;
+  transform: translate(-50%, -50%);
+  transition: opacity .3s ease;
+}
+.cursor-ring {
+  width: 34px; height: 34px;
+  border: 1px solid rgb(255 255 255 / .6);
+  transform: translate(-50%, -50%);
+  transition: width .25s, height .25s, background .25s, border-color .25s, opacity .3s ease;
+}
+.cursor-ring.is-grow {
+  width: 72px; height: 72px;
+  background: rgb(255 255 255 / .08);
+  border-color: transparent;
+}
+.cursor-label {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+  font-weight: 600; color: #fff;
+  opacity: 0; transition: opacity .2s;
+}
+.cursor-ring.is-grow .cursor-label { opacity: 1; }
+
+/* Replace the native arrow with the round cursor on desktop, but keep a
+   normal text caret inside form fields. */
+@media (hover: hover) and (pointer: fine) {
+  html.has-cursor, html.has-cursor * { cursor: none !important; }
+  html.has-cursor input,
+  html.has-cursor textarea,
+  html.has-cursor select,
+  html.has-cursor [contenteditable="true"] { cursor: auto !important; }
+}
+/* Never show the custom cursor on touch / small screens. */
+@media (hover: none), (max-width: 900px) {
+  .cursor-dot, .cursor-ring { display: none !important; }
 }
