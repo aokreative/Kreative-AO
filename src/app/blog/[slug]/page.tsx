@@ -23,7 +23,12 @@ export async function generateMetadata({
     title: a.seoTitle ?? a.title,
     description,
     alternates: { canonical: `/blog/${a.slug}` },
-    openGraph: { type: "article", title: a.title, description },
+    openGraph: {
+      type: "article",
+      title: a.title,
+      description,
+      ...(a.image ? { images: [{ url: a.image, alt: a.title }] } : {}),
+    },
   };
 }
 

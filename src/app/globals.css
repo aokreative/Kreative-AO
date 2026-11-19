@@ -206,6 +206,71 @@
 }
 .prose-aok blockquote p { margin: 0; }
 
+/* In-article images: <figure><img …><figcaption>…</figcaption></figure> */
+.prose-aok figure { margin-top: 2em; margin-bottom: 2em; }
+.prose-aok figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 20px;
+  background: var(--surface-2);
+}
+.prose-aok figcaption {
+  margin-top: .7em;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink-3);
+}
+
+/* "At a glance" summary panel, e.g. a weekly routine:
+   <div class="glance"><p class="glance-title">…</p><ol><li><strong>Mon</strong> …<span>15 min</span></li></ol></div> */
+.prose-aok .glance {
+  margin-top: 2em;
+  padding: 1.5rem;
+  border-radius: 24px;
+  background: var(--color-midnight);
+  color: var(--color-cloud);
+}
+.prose-aok .glance .glance-title {
+  margin: 0 0 1rem;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--color-gilt);
+}
+.prose-aok .glance ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: .6rem;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+}
+.prose-aok .glance li {
+  margin: 0;
+  padding: .9rem 1rem;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, .06);
+  border: 1px solid rgba(217, 186, 110, .25);
+  font-size: 16px;
+  line-height: 1.35;
+  color: var(--color-cloud);
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+}
+.prose-aok .glance li strong {
+  font-size: 12px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--color-gilt);
+}
+.prose-aok .glance li span { font-size: 13px; color: var(--color-haze); }
+.prose-aok .glance .glance-foot { margin: 1rem 0 0; font-size: 14px; color: var(--color-haze); }
+
 /* Scrubber ticks grow near the handle, like a dock. */
 .tick { transition: height 160ms var(--ease-spring), background-color 160ms; }
 
