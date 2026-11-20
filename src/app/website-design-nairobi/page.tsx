@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { SITE } from "@/lib/site";
 import { Button, Check, Eyebrow, Section } from "@/components/ui/primitives";
 import { PageHero } from "@/components/page-hero";
 import { BreadcrumbSchema, FaqList, type Faq } from "@/components/faq";
 
-export const metadata: Metadata = {
-  title: "Website Design Company in Nairobi",
-  description:
-    "Fast, mobile-first websites for Nairobi businesses, built to show up on Google and turn visitors into WhatsApp enquiries. A fixed written quote before we start.",
-  alternates: { canonical: "/website-design-nairobi" },
-};
+export const metadata: Metadata = pageMeta(
+  "/website-design-nairobi",
+  "Website Design Company in Nairobi",
+  "Fast, mobile-first websites for Nairobi businesses, built to show up on Google and turn visitors into WhatsApp enquiries. A fixed written quote before we start.",
+);
 
 const INCLUDED = [
   { name: "Design around your brand", detail: "A clean, on-brand look that builds trust in the first few seconds, on a phone first." },

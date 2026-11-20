@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { ARTICLES } from "@/content/articles";
 import { Section } from "@/components/ui/primitives";
 import { Frame } from "@/components/frame";
 import { PageHero } from "@/components/page-hero";
 
-export const metadata: Metadata = {
-  title: "Blog",
-  description:
-    "Practical thinking on marketing, tech and growing a business in Kenya — written for people who'd rather do the work than read theory.",
-};
+export const metadata: Metadata = pageMeta(
+  "/blog",
+  "Marketing, Web & POS Guides for Kenya",
+  "Practical thinking on marketing, tech and growing a business in Kenya — written for people who'd rather do the work than read theory.",
+);
 
 export default function BlogPage() {
   const [featured, ...rest] = ARTICLES;

@@ -1,15 +1,16 @@
 ﻿import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { SERVICES } from "@/content/services";
 import { Button, Section } from "@/components/ui/primitives";
 import { Frame } from "@/components/frame";
 import { PageHero } from "@/components/page-hero";
 
-export const metadata: Metadata = {
-  title: "Marketing, Branding & Automation Services",
-  description:
-    "Branding, websites, social media, ads, AI automation and POS systems from one Nairobi team, built to bring in customers for businesses in Kenya and the UAE.",
-};
+export const metadata: Metadata = pageMeta(
+  "/services",
+  "Marketing, Branding & Automation Services",
+  "Branding, websites, social media, ads, AI automation and POS systems from one Nairobi team, built to bring in customers for businesses in Kenya and the UAE.",
+);
 
 export default function ServicesPage() {
   return (

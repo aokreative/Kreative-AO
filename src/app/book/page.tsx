@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import { Check, Section } from "@/components/ui/primitives";
 import { PageHero } from "@/components/page-hero";
 import { BookingOptions } from "@/components/booking";
 
-export const metadata: Metadata = {
-  title: "Book a call",
-  description:
-    "Book a discovery call, a marketing strategy session, or an AI automation consultation with A&O Kreative.",
-};
+export const metadata: Metadata = pageMeta(
+  "/book",
+  "Book a Discovery Call",
+  "Book a discovery call, a marketing strategy session, or an AI automation consultation with A&O Kreative.",
+);
 
 export default function BookPage() {
   return (

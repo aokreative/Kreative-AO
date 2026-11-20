@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import { Section } from "@/components/ui/primitives";
 import { PageHero } from "@/components/page-hero";
 import { Frame } from "@/components/frame";
 
-export const metadata: Metadata = {
-  title: "About",
-  description:
-    "A&O Kreative is a martech company: we build software and bring customers to it.",
-};
+export const metadata: Metadata = pageMeta(
+  "/about",
+  "About Us: Nairobi Growth & Tech Partner",
+  "A&O Kreative is a martech company: we build software and bring customers to it.",
+);
 
 export default function AboutPage() {
   return (

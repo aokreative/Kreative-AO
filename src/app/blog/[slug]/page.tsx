@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ARTICLES, articleBySlug } from "@/content/articles";
@@ -19,16 +20,17 @@ export async function generateMetadata({
   const a = articleBySlug(slug);
   if (!a) return {};
   const description = a.metaDescription ?? a.excerpt;
-  return {
-    title: a.seoTitle ?? a.title,
+  const meta = pageMeta(
+    `/blog/${a.slug}`,
+    a.seoTitle ?? a.title,
     description,
-    alternates: { canonical: `/blog/${a.slug}` },
-    openGraph: {
-      type: "article",
-      title: a.title,
-      description,
-      ...(a.image ? { images: [{ url: a.image, alt: a.title }] } : {}),
-    },
+    a.image ? { url: a.image, alt: a.title } : undefined,
+  );
+  // Shares show the full article title, not the shorter search title.
+  return {
+    ...meta,
+    openGraph: { ...meta.openGraph, type: "article", title: a.title },
+    twitter: { ...meta.twitter, title: a.title },
   };
 }
 

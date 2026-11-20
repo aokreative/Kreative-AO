@@ -1,15 +1,16 @@
 import Link from "next/link";
 ﻿import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import { PRODUCTS, dukaTrialLink } from "@/lib/site";
 import { Badge, Button, Section } from "@/components/ui/primitives";
 import { Frame } from "@/components/frame";
 import { PageHero } from "@/components/page-hero";
 
-export const metadata: Metadata = {
-  title: "Products",
-  description:
-    "Software A&O Kreative builds and runs: Duka POS, live today, and an Agency Management System in development.",
-};
+export const metadata: Metadata = pageMeta(
+  "/products",
+  "Software Products: Duka POS & AMS",
+  "Software A&O Kreative builds and runs: Duka POS, live today, and an Agency Management System in development.",
+);
 
 export default function ProductsPage() {
   return (

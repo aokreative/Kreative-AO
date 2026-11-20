@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CASE_STUDIES, caseStudyBySlug } from "@/content/case-studies";
@@ -17,10 +18,11 @@ export async function generateMetadata({
   const { slug } = await params;
   const c = caseStudyBySlug(slug);
   if (!c) return {};
-  return {
-    title: `${c.client} — case study`,
-    description: `${c.headline}. ${c.metrics.map((m) => `${m.value} ${m.label.toLowerCase()}`).join(", ")}.`,
-  };
+  return pageMeta(
+    `/work/${c.slug}`,
+    `${c.client} — case study`,
+    `${c.headline}. ${c.metrics.map((m) => `${m.value} ${m.label.toLowerCase()}`).join(", ")}.`,
+  );
 }
 
 export default async function CaseStudyPage({

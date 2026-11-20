@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { OG_IMAGE } from "@/lib/seo";
 // Fonts are self-hosted via Fontsource: no request to Google at runtime,
 // which is faster for LCP and keeps visitor data off a third party.
 import "@fontsource-variable/archivo/wdth.css";
@@ -51,11 +52,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: SITE.name,
-    url: SITE.url,
+    locale: "en_KE",
+    url: "/",
+    images: [OG_IMAGE],
     title: `Digital Marketing & Automation Agency in Nairobi | ${SITE.name}`,
     description:
       "Nairobi agency for digital marketing, branding and business automation. We build websites, AI systems and POS, then bring you customers. Kenya, UAE & beyond.",
   },
+  twitter: { card: "summary_large_image", images: [OG_IMAGE.url] },
   robots: { index: true, follow: true },
 };
 

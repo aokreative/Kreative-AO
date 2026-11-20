@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import { DUKA_TIERS, dukaTrialLink } from "@/lib/site";
 import {
   Badge,
@@ -10,11 +11,11 @@ import {
 } from "@/components/ui/primitives";
 import { PageHero } from "@/components/page-hero";
 
-export const metadata: Metadata = {
-  title: "POS System for Shops in Kenya — Duka POS",
-  description:
-    "Duka POS is a point of sale system for Kenyan shops: works offline, takes M-PESA and chases debts automatically. From KES 2,999/month with a free trial.",
-};
+export const metadata: Metadata = pageMeta(
+  "/products/duka-pos",
+  "POS System for Shops in Kenya — Duka POS",
+  "Duka POS is a point of sale system for Kenyan shops: works offline, takes M-PESA and chases debts automatically. From KES 2,999/month with a free trial.",
+);
 
 export default function DukaPosPage() {
   return (

@@ -24,6 +24,23 @@ export type Article = {
 
 export const ARTICLES: Article[] = [
   {
+    slug: "website-cost-kenya",
+    category: "Websites",
+    title: "How much does a website cost in Kenya? What decides the price",
+    seoTitle: "Website Design Cost in Kenya: What Decides It",
+    metaDescription:
+      "Website design cost in Kenya explained: typical price ranges, what pushes the price up, yearly running costs and how to compare quotes before you pay.",
+    date: "November 2026",
+    readMinutes: 8,
+    image: "/brand/blog/website-cost-kenya.jpg",
+    excerpt:
+      "A website in Kenya can cost from about KES 15,000 to well over KES 500,000. Here's what actually moves the price, what you'll pay every year after launch, and how to compare quotes.",
+    ctaTitle: "Want a fixed price for your website?",
+    ctaBody: "Tell us what your business does and what the site has to do. We'll send a written plan and a fixed price before any work starts.",
+    primaryCta: { label: "Get a website quote", href: "/contact?interest=web-design" },
+    body: `<p>A website in Kenya can cost anything from about KES 15,000 to well over KES 500,000. The price depends less on the designer and more on what the site has to do: how many pages it needs, whether it takes payments or bookings, who writes the words and takes the photos, and whether it connects to other tools. On top of the build, every site has running costs each year for the domain, hosting and care. Here's what moves the price, what you'll pay each year, and how to compare quotes.</p><h2>The price ranges you'll see quoted</h2><p>Kenyan web designers publish very different numbers, which is why the question is so confusing. A few examples from published price guides:</p><ul><li>Quest Web puts basic business websites at <strong>KES 15,000 to 50,000</strong>, professional business websites at <strong>KES 50,000 to 150,000</strong> and online shops at <strong>KES 100,000 to 500,000</strong> (<a href="https://www.questdesigners.com/blog/website-cost-kenya-2026">Quest Web, 2026 pricing guide</a>).</li><li>iOSoft Solutions lists a one-page website at <strong>KES 15,000</strong> and up to five pages at <strong>KES 25,000</strong>, with M-PESA and card payments added from <strong>KES 15,000</strong> (<a href="https://www.iosoftsolutions.co.ke/website-design-cost-in-kenya/">iOSoft Solutions price list</a>).</li><li>NovaHost's design packages start at <strong>KES 55,000</strong> one-time (<a href="https://novahost.co.ke/blog/website-design-cost-kenya/">NovaHost, website design cost in Kenya</a>).</li></ul><p>These numbers describe different products. A KES 20,000 site and a KES 200,000 site can both be called "a business website", but one may be a template with your logo dropped in, and the other a site planned around how your customers buy, with the writing, photos and enquiry tracking included. The useful question isn't "what's the average price?" but "what am I getting for this price?"</p><h2>What decides the price</h2><p>Six things account for most of the difference between one quote and the next.</p><h2>1. What the site has to do</h2><p>This is the biggest factor. Sort your site into one of these before you ask for quotes:</p><ul><li><strong>A simple introduction.</strong> A few pages that say who you are, what you offer, where you are and how to reach you. Suits a salon, a clinic, a consultant or a hardware shop that sells over the counter.</li><li><strong>A lead site.</strong> Pages built to bring in enquiries: one page per service, WhatsApp buttons, short forms, and enquiries that land somewhere you'll see them. Suits a law firm, a school, a contractor or an event venue.</li><li><strong>An online shop.</strong> Product pages, a cart, delivery options and payment. Every product needs a photo, a description and a price, and someone has to keep stock up to date.</li><li><strong>A system.</strong> Bookings, customer accounts, member areas, or a site that talks to your POS, CRM or accounting software. These are priced as software projects, not websites.</li></ul><p>Each step up usually moves the price into a different range.</p><h2>2. Number of pages</h2><p>More pages mean more design, more writing and more testing. But page count matters less than many quotes suggest. Ten thin pages help no one. Five clear pages, one per thing you sell, usually do better with customers and with Google than twenty pages of filler.</p><h2>3. Who writes the words and takes the photos</h2><p>This is the cost most owners forget. If you write the content yourself, the build is cheaper but the launch is often slower. If the designer writes it, expect to pay for that time, and expect it to be better written for search. A half-day photo shoot of your real shop, staff and products is often worth more than any design feature.</p><figure><img src="/brand/blog/website-cost-kenya-product-photos.jpg" alt="A photographer kneels to shoot fresh bread on a bakery counter while the owner holds a reflector" width="1200" height="675" loading="lazy" decoding="async"><figcaption>Real photos of your own products cost more than stock images, but they are what makes a small shop's site look trustworthy.</figcaption></figure><h2>4. Payments, bookings and connections</h2><p>Taking M-PESA or card payments on the site, letting customers book appointments, or sending enquiries into a CRM all add setup and testing work. They also add things that can break later, so they add to the care cost too. Ask yourself whether customers really need to pay online, or whether a WhatsApp button that starts the conversation will close the sale just as well. For many Kenyan businesses, it will.</p><h2>5. Template or custom design</h2><p>A template is a ready-made layout with your logo, colours and text added. It's quick, cheap and fine for many small businesses. A custom design is planned around your brand and your customers, which costs more but is easier to tell apart from competitors and easier to shape around what you actually sell. Neither is wrong. Just make sure the quote says which one you're getting.</p><h2>6. Speed and mobile</h2><p>Most visitors in Kenya arrive on a phone, often on mobile data. A site that loads slowly loses them before they see your prices. Cheaper quotes often skip this work. Ask the designer how the site will perform on a mid-range Android phone, and test their past work on your own phone before you agree.</p><h2>What you'll pay every year after launch</h2><p>The build is a one-time cost. These are not:</p><ul><li><strong>Domain name.</strong> Your address, such as barakahardware.co.ke. NovaHost lists a .co.ke domain at KES 1,180 for the first year and KES 1,250 a year to renew (<a href="https://novahost.co.ke/blog/website-design-cost-kenya/">NovaHost</a>). Other registrars charge a little more.</li><li><strong>Hosting.</strong> The server your site lives on. Quest Web puts hosting at roughly KES 3,000 to 30,000 a year depending on the plan (<a href="https://www.questdesigners.com/blog/website-cost-kenya-2026">Quest Web</a>). A small brochure site sits at the low end; a busy online shop needs more.</li><li><strong>Email.</strong> Addresses like info@yourbusiness.co.ke are sometimes included with hosting and sometimes charged per person.</li><li><strong>Care and updates.</strong> Security updates, backups, fixing things that break and making small changes. Some designers charge a monthly fee, others charge per job. Quest Web quotes KES 5,000 to 20,000 a month for content updates and maintenance (<a href="https://www.questdesigners.com/blog/website-cost-kenya-2026">Quest Web</a>).</li></ul><p>When you compare quotes, add three years of running costs to the build price. A cheap build with expensive yearly fees can cost more over three years than a better site with modest care.</p><h2>Who owns the website?</h2><p>This is the question cheap quotes rarely answer, and it causes the most trouble later. Before you pay anything, get these in writing:</p><ul><li>The domain is registered in your business name, not the designer's.</li><li>You get the logins for the domain, hosting and website admin.</li><li>If you leave the designer, you can take the site and the domain with you.</li></ul><p>It's a common story: the old designer has gone quiet, and the owner can't renew their own domain or change their own phone number on the site. Ownership costs nothing extra to agree at the start, and a lot to sort out later.</p><h2>A worked example</h2><p>Take Baraka Hardware, a made-up shop in Kitengela. The owner wants customers searching "hardware near me" to find the shop, see what it stocks and call or WhatsApp before driving over.</p><p>Baraka doesn't need an online shop. Builders want to confirm stock and price, then collect or arrange delivery. So the right site is a lead site: a home page, one page each for building materials, plumbing, electrical and paint, a delivery page and a contact page with a map. Each page has a WhatsApp button with a pre-filled message, so enquiries arrive ready to answer. The site connects to the shop's Google Business Profile so it shows up on Maps.</p><p>The owner's real choices are about content. Writing seven pages himself saves money but means weeks of evenings. Paying for a half-day photo shoot means customers see the actual yard and stock, which builds more trust than stock photos of a shop in another country. A three-year budget should include the build, the domain and hosting, and a little each month for care, so the site doesn't quietly break when a plugin needs updating.</p><h2>How to compare quotes</h2><p>Send every designer the same short brief so the quotes are comparable. Include what your business does, who your customers are, the pages you think you need, whether you need payments or bookings, who will provide the words and photos, and two or three sites you like. Then check each quote against this list:</p><ol><li>Is it a fixed price, or an estimate that can grow?</li><li>Does it list the pages and features, or just say "business website"?</li><li>Who writes the content, and who provides photos?</li><li>What are the yearly costs for domain, hosting, email and care, and are any included for the first year only?</li><li>Is the domain registered in your name, and will you get every login?</li><li>How many rounds of changes are included?</li><li>What are the payment terms? A deposit, then a balance on launch, is normal. Paying everything upfront is a risk.</li><li>Will they set up Google Search Console and your Google Business Profile? If the quote says "SEO included", ask what that means. Our guide to <a href="/blog/seo-for-african-businesses">SEO for African businesses</a> explains what good search work involves.</li><li>Can you see two or three live sites they built, and call those owners?</li></ol><h2>How we price websites</h2><p>At A&amp;O Kreative we don't publish a price list, because two "five-page websites" can be very different jobs. Instead, we have a short call about your business and what the site has to do, then send you a written plan with the pages, features, timeline and a fixed price. You approve it before any work starts, and the domain and logins are yours. See how we work on our <a href="/website-design-nairobi">website design in Nairobi</a> page. If most of your enquiries already come in on WhatsApp, read our piece on <a href="/blog/whatsapp-marketing-in-east-africa">WhatsApp marketing in East Africa</a> to see how the site and your chats can work together.</p><h2>Questions</h2><p><strong>Can I build a website myself for free?</strong> Yes, with a free website builder, though you'll usually still pay for your own domain, and free plans often show the builder's branding. It can work for a very small business with time to spare.</p><p><strong>How long does a website take to build?</strong> A small site can go live in a few weeks once the content is ready. Waiting for text, photos and feedback is the most common cause of delay, so have those ready before you start.</p><p><strong>Do I need an online shop?</strong> Only if customers will actually pay on the site. Many Kenyan businesses sell well with a lead site and a WhatsApp button, and add a shop later once they know which products people ask for.</p><p><strong>Should I pay the full amount upfront?</strong> It's safer to pay a deposit to start and the balance on launch, with the payment terms written into the quote.</p><p><strong>What does a website cost in Nairobi from A&amp;O Kreative?</strong> We give a fixed written price after a short call. <a href="/website-design-nairobi">See how our website design works</a>, or WhatsApp us on 0182 297 245.</p>`,
+  },
+  {
     slug: "stock-control-small-shops-weekly-routine",
     category: "Retail & POS",
     title: "Stock control for small shops: a simple weekly routine",
@@ -95,6 +112,9 @@ export const ARTICLES: Article[] = [
     slug: "the-algorithm-is-not-your-audience",
     category: "Digital Marketing",
     title: "The Algorithm Is Not Your Audience: A Creator's Guide to Platform-Independent Growth",
+    seoTitle: "Platform-Independent Growth for Brands",
+    metaDescription:
+      "Algorithms change every week. How Kenyan brands build an audience they own, through email, WhatsApp and search, instead of chasing each new format.",
     date: "May 2025",
     readMinutes: 8,
     excerpt: "Every week, a platform changes its algorithm. And every week, brands panic. They pivot their content strategy, chase the new format, and within six months, they're doing the same thing…",
@@ -107,6 +127,9 @@ export const ARTICLES: Article[] = [
     slug: "brand-architecture-in-african-markets",
     category: "Brand Strategy",
     title: "Brand Architecture in African Markets: Building Brands That Travel",
+    seoTitle: "Brand Architecture for African Markets",
+    metaDescription:
+      "African consumers are not one market. How to structure a brand so it travels across Kenya and East Africa without losing what makes it recognisable.",
     date: "April 2025",
     readMinutes: 10,
     excerpt: "The African consumer is not a monolith. This is the single most important thing any brand building on this continent needs to understand before spending a shilling on marketing. The…",
@@ -119,6 +142,9 @@ export const ARTICLES: Article[] = [
     slug: "ai-in-marketing",
     category: "AI & Technology",
     title: "AI in Marketing: What Kenyan Businesses Need to Know in 2025",
+    seoTitle: "AI in Marketing for Kenyan Businesses",
+    metaDescription:
+      "What AI can and can't do for marketing in Kenya right now, where it saves real time, and how a small business can start using it without wasting money.",
     date: "March 2025",
     readMinutes: 12,
     excerpt: "The AI hype cycle has peaked, and what's left is something more useful: a realistic picture of what AI can actually do for marketing right now, what it can't do, and where the real…",
@@ -131,6 +157,9 @@ export const ARTICLES: Article[] = [
     slug: "from-followers-to-revenue",
     category: "Growth Marketing",
     title: "From Followers to Revenue: Converting Social Media into Business Results",
+    seoTitle: "Turning Social Media Followers into Sales",
+    metaDescription:
+      "Plenty of likes but few sales? How Kenyan businesses turn social media followers into enquiries and paying customers, with steps to try this month.",
     date: "February 2025",
     readMinutes: 9,
     excerpt: "You have 50,000 followers. Your posts get hundreds of likes. People comment, share, and tag their friends. And yet, your social media presence isn't generating the sales your business…",
@@ -143,6 +172,9 @@ export const ARTICLES: Article[] = [
     slug: "the-death-of-safe-branding",
     category: "Creative Strategy",
     title: "The Death of Safe Branding: Why Playing It Safe Is the Riskiest Thing a Brand Can Do",
+    seoTitle: "Why Safe Branding Is the Riskiest Choice",
+    metaDescription:
+      "Playing it safe makes a brand invisible. Why bland branding costs Kenyan businesses customers, and how to stand out without putting off your market.",
     date: "January 2025",
     readMinutes: 7,
     excerpt: "Somewhere along the way, the advice shifted from \"be remarkable\" to \"be consistent.\" And consistency — a genuinely important brand principle — got misinterpreted as sameness. Brands…",
@@ -155,6 +187,9 @@ export const ARTICLES: Article[] = [
     slug: "whatsapp-marketing-in-east-africa",
     category: "Digital Marketing",
     title: "WhatsApp Marketing in East Africa: The Most Underrated Channel for 2025",
+    seoTitle: "WhatsApp Marketing in Kenya & East Africa",
+    metaDescription:
+      "Why WhatsApp is East Africa's most underrated marketing channel, and how Kenyan businesses can use it to win enquiries, loyalty and repeat sales.",
     date: "December 2024",
     readMinutes: 9,
     excerpt: "If you're not building a WhatsApp marketing strategy for your East African business, you are leaving money — and relationships — on the table. WhatsApp has over 3 billion users globally,…",
@@ -167,6 +202,9 @@ export const ARTICLES: Article[] = [
     slug: "the-brief-is-the-strategy",
     category: "Brand Strategy",
     title: "The Brief Is the Strategy: Why Great Creative Starts Long Before the Design Brief",
+    seoTitle: "Why the Creative Brief Is the Strategy",
+    metaDescription:
+      "Bad briefs, not bad design, sink most campaigns. What a strong creative brief includes and how to write one before you hire a designer or agency.",
     date: "November 2024",
     readMinutes: 8,
     excerpt: "The most expensive creative mistake a brand can make is not bad execution — it's bad briefing. An expensive, beautifully produced campaign built on a vague or incorrect brief will fail…",
@@ -179,6 +217,9 @@ export const ARTICLES: Article[] = [
     slug: "seo-for-african-businesses",
     category: "Growth Marketing",
     title: "SEO for African Businesses: Why the Opportunity Is Bigger Than You Think",
+    seoTitle: "SEO for Kenyan & African Businesses",
+    metaDescription:
+      "In most Kenyan industries, competition for the top Google spots is still low. Why SEO is a big opportunity for African businesses and where to start.",
     date: "October 2024",
     readMinutes: 11,
     excerpt: "Here is a fact that should change how you think about your marketing budget: in most Kenyan industries, competition for top Google rankings is startlingly low. While businesses in the US…",

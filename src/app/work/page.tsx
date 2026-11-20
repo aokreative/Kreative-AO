@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import { HEADLINE_STATS } from "@/content/case-studies";
 import { Button, Section } from "@/components/ui/primitives";
 import { PageHero } from "@/components/page-hero";
 import { HorizontalScroll } from "./horizontal-scroll";
 import { ResultsStats } from "./results-stats";
 
-export const metadata: Metadata = {
-  title: "Work",
-  description:
-    "Case studies from A&O Kreative — the problem, what we did about it, and the numbers that came out the other side.",
-};
+export const metadata: Metadata = pageMeta(
+  "/work",
+  "Case Studies: Brands, Websites & Systems",
+  "Case studies from A&O Kreative — the problem, what we did about it, and the numbers that came out the other side.",
+);
 
 export default function WorkPage() {
   return (

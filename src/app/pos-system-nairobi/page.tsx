@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { DUKA_TIERS, SITE, dukaTrialLink } from "@/lib/site";
 import { Badge, Button, Check, Eyebrow, Section } from "@/components/ui/primitives";
 import { PageHero } from "@/components/page-hero";
 import { BreadcrumbSchema, FaqList, type Faq } from "@/components/faq";
 
-export const metadata: Metadata = {
-  title: "POS System in Nairobi for Shops & Dukas",
-  description:
-    "Duka POS is a point of sale system for Nairobi shops: works offline, records cash and M-PESA in one sale and chases customer debts. From KES 2,999 a month.",
-  alternates: { canonical: "/pos-system-nairobi" },
-};
+export const metadata: Metadata = pageMeta(
+  "/pos-system-nairobi",
+  "POS System in Nairobi for Shops & Dukas",
+  "Duka POS is a point of sale system for Nairobi shops: works offline, records cash and M-PESA in one sale and chases customer debts. From KES 2,999 a month.",
+);
 
 const PROBLEMS = [
   {

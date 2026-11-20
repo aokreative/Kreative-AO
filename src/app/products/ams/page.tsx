@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import { AMS_LAUNCH, AMS_LAUNCH_LABEL } from "@/lib/site";
 import { Countdown } from "@/components/countdown";
 import { Badge, Button, Check, Eyebrow, Section } from "@/components/ui/primitives";
 import { PageHero } from "@/components/page-hero";
 
-export const metadata: Metadata = {
-  title: "Agency Management System",
-  description:
-    "Policy administration, renewals and commission tracking for insurance agencies and brokerages. Launching 12 November 2026 — join the waitlist for early access.",
-};
+export const metadata: Metadata = pageMeta(
+  "/products/ams",
+  "Insurance Agency Management System",
+  "Policy administration, renewals and commission tracking for insurance agencies and brokerages. Launching 12 November 2026 — join the waitlist for early access.",
+);
 
 const PROBLEMS = [
   "Policy records living in three spreadsheets and one person's memory",

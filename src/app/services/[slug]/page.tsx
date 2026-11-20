@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SERVICES, serviceBySlug } from "@/content/services";
@@ -24,7 +25,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const s = serviceBySlug(slug);
   if (!s) return {};
-  return { title: s.seoTitle ?? s.name, description: s.summary };
+  return pageMeta(`/services/${s.slug}`, s.seoTitle ?? s.name, s.summary);
 }
 
 export default async function ServicePage({

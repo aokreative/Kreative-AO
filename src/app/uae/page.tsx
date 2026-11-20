@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import { SITE } from "@/lib/site";
 import { Button, Check, Eyebrow, Section } from "@/components/ui/primitives";
 import { PageHero } from "@/components/page-hero";
 
-export const metadata: Metadata = {
-  title: "Marketing & AI Automation Agency for Dubai, UAE",
-  description:
-    "WhatsApp AI agents, lead routing, CRM pipelines and digital marketing for businesses in Dubai and the UAE, with a focus on real-estate sales teams.",
-  alternates: { canonical: "/uae" },
-};
+export const metadata: Metadata = pageMeta(
+  "/uae",
+  "Marketing & AI Automation Agency for Dubai, UAE",
+  "WhatsApp AI agents, lead routing, CRM pipelines and digital marketing for businesses in Dubai and the UAE, with a focus on real-estate sales teams.",
+);
 
 const BUILDS = [
   {

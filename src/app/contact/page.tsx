@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import { Suspense } from "react";
 import { SITE } from "@/lib/site";
 import { Section } from "@/components/ui/primitives";
 import { PageHero } from "@/components/page-hero";
 import { ContactForm } from "./contact-form";
 
-export const metadata: Metadata = {
-  title: "Contact",
-  description:
-    "Tell A&O Kreative what you're trying to build or sell. We reply within one business day.",
-};
+export const metadata: Metadata = pageMeta(
+  "/contact",
+  "Contact Us in Westlands, Nairobi",
+  "Tell A&O Kreative what you're trying to build or sell. We reply within one business day.",
+);
 
 export default function ContactPage() {
   return (
