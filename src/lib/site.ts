@@ -57,7 +57,7 @@ export const PRODUCTS: Product[] = [
     slug: "ams",
     name: "Agency Management System",
     status: "building",
-    statusLabel: "Launching 12 Nov",
+    statusLabel: "Launching 3 Dec",
     summary:
       "Policy administration, renewals and commission tracking for insurance agencies and brokerages, in one system instead of five spreadsheets.",
     audience: "Insurance agencies and brokerages",
@@ -236,8 +236,8 @@ export function calLink(slug: string) {
    Agency Management System launch.
    Stated publicly, so it is a commitment — not a marketing date.
 --------------------------------------------------------------- */
-export const AMS_LAUNCH = "2026-11-12T09:00:00+03:00";
-export const AMS_LAUNCH_LABEL = "12 November 2026";
+export const AMS_LAUNCH = "2026-12-03T09:00:00+03:00";
+export const AMS_LAUNCH_LABEL = "3 December 2026";
 
 /* ---------------------------------------------------------------
    Services and case studies live in src/content — they are content,

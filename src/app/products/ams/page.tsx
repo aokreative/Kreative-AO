@@ -8,7 +8,7 @@ import { PageHero } from "@/components/page-hero";
 export const metadata: Metadata = pageMeta(
   "/products/ams",
   "Insurance Agency Management System",
-  "Policy administration, renewals and commission tracking for insurance agencies and brokerages. Launching 12 November 2026 — join the waitlist for early access.",
+  "Policy administration, renewals and commission tracking for insurance agencies and brokerages. Launching 3 December 2026 — join the waitlist for early access.",
 );
 
 const PROBLEMS = [
@@ -45,7 +45,7 @@ export default function AmsPage() {
         <div className="mt-10 flex flex-col gap-4">
           <p className="label text-ink-3">
             Launching{" "}
-            <time dateTime="2026-11-12" className="text-ink">
+            <time dateTime="2026-12-03" className="text-ink">
               {AMS_LAUNCH_LABEL}
             </time>
           </p>

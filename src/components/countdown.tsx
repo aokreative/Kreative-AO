@@ -62,7 +62,7 @@ export function Countdown({
   return (
     <div>
       <div
-        className="flex flex-wrap gap-3"
+        className="grid max-w-[340px] grid-cols-4 gap-2 sm:flex sm:max-w-none sm:gap-3"
         role="timer"
         aria-live="off"
         aria-label={`Time remaining until launch on ${label}`}
@@ -70,7 +70,7 @@ export function Countdown({
         {cells.map(([value, unit]) => (
           <div
             key={unit}
-            className="flex min-w-[74px] flex-col items-center gap-1 rounded-md border border-line bg-surface px-4 py-3"
+            className="flex flex-col items-center gap-1 rounded-md border border-line bg-surface px-2 py-3 sm:min-w-[74px] sm:px-4"
           >
             <span className="tnum font-display text-[30px] leading-none text-ink">
               {String(value).padStart(2, "0")}
