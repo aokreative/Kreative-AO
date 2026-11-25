@@ -127,7 +127,7 @@ export const SERVICES: Service[] = [
     seoTitle: "AI Chatbots & Business Process Automation",
     kicker: "AI that does real work",
     summary:
-      "Chatbots, agents and automations tuned to your business — answering enquiries, qualifying leads and cutting busywork around the clock.",
+      "Chatbots, agents and automations tuned to your business — plus prompt engineering and consented real-world training data for teams building AI.",
     pitch:
       "AI is a brilliant amplifier — but an amplifier has no sound of its own. We build systems that do real jobs, and we tell you where automation isn't worth it.",
     cta: "Talk about AI",
@@ -137,6 +137,8 @@ export const SERVICES: Service[] = [
       { name: "Workflow automation", detail: "The repetitive, expensive tasks eating your team's time." },
       { name: "Analytics & insights", detail: "Lead scoring, churn flags and answers in plain English." },
       { name: "Content systems", detail: "Pipelines that multiply output without losing your voice." },
+      { name: "Prompt engineering & evaluation", detail: "Prompts, test sets and output reviews that keep models accurate." },
+      { name: "AI training data", detail: "Consented, real-world footage of skilled trades, captured and checked in Kenya." },
       { name: "Honest scoping", detail: "Including the processes not worth automating yet." },
     ],
   },
